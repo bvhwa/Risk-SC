@@ -24,5 +24,61 @@ public class User {
 		this.territories = 0;
 		this.troops = 0;
 	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public boolean isHost() {
+		return isHost;
+	}
+
+	public void setHost(boolean isHost) {
+		this.isHost = isHost;
+	}
+
+	public int getTerritories() {
+		return territories;
+	}
+
+	public void setTerritories(int territories) {
+		this.territories = territories;
+	}
+
+	public int getTroops() {
+		return troops;
+	}
+
+	public void setTroops(int troops) {
+		this.troops = troops;
+	}
 	
 }
