@@ -1,9 +1,17 @@
 
 public class User {
 	
+	/*
+	 * Private Instance Variables
+	 */
+	
 	String firstName, lastName, userName, image;
 	boolean isHost;
 	int territories, troops;
+	
+	/*
+	 * Constructors
+	 */
 	
 	public User()	{
 		this.firstName = "";
@@ -24,6 +32,10 @@ public class User {
 		this.territories = 0;
 		this.troops = 0;
 	}
+	
+	/*
+	 * Getters and Setters for the Private Instance Variables
+	 */
 
 	public String getFirstName() {
 		return firstName;
