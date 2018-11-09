@@ -8,6 +8,8 @@ Fall 2018 Final Project for CSCI 201 at USC. This project will simulate the boar
 2. Run `curl -O https://github.com/NilayPachauri/Scripts/blob/master/Useful/git_config`
 3. Open up the file `git_config` in any text editor
 4. Edit the `NAME` and `EMAIL` parameters at the top to the appropriate values and save the file
+    - `NAME` is your personal full name
+    - `EMAIL` is the email associated with your GitHub account
 5. Run `./git_config`
 6. Copy the generated key starting with `ssh` and ending with your email
 7. Navigate to your GitHub account online
