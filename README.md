@@ -3,7 +3,7 @@ Fall 2018 Final Project for CSCI 201 at USC. This project will simulate the boar
 
 ## Instructions for Contributors
 
-### Set up SSH Key 
+### Set up SSH Key (Only for Mac)
 1. Navigate to an appropriate directory
 2. Run `curl -O https://raw.githubusercontent.com/NilayPachauri/Scripts/master/Useful/git_config`
 3. Open up the file `git_config` in any text editor
