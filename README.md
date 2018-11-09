@@ -5,7 +5,7 @@ Fall 2018 Final Project for CSCI 201 at USC. This project will simulate the boar
 
 ### Set up SSH Key 
 1. Navigate to an appropriate directory
-2. Run `curl -O https://github.com/NilayPachauri/Scripts/blob/master/Useful/git_config`
+2. Run `curl -O https://raw.githubusercontent.com/NilayPachauri/Scripts/master/Useful/git_config`
 3. Open up the file `git_config` in any text editor
 4. Edit the `NAME` and `EMAIL` parameters at the top to the appropriate values and save the file
     - `NAME` is your personal full name
