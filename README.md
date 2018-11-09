@@ -19,7 +19,7 @@ Fall 2018 Final Project for CSCI 201 at USC. This project will simulate the boar
 
 ### Clone the Repository
 1. Navigate to the directory of the workspace you will be using for Eclipse
-    - Make sure you have Tomcat set up in that server in accordance with Lab1 of CSCI 201
+    - Make sure you have Tomcat set up in that server in accordance with `Lab1` of CSCI 201
 2. Run `git clone git@github.com:NilayPachauri/Risk-SC.git` from the command line
 
 ### Importing Repository into Eclipse
