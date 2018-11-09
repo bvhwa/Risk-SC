@@ -8,16 +8,18 @@ Fall 2018 Final Project for CSCI 201 at USC. This project will simulate the boar
 2. Run `curl -O https://raw.githubusercontent.com/NilayPachauri/Scripts/master/Useful/git_config`
 3. Open up the file `git_config` in any text editor
 4. Edit the `NAME` and `EMAIL` parameters at the top to the appropriate values and save the file
-    - `NAME` is your personal full name
+    - `NAME` is your personal full name. You may uses spaces within the quotes.
     - `EMAIL` is the email associated with your GitHub account
-5. Run `./git_config`
-6. Copy the generated key starting with `ssh` and ending with your email
-7. Navigate to your GitHub account online
-8. Click `Settings->SSH and GPG Keys` from the top right of the screen
-9. Click the green button `New SSH Key`
-10. In the `key` field, paste the key copied in step 7
-11. Int the `title` field, name it something meaningful
-12. Click `Add SSH Key`
+5. Run `chmod a+x git_config`
+6. Run `./git_config`
+    - There is no need to enter anything. Just keep hitting enter till the key pops up.
+7. Copy the generated key starting with `ssh` and ending with your email
+8. Navigate to your GitHub account online
+9. Click `Settings->SSH and GPG Keys` from the top right of the screen
+10. Click the green button `New SSH Key`
+11. In the `key` field, paste the key copied in step 7
+12. Int the `title` field, name it something meaningful
+13. Click `Add SSH Key`
 
 ### Clone the Repository
 1. Navigate to the directory of the workspace you will be using for Eclipse
