@@ -21,6 +21,7 @@ public class SignUpServlet extends HttpServlet {
         super();
     }
 
+    // Service block to sign up the user based off the form constructed in the LogIn/SignUp JSP
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String name = request.getParameter("name");
     	String username = request.getParameter("username");
@@ -29,6 +30,9 @@ public class SignUpServlet extends HttpServlet {
     	String fname = this.getFirstName(name);
     	String lname = this.getLastName(name);
     	
+    	String errorMessage = null;
+    	boolean success = false;
+    	
     	try {
     		Class.forName("com.mysql.jdbc.Driver");
     		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
@@ -36,21 +40,27 @@ public class SignUpServlet extends HttpServlet {
     		if(!this.userExists(username, conn)) {
     			if(this.goodPass(password) == 0) {
     				this.createUser(fname, lname, username, password, image, conn);
-    				System.out.println("User signed up!");
+    				success = true;
     			}
     			else if(this.goodPass(password) == 1) {
-    				System.err.println("Password does not have enough alphanumeric characters!");
+    				// System.err.println("Password does not have enough alphanumeric characters!");
+    				errorMessage = "Password does not have enough alphanumeric characters!";
     			}
     			else if(this.goodPass(password) == 2) {
-    				System.err.println("Password does not have any characters!");
+    				// System.err.println("Password does not have any characters!");
+    				errorMessage = "Password does not have any characters!";
     			}
     			else {
-    				System.err.println("Password does not have any numbers!");
+    				// System.err.println("Password does not have any numbers!");
+    				errorMessage = "Password does not have any numbers!";
     			}
     		}
     		else {
-    			System.err.println("User already exists!");
+    			// System.err.println("User already exists!");
+    			errorMessage = "User already exists!";
     		}
+    		
+    		conn.close();
     	}
     	catch (SQLException sqle) {
     		System.out.println(sqle.getMessage());
@@ -58,6 +68,11 @@ public class SignUpServlet extends HttpServlet {
     	catch (ClassNotFoundException cnfe) {
 			System.out.println(cnfe.getMessage());
 		}
+    	
+    	// Sends error message back to LogIn JSP if sign up failed
+    	request.setAttribute("success", success);
+    	request.setAttribute("error", errorMessage);
+    	request.getRequestDispatcher("LogIn.jsp").forward(request, response);
     }
     
     // Returns the first name from full name
@@ -86,21 +101,19 @@ public class SignUpServlet extends HttpServlet {
     
     // Checks whether or not a user exists already
     private boolean userExists(String username, Connection conn) {
-		boolean exists = false;
-    	
     	try {
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = '" + username + "'");
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				exists = true;
+				return true;
 			}
 		} 
 		catch (SQLException sqle) {
 			System.out.println(sqle.getMessage());
 		}
     	
-    	return exists;
+    	return false;
     }
     
     // Creates a user within the database
@@ -121,12 +134,10 @@ public class SignUpServlet extends HttpServlet {
     	}
     }
     
-    /* Checks if the password meets criteria:
-   		
+    /* Checks if the password meets criteria:	
    		1. Password length must be greater than or equal to 8 characters
    		2. Password must contain characters
    		3. Password must contain numbers
-   		
    	*/
     private int goodPass(String password) {
 		if(password.length() < 8) {
