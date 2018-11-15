@@ -4,7 +4,7 @@ public abstract class Adjacencies {
 	/*
 	 * List of Territories
 	 */
-	private String territories[] = {
+	private static String territories[] = {
 			"Lyon Center",						//  0
 			"Dedeaux Field",					//  1
 			"John McKay Center",				//  2
@@ -53,71 +53,71 @@ public abstract class Adjacencies {
 	/*
 	 * Athletics Territories
 	 */
-	private int lyonCenter[] = {1, 2, 24};
-	private int dedeauxField[] = {0, 2, 4};
-	private int mcKayCenter[] = {0, 1, 3, 4, 5, 24};
-	private int littleGalen[] = {4, 5, 23, 34, 35};
-	private int marksTennisStadium[] = {1, 2, 5, 6, 7};
-	private int cromwellField[] = {2, 3, 4, 8, 9, 34};
+	private static int lyonCenter[] = {1, 2, 24};
+	private static int dedeauxField[] = {0, 2, 4};
+	private static int mcKayCenter[] = {0, 1, 3, 4, 5, 24};
+	private static int littleGalen[] = {4, 5, 23, 34, 35};
+	private static int marksTennisStadium[] = {1, 2, 5, 6, 7};
+	private static int cromwellField[] = {2, 3, 4, 8, 9, 34};
 
 	/*
 	 * Dornsife STEM Territories
 	 */
-	private int kaprilean[] = {4, 7};
-	private int michelsonHall[] = {4, 6, 8, 12};
-	private int seeleyMudd[] = {5, 7, 9, 12};
-	private int hedcoNeuro[] = {5, 8, 10, 15, 34};
-	private int stauffer[] = {9, 11, 15, 29};
-	private int zumberge[] = {10, 18};
+	private static int kaprilean[] = {4, 7};
+	private static int michelsonHall[] = {4, 6, 8, 12};
+	private static int seeleyMudd[] = {5, 7, 9, 12};
+	private static int hedcoNeuro[] = {5, 8, 10, 15, 34};
+	private static int stauffer[] = {9, 11, 15, 29};
+	private static int zumberge[] = {10, 18};
 
 	/*
 	 * Viterbi Territories
 	 */
-	private int olin[] = {7, 8, 13, 14, 15};
-	private int tutorHall[] = {12, 14, 16};
-	private int eQuad[] = {12, 13, 15, 16, 17};
-	private int vivian[] = {9, 10, 12, 14, 17};
-	private int salvatori[] = {13, 14, 17};
-	private int seaverScienceLibrary[] = {14, 15, 16};
+	private static int olin[] = {7, 8, 13, 14, 15};
+	private static int tutorHall[] = {12, 14, 16};
+	private static int eQuad[] = {12, 13, 15, 16, 17};
+	private static int vivian[] = {9, 10, 12, 14, 17};
+	private static int salvatori[] = {13, 14, 17};
+	private static int seaverScienceLibrary[] = {14, 15, 16};
 
 	/*
 	 * Marshall Territories
 	 */
-	private int leventhal[] = {11, 19, 20, 29, 30};
-	private int hoffman[] = {18, 20};
-	private int dauteriveHall[] = {18, 19, 21, 30, 33};
-	private int popovich[] = {20,22};
-	private int fertitaHall[] = {21};
+	private static int leventhal[] = {11, 19, 20, 29, 30};
+	private static int hoffman[] = {18, 20};
+	private static int dauteriveHall[] = {18, 19, 21, 30, 33};
+	private static int popovich[] = {20,22};
+	private static int fertitaHall[] = {21};
 
 	/*
 	 * Cinematic Arts Territories
 	 */
-	private int norrisCinema[] = {24, 25};
-	private int scb[] = {0, 2, 23, 25};
-	private int sca[] = {3, 23, 24, 35};
+	private static int norrisCinema[] = {24, 25};
+	private static int scb[] = {0, 2, 23, 25};
+	private static int sca[] = {3, 23, 24, 35};
 
 	/*
 	 * Dornsife LAC Territories
 	 */
-	private int taper[] = {27, 28, 35};
-	private int vonKleinsmid[] = {26, 28, 31, 32, 35};
-	private int leaveyLibrary[] = {26, 27, 32};
-	private int tutorCenter[] = {10, 18, 30, 34};
-	private int tommyTrojan[] = {18, 20, 29, 31, 34};
-	private int alumniPark[] = {27, 30, 32, 33};
-	private int mcCarthyQuad[] = {27, 28, 31, 33};
-	private int dohenyLibrary[] = {20, 31, 32};
+	private static int taper[] = {27, 28, 35};
+	private static int vonKleinsmid[] = {26, 28, 31, 32, 35};
+	private static int leaveyLibrary[] = {26, 27, 32};
+	private static int tutorCenter[] = {10, 18, 30, 34};
+	private static int tommyTrojan[] = {18, 20, 29, 31, 34};
+	private static int alumniPark[] = {27, 30, 32, 33};
+	private static int mcCarthyQuad[] = {27, 28, 31, 33};
+	private static int dohenyLibrary[] = {20, 31, 32};
 
 	/*
 	 * Annenberg Territories
 	 */
-	private int wallisAnnenbergHall[] = {3, 5, 9, 29, 35};
-	private int annenbergSchool[] = {3, 25, 26, 27, 34};
+	private static int wallisAnnenbergHall[] = {3, 5, 9, 29, 35};
+	private static int annenbergSchool[] = {3, 25, 26, 27, 34};
 	
 	/*
 	 * Total Adjacency List
 	 */
-	private int adjacencyList[][] = {
+	private static int adjacencyList[][] = {
 			lyonCenter,
 			dedeauxField,
 			mcKayCenter,
@@ -161,4 +161,23 @@ public abstract class Adjacencies {
 			wallisAnnenbergHall,
 			annenbergSchool
 	};
+	
+	/*
+	 * Grabs the array of territories with the index being the associated
+	 * key to the value stored at that location. The aforementioned key will
+	 * be used within the adjacencyList to determine if the country given by
+	 * the value of the key contains an edge with a country of another given value
+	 */
+	public static String[] getTerritories()	{
+		return territories;
+	}
+	
+	/*
+	 * Returns the list of adjacencies between multiple different countries
+	 * The row corresponds with the index of the country in territories
+	 * The columns in those rows are the list of the countries it is adjacent to
+	 */
+	public static int[][] getAdjacencyList()	{
+		return adjacencyList;
+	}
 }
