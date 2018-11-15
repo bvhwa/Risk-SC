@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import classes.Authentication;
+
 @WebServlet("/SignUpServlet")
 public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,6 +31,17 @@ public class SignUpServlet extends HttpServlet {
     	String image = request.getParameter("image");
     	String fname = this.getFirstName(name);
     	String lname = this.getLastName(name);
+    	
+    	/*
+    	 * Message used to communicate with client about log-in
+    	 * 
+    	 * Possibilities:
+    	 * 	Message = 0: User signed up
+    	 * 	Message = 1: Password is not at least eight characters long
+    	 * 	Message = 2: Password does not have any characters
+    	 * 	Message = 3: Password does not have any numbers
+    	 * 	Message = 4: User already exists with username
+    	 */
     	
     	int message = 0;
     	
@@ -116,8 +129,10 @@ public class SignUpServlet extends HttpServlet {
     	try {
     		PreparedStatement ps = conn.prepareStatement("INSERT INTO users (username, password, fname, lname, image) values (?, ?, ?, ?, ?)");
     		
+    		String hash = Authentication.hashString(password);
+    		
     		ps.setString(1, username);
-    		ps.setString(2, password);
+    		ps.setString(2, hash);
     		ps.setString(3, first);
     		ps.setString(4, last);
     		ps.setString(5, image);

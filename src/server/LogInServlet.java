@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import classes.Authentication;
+
 @WebServlet("/LogInServlet")
 public class LogInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -46,14 +48,12 @@ public class LogInServlet extends HttpServlet {
         			PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = '" + username + "'");
         			ResultSet rs = ps.executeQuery();
         			
-        			if(rs.next() && rs.getString("password").equals(password)) {
-        				message = 0;
+        			if(rs.next()) {
+        				String hash = Authentication.hashString(password);
         				
-//        				HttpSession session = request.getSession();
-//        				session.setAttribute("username", username);
-        			}
-        			else {
-        				message = 1;
+        				if(!hash.equals(rs.getString("password"))) {
+        					message = 1;
+        				}
         			}
         		}
         		else {
