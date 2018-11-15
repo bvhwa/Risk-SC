@@ -50,9 +50,8 @@ public class LogInServlet extends HttpServlet {
         				if(rs.getString("password").equals(password)) {
         					message = 0;
         					
-        					HttpSession session = request.getSession(true);
-        					session.setAttribute("username", rs.getString("username"));
-        					
+//        					HttpSession session = request.getSession(true);
+//        					session.setAttribute("username", rs.getString("username"));
         				}
         				// Message = 1 means incorrect password
         				else {
