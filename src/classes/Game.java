@@ -66,7 +66,7 @@ public class Game {
 	 * @param playerID
 	 * @param territory
 	 * @param troopNum
-	 * @return true if successfully placed troops on your own controlled territory, false otherwise
+	 * @return true if place was successful, false otherwise
 	 */
 	private boolean place(int playerID, int territory, int troopNum)	{
 		
@@ -84,6 +84,16 @@ public class Game {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @param attackPlayerID
+	 * @param attackTerritory
+	 * @param numAttack
+	 * @param defendPlayerID
+	 * @param defendTerritory
+	 * @param numDefend
+	 * @return true if the attack was successful, false otherwise
+	 */
 	private boolean attack(int attackPlayerID, int attackTerritory, int numAttack, int defendPlayerID, int defendTerritory, int numDefend)	{
 		
 		// Debug Statement
@@ -146,6 +156,14 @@ public class Game {
 		return true;		
 	}
 	
+	/**
+	 * 
+	 * @param playerID
+	 * @param moveFromTerritory
+	 * @param moveToTerritory
+	 * @param troops
+	 * @return true if the move was successful, false otherwise
+	 */
 	private boolean move(int playerID, int moveFromTerritory, int moveToTerritory, int troops)	{
 		
 		// Debug Statement
@@ -169,6 +187,12 @@ public class Game {
 		
 	}
 
+	/**
+	 * 
+	 * @param territory
+	 * @param neighbor
+	 * @return true if territory and neighbor are adjacent, false otherwise
+	 */
 	private boolean areNeighbors(int territory, int neighbor)	{
 		// Determine if the two territories are adjacent
 		boolean adjacentTerritories = false;
