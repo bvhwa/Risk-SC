@@ -173,6 +173,14 @@ public abstract class Adjacencies {
 	}
 	
 	/*
+	 * Returns the String located at location i
+	 * Essentially returns the name of the ith territory
+	 */
+	public static String getTerritory(int i)	{
+		return territories[i];
+	}
+	
+	/*
 	 * Returns the list of adjacencies between multiple different countries
 	 * The row corresponds with the index of the country in territories
 	 * The columns in those rows are the list of the countries it is adjacent to
