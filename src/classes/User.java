@@ -6,9 +6,13 @@ public class User {
 	 * Private Instance Variables
 	 */
 	
-	String firstName, lastName, userName, image;
+	String firstName;
+	String lastName;
+	String userName;
+	String image;
 	boolean isHost;
-	int territories, troops;
+	int territories;
+	int troops;
 	
 	/*
 	 * Constructors
@@ -37,7 +41,6 @@ public class User {
 	/*
 	 * Getters and Setters for the Private Instance Variables
 	 */
-
 	public String getFirstName() {
 		return firstName;
 	}
