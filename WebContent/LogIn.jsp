@@ -15,7 +15,7 @@
             <form class="form-signin1">
 				<input type="username" id="inputName" class="form-control" placeholder="Username" style = "margin-bottom:10px;">
                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" style = "margin-bottom:10px;">
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign up</button>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" onClick="location.href='SignUp.jsp'">Sign up</button>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Continue as Guest</button>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Log in</button>
             </form><!-- /form -->
