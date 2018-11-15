@@ -113,4 +113,52 @@ public abstract class Adjacencies {
 	 */
 	private int wallisAnnenbergHall[] = {3, 5, 9, 29, 35};
 	private int annenbergSchool[] = {3, 25, 26, 27, 34};
+	
+	/*
+	 * Total Adjacency List
+	 */
+	private int adjacencyList[][] = {
+			lyonCenter,
+			dedeauxField,
+			mcKayCenter,
+			littleGalen,
+			marksTennisStadium,
+			cromwellField,
+			
+			kaprilean,
+			michelsonHall,
+			seeleyMudd,
+			hedcoNeuro,
+			stauffer,
+			zumberge,
+			
+			olin,
+			tutorHall,
+			eQuad,
+			vivian,
+			salvatori,
+			seaverScienceLibrary,
+			
+			leventhal,
+			hoffman,
+			dauteriveHall,
+			popovich,
+			fertitaHall,
+			
+			norrisCinema,
+			scb,
+			sca,
+			
+			taper,
+			vonKleinsmid,
+			leaveyLibrary,
+			tutorCenter,
+			tommyTrojan,
+			alumniPark,
+			mcCarthyQuad,
+			dohenyLibrary,
+			
+			wallisAnnenbergHall,
+			annenbergSchool
+	};
 }
