@@ -139,7 +139,10 @@ public class Game {
 				
 	}
 
-	
+	/**
+	 * 
+	 * @return a number between 1 to 6 uniformly randomly
+	 */
 	private int simulateDiceRoll()	{
 		return (int) (Math.random()*6) + 1;
 	}
