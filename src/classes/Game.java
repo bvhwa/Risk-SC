@@ -84,6 +84,15 @@ public class Game {
 		if (attackPlayerID == defendPlayerID)
 			return false;
 		
+		// Attacker cannot attack with more troops than strictly less than his current amount
+		if (this.map[attackTerritory].getTroops() <= numAttack)
+			return false;
+		
+		// Defender cannot defend with more troops than less than or equal to his current amount
+		if (this.map[defendTerritory].getTroops() < numDefend)
+			return false;
+		
+		// Determine if the two territories are adjacent
 		boolean adjacentTerritories = false;
 		for (int t: Adjacencies.getAdjacencyList()[attackTerritory])
 			if (t == defendTerritory)
@@ -93,6 +102,7 @@ public class Game {
 		if (!adjacentTerritories)
 			return false;
 		
+		// Store the simulated dice rolls for each attacker and defender
 		int attackValues[] = new int[numAttack];
 		int defendValues[] = new int[numDefend];
 		
@@ -102,9 +112,11 @@ public class Game {
 		for (int i = 0; i < defendValues.length; i++)
 			defendValues[i] = this.simulateDiceRoll();
 		
+		// Sort Arrays by increasing value
 		Arrays.sort(attackValues); 
 		Arrays.sort(defendValues);
 		
+		// Compare the last results of each array as many times as the length of the smaller array
 		boolean result[] = new boolean[Math.min(attackValues.length, defendValues.length)];
 		for (int i = 0; i < result.length; i++)	{
 			if (attackValues[(attackValues.length - 1) - i] > defendValues[(attackValues.length - 1) - i])
@@ -113,12 +125,17 @@ public class Game {
 				result[i] = false;
 		}
 		
+		// If the attacker won a single skirmish, then remove a troop from the defense
+		// Otherwise, the defender must have one, so remove a troop from the attacker
 		for (int i = 0; i < result.length; i++)	{
 			if (result[i])
 				this.map[defendTerritory].removeTroops();
 			else
 				this.map[attackTerritory].removeTroops();
 		}
+		
+		// Successfully attacked from the attackingTerritory to the defendingTerritory
+		return true;
 				
 	}
 
