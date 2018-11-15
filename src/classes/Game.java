@@ -141,11 +141,34 @@ public class Game {
 		
 		// If the attacker won a single skirmish, then remove a troop from the defense
 		// Otherwise, the defender must have one, so remove a troop from the attacker
+		
+		int attackTroopsLost = 0, defendTroopsLost = 0;
 		for (int i = 0; i < result.length; i++)	{
-			if (result[i])
+			if (result[i])	{
 				this.map[defendTerritory].removeTroops();
-			else
+				defendTroopsLost++;
+			}
+			else	{
 				this.map[attackTerritory].removeTroops();
+				attackTroopsLost++;
+			}
+		}
+		
+		// If the defender has no more troops in his territory, then the attacker has conquered
+		if (this.map[defendTerritory].getTroops() <= 0)	{
+			
+			// Update the occupier of the previously defended territory
+			this.map[defendTerritory].setOccupier(attackPlayerID);
+			
+			// Move the remaining offensive troops into the defended territory
+			int attackTroopsRemaining = numAttack - attackTroopsLost;
+			this.map[defendTerritory].setTroops(attackTroopsRemaining);
+			this.map[attackTerritory].removeTroops(attackTroopsRemaining);
+			
+			// Update the territories each player has
+			this.players[attackPlayerID].addTerritory();
+			this.players[defendPlayerID].removeTerritory();
+			
 		}
 		
 		// Debug Statement
@@ -177,6 +200,7 @@ public class Game {
 		if (!areNeighbors(moveFromTerritory, moveToTerritory))
 			return false;
 		
+		// Move the troops from one territory to another
 		this.map[moveFromTerritory].removeTroops(troops);
 		this.map[moveToTerritory].addTroops(troops);
 		

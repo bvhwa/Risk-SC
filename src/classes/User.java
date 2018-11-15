@@ -96,5 +96,13 @@ public class User {
 	public void setTroops(int troops) {
 		this.troops = troops;
 	}
+
+	public void addTerritory() {
+		this.territories++;
+	}
+	
+	public void removeTerritory()	{
+		this.territories--;
+	}
 	
 }
