@@ -91,15 +91,9 @@ public class Game {
 		// Defender cannot defend with more troops than less than or equal to his current amount
 		if (this.map[defendTerritory].getTroops() < numDefend)
 			return false;
-		
-		// Determine if the two territories are adjacent
-		boolean adjacentTerritories = false;
-		for (int t: Adjacencies.getAdjacencyList()[attackTerritory])
-			if (t == defendTerritory)
-				adjacentTerritories = true;
-		
+
 		// Not possible to attack from one territory to another if they are not adjacent
-		if (!adjacentTerritories)
+		if (!areNeighbors(attackTerritory, defendTerritory))
 			return false;
 		
 		// Store the simulated dice rolls for each attacker and defender
@@ -135,10 +129,35 @@ public class Game {
 		}
 		
 		// Successfully attacked from the attackingTerritory to the defendingTerritory
+		return true;		
+	}
+	
+	private boolean move(int playerID, int moveFromTerritory, int moveToTerritory, int troops)	{
+		
+		// You cannot move more troops than strictly less than the amount in the territory
+		if (this.map[moveFromTerritory].getTroops() <= troops)
+			return false;
+		
+		// Not possible to move from one territory to another if they are not adjacent
+		if (!areNeighbors(moveFromTerritory, moveToTerritory))
+			return false;
+		
+		this.map[moveFromTerritory].removeTroops(troops);
+		this.map[moveToTerritory].addTroops(troops);
 		return true;
-				
+		
 	}
 
+	private boolean areNeighbors(int territory, int neighbor)	{
+		// Determine if the two territories are adjacent
+		boolean adjacentTerritories = false;
+		for (int t: Adjacencies.getAdjacencyList()[territory])
+			if (t == neighbor)
+				adjacentTerritories = true;
+		
+		return adjacentTerritories;
+	}
+	
 	/**
 	 * 
 	 * @return a number between 1 to 6 uniformly randomly
