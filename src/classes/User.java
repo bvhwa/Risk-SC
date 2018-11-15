@@ -6,13 +6,13 @@ public class User {
 	 * Private Instance Variables
 	 */
 	
-	String firstName;
-	String lastName;
-	String userName;
-	String image;
-	boolean isHost;
-	int territories;
-	int troops;
+	private String firstName;
+	private String lastName;
+	private String userName;
+	private String image;
+	private boolean isHost;
+	private int territories;
+	private int troops;
 	
 	/*
 	 * Constructors
