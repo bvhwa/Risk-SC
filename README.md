@@ -32,3 +32,8 @@ Fall 2018 Final Project for CSCI 201 at USC. This project will simulate the boar
 3. Make sure `Risk-SC` is checked under `Projects` and only `Search for nested projects` is checked under `Options`
 4. Click `Finish`
 5. Open up the newly created Project in your Workbench in Eclipse and make changes
+
+### How to Import for Windows
+1. Follow this tutorial: https://github.com/collab-uniba/socialcde4eclipse/wiki/How-to-import-a-GitHub-project-into-Eclipse
+2. You will need the HTTPS link for cloning this repository when generating it.
+3. Upon finishing you will be able to access all of the code within the program.
