@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/LogInServlet")
 public class LogInServlet extends HttpServlet {
@@ -35,41 +36,47 @@ public class LogInServlet extends HttpServlet {
     	 */
     	int message = 0;
     	
-    	try {
-    		Class.forName("com.mysql.jdbc.Driver");
-    		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
-    		
-    		if(this.userExists(username, conn)) {
-    			PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = '" + username + "'");
-    			ResultSet rs = ps.executeQuery();
-    			
-    			while(rs.next()) {
-    				// Message = 0 means user is now logged in
-    				if(rs.getString("password").equals(password)) {
-    					message = 0;
-    				}
-    				// Message = 1 means incorrect password
-    				else {
-    					message = 1;
-    				}
-    			}
+    	synchronized(this) {
+    		try {
+        		Class.forName("com.mysql.jdbc.Driver");
+        		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
+        		
+        		if(this.userExists(username, conn)) {
+        			PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = '" + username + "'");
+        			ResultSet rs = ps.executeQuery();
+        			
+        			while(rs.next()) {
+        				// Message = 0 means user is now logged in
+        				if(rs.getString("password").equals(password)) {
+        					message = 0;
+        					
+        					HttpSession session = request.getSession(true);
+        					session.setAttribute("username", rs.getString("username"));
+        					
+        				}
+        				// Message = 1 means incorrect password
+        				else {
+        					message = 1;
+        				}
+        			}
+        		}
+        		// Message = 2 means user does not exist in database
+        		else {
+        			message = 2;
+        		}
+        		
+        		conn.close();
+        	}
+        	catch (SQLException sqle) {
+        		System.out.println(sqle.getMessage());
+        	} 
+        	catch (ClassNotFoundException cnfe) {
+        		System.out.println(cnfe.getMessage());
     		}
-    		// Message = 2 means user does not exist in database
-    		else {
-    			message = 2;
-    		}
-    		
-    		conn.close();
     		
     		request.setAttribute("message", message);
     		request.getRequestDispatcher("LogIn.jsp").forward(request, response);
     	}
-    	catch (SQLException sqle) {
-    		System.out.println(sqle.getMessage());
-    	} 
-    	catch (ClassNotFoundException cnfe) {
-    		System.out.println(cnfe.getMessage());
-		}
     }
     
     // Checks whether or not the user exists in the database
