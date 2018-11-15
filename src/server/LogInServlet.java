@@ -34,6 +34,7 @@ public class LogInServlet extends HttpServlet {
     	 * 	Message = 1: Incorrect password
     	 * 	Message = 2: User does not exist
     	 */
+    	
     	int message = 0;
     	
     	synchronized(this) {
@@ -45,21 +46,16 @@ public class LogInServlet extends HttpServlet {
         			PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = '" + username + "'");
         			ResultSet rs = ps.executeQuery();
         			
-        			while(rs.next()) {
-        				// Message = 0 means user is now logged in
-        				if(rs.getString("password").equals(password)) {
-        					message = 0;
-        					
-//        					HttpSession session = request.getSession(true);
-//        					session.setAttribute("username", rs.getString("username"));
-        				}
-        				// Message = 1 means incorrect password
-        				else {
-        					message = 1;
-        				}
+        			if(rs.next() && rs.getString("password").equals(password)) {
+        				message = 0;
+        				
+//        				HttpSession session = request.getSession();
+//        				session.setAttribute("username", username);
+        			}
+        			else {
+        				message = 1;
         			}
         		}
-        		// Message = 2 means user does not exist in database
         		else {
         			message = 2;
         		}
@@ -73,8 +69,9 @@ public class LogInServlet extends HttpServlet {
         		System.out.println(cnfe.getMessage());
     		}
     		
-    		request.setAttribute("message", message);
-    		request.getRequestDispatcher("LogIn.jsp").forward(request, response);
+    		// Sends message back to jQuery call
+    		response.setContentType("text/html;charset=UTF-8");
+        	response.getWriter().write(message);
     	}
     }
     

@@ -30,8 +30,7 @@ public class SignUpServlet extends HttpServlet {
     	String fname = this.getFirstName(name);
     	String lname = this.getLastName(name);
     	
-    	String errorMessage = null;
-    	boolean success = false;
+    	int message = 0;
     	
     	synchronized(this) {
     		try {
@@ -41,24 +40,19 @@ public class SignUpServlet extends HttpServlet {
         		if(!this.userExists(username, conn)) {
         			if(this.goodPass(password) == 0) {
         				this.createUser(fname, lname, username, password, image, conn);
-        				success = true;
         			}
         			else if(this.goodPass(password) == 1) {
-        				// System.err.println("Password does not have enough alphanumeric characters!");
-        				errorMessage = "Password does not have enough alphanumeric characters!";
+        				message = 1;
         			}
         			else if(this.goodPass(password) == 2) {
-        				// System.err.println("Password does not have any characters!");
-        				errorMessage = "Password does not have any characters!";
+        				message = 2;
         			}
         			else {
-        				// System.err.println("Password does not have any numbers!");
-        				errorMessage = "Password does not have any numbers!";
+        				message = 3;
         			}
         		}
         		else {
-        			// System.err.println("User already exists!");
-        			errorMessage = "User already exists!";
+        			message = 4;
         		}
         		
         		conn.close();
@@ -70,10 +64,9 @@ public class SignUpServlet extends HttpServlet {
     			System.out.println(cnfe.getMessage());
     		}
         	
-        	// Sends error message back to LogIn JSP if sign up failed
-        	request.setAttribute("success", success);
-        	request.setAttribute("error", errorMessage);
-        	request.getRequestDispatcher("LogIn.jsp").forward(request, response);
+        	// Sends message back to jQuery call
+        	response.setContentType("text/html;charset=UTF-8");
+        	response.getWriter().write(message);
     	}
     }
     
