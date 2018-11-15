@@ -168,7 +168,7 @@ public class SignUpServlet extends HttpServlet {
 		char[] passwordChars = password.toCharArray();
     	
 		for(int i = 0; i < passwordChars.length; i++) {
-			if((passwordChars[i] > 'a' && passwordChars[i] < 'z') || (passwordChars[i] > 'A' && passwordChars[i] < 'Z')) {
+			if((passwordChars[i] >= 'a' && passwordChars[i] <= 'z') || (passwordChars[i] >= 'A' && passwordChars[i] <= 'Z')) {
 				return true;
 			}
 		}
@@ -181,7 +181,7 @@ public class SignUpServlet extends HttpServlet {
     	char[] passwordChars = password.toCharArray();
     	
 		for(int i = 0; i < passwordChars.length; i++) {
-			if(passwordChars[i] > '0' && passwordChars[i] < '9') {
+			if(passwordChars[i] >= '0' && passwordChars[i] <= '9') {
 				return true;
 			}
 		}

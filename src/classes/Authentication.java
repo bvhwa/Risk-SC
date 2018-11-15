@@ -3,7 +3,6 @@ import java.math.BigInteger;
 
 public class Authentication {
 
-	
 	/*
 	 * Given: A raw-text password
 	 * Returns; Hashed password
