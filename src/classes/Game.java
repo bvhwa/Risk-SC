@@ -7,7 +7,7 @@ public class Game {
 	
 	private Territory[] territoryMap;
 	private User[] players;
-	private double winAmount;
+	private int winAmount;
 	
 	public Game(Vector<User> players)	{
 		
@@ -47,7 +47,10 @@ public class Game {
 			while (territoriesToAllocate[temp] == 0)
 				temp = (int) (Math.random()*playerNum);
 			
-			this.territoryMap[i] = new Territory(Adjacencies.getTerritory(i), temp, (Math.random() < 0.5) ? 1 : 2);
+			int troops = (Math.random() < 0.5) ? 1 : 2;
+			this.territoryMap[i] = new Territory(Adjacencies.getTerritory(i), temp, troops);
+			this.players[temp].addTerritory();
+			this.players[temp].addTroops(troops);
 			territoriesToAllocate[temp]--;
 		}
 		
@@ -63,7 +66,7 @@ public class Game {
 	}
 	
 	private void initWinAmount(int playerNum)	{
-		this.winAmount = (1.0) * this.territoryMap.length / (6 - playerNum);
+		this.winAmount = this.territoryMap.length * (5 - playerNum) / (6 - playerNum);
 	}
 	
 	/**
@@ -271,14 +274,21 @@ public class Game {
 	 * @return the map
 	 */
 	public Territory[] getMap() {
-		return territoryMap;
+		return this.territoryMap;
 	}
 
 	/**
-	 * @param map the map to set
+	 * @return the players
 	 */
-	public void setMap(Territory[] map) {
-		this.territoryMap = map;
+	public User[] getPlayers() {
+		return this.players;
+	}
+
+	/**
+	 * @return the winAmount
+	 */
+	public int getWinAmount() {
+		return this.winAmount;
 	}
 	
 	

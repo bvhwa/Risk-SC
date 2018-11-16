@@ -192,4 +192,8 @@ public class User {
 	public void removeTroops() {
 		this.troops -= 1;
 	}
+	
+	public String toString()	{
+		return this.firstName + " " + this.lastName + "(" + this.userName + ")";
+	}
 }
