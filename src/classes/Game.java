@@ -76,14 +76,16 @@ public class Game {
 	 * @param troopNum
 	 * @return true if place was successful, false otherwise
 	 */
-	private boolean place(int playerID, int territory, int troopNum)	{
+	public boolean place(int playerID, int territory, int troopNum)	{
 		
 		// Debug Statement
 		System.out.println(this.players[playerID].getUserName() + " wants to place " + troopNum + " troops at " + this.territoryMap[territory].getName() + " which has " + this.territoryMap[territory].getTroops() + " troops");
 		
 		// Place the troops so long as the player places onto a self-controlled territory
-		if (this.territoryMap[territory].getOccupier() != playerID)
+		if (this.territoryMap[territory].getOccupier() != playerID)	{
+			System.out.println(this.territoryMap[territory].getName() + " belongs to " + this.players[this.territoryMap[territory].getOccupier()].getUserName() + ", not " + this.players[playerID].getUserName());
 			return false;
+		}
 		
 		// Updates the troops on the territory and belonging to the player
 		this.territoryMap[territory].addTroops(troopNum);
@@ -104,7 +106,7 @@ public class Game {
 	 * @param numDefend
 	 * @return true if the attack was successful, false otherwise
 	 */
-	private boolean attack(int attackPlayerID, int attackTerritory, int numAttack, int defendPlayerID, int defendTerritory, int numDefend)	{
+	public boolean attack(int attackPlayerID, int attackTerritory, int numAttack, int defendPlayerID, int defendTerritory, int numDefend)	{
 		
 		// Debug Statement
 		System.out.println(this.players[attackPlayerID].getUserName() + " wants to attack from " + this.territoryMap[attackTerritory].getName() + " with " + numAttack + " troops");
@@ -199,7 +201,7 @@ public class Game {
 	 * @param troops
 	 * @return true if the move was successful, false otherwise
 	 */
-	private boolean move(int playerID, int moveFromTerritory, int moveToTerritory, int troops)	{
+	public boolean move(int playerID, int moveFromTerritory, int moveToTerritory, int troops)	{
 		
 		// Debug Statement
 		System.out.println(this.players[playerID].getUserName() + " wants to move " + troops + " troops from " + this.territoryMap[moveFromTerritory].getName() + " to " + this.territoryMap[moveToTerritory].getName());
