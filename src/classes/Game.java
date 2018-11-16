@@ -11,6 +11,10 @@ public class Game {
 	private Player[] players;
 	private int winAmount;
 	
+	/**
+	 * 
+	 * @param players a vector players who will play the game
+	 */
 	public Game(Vector<Player> players)	{
 		
 		init(players);
@@ -26,6 +30,10 @@ public class Game {
 		initWinAmount(players.size());
 	}
 	
+	/**
+	 * Initialize the players
+	 * @param players a vector of players to instantiate
+	 */
 	private void initPlayers(Vector <Player> players)	{
 		this.players = new Player[players.size()];
 		for (int i = 0; i < players.size(); i++)

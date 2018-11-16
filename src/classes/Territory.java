@@ -11,6 +11,10 @@ public class Territory {
 	/*
 	 * Constructors	
 	 */
+	
+	/**
+	 * Default Constructor
+	 */
 	public Territory()	{
 		this.name = "";
 		this.id = -1;
@@ -18,6 +22,13 @@ public class Territory {
 		this.troops = 0;
 	}
 	
+	/**
+	 * 
+	 * @param name the name of the territory
+	 * @param id the id of the territory
+	 * @param occupier the player id of the player that controls this territory
+	 * @param troops the number of troops belonging to this territory
+	 */
 	public Territory(String name, int id, int occupier, int troops)	{
 		this.name = name;
 		this.id = id;
@@ -31,7 +42,7 @@ public class Territory {
 	
 	/**
 	 * 
-	 * @return name
+	 * @return the name of the territory
 	 */
 	public String getName() {
 		return name;
@@ -63,7 +74,7 @@ public class Territory {
 
 	/**
 	 * 
-	 * @return troops
+	 * @return the number of troops residing upon this territory
 	 */
 	public int getTroops() {
 		return troops;

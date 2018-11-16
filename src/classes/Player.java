@@ -19,6 +19,9 @@ public class Player {
 	 * Constructors
 	 */
 	
+	/**
+	 * Default Constructor
+	 */
 	public Player()	{
 		this.id = -1;
 		this.firstName = "";
@@ -30,6 +33,14 @@ public class Player {
 		this.troops = 0;
 	}
 	
+	/**
+	 * 
+	 * @param id the player's id
+	 * @param firstName the player's first name
+	 * @param lastName the player's last name
+	 * @param userName the player's user name
+	 * @param isHost the player's host status
+	 */
 	public Player(int id, String firstName, String lastName, String userName, boolean isHost)	{
 		this.id = id;
 		this.firstName = firstName;
