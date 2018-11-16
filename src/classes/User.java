@@ -169,5 +169,27 @@ public class User {
 	public void removeTerritory()	{
 		this.territories--;
 	}
+
+	/**
+	 * 
+	 * @param troops the amount of troops to add
+	 */
+	public void addTroops(int troops) {
+		this.troops += troops;
+	}
 	
+	/**
+	 * 
+	 * @param troops the amount of troops to remove
+	 */
+	public void removeTroops(int troops)	{
+		this.troops -= troops;
+	}
+
+	/**
+	 * Decrements the amount of troops
+	 */
+	public void removeTroops() {
+		this.troops -= 1;
+	}
 }

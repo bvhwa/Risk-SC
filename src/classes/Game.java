@@ -77,7 +77,9 @@ public class Game {
 		if (this.map[territory].getOccupier() != playerID)
 			return false;
 		
+		// Updates the troops on the territory and belonging to the player
 		this.map[territory].addTroops(troopNum);
+		this.players[playerID].addTroops(troopNum);
 		
 		// Debug Statement
 		System.out.println(this.map[territory].getName() + " now has " + this.map[territory].getTroops() + " troops");
@@ -146,10 +148,12 @@ public class Game {
 		for (int i = 0; i < result.length; i++)	{
 			if (result[i])	{
 				this.map[defendTerritory].removeTroops();
+				this.players[defendPlayerID].removeTroops();
 				defendTroopsLost++;
 			}
 			else	{
 				this.map[attackTerritory].removeTroops();
+				this.players[attackPlayerID].removeTroops();
 				attackTroopsLost++;
 			}
 		}
