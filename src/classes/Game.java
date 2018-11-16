@@ -71,25 +71,24 @@ public class Game {
 	
 	/**
 	 * 
-	 * @param playerID
 	 * @param territory
 	 * @param troopNum
 	 * @return true if place was successful, false otherwise
 	 */
-	public boolean place(int playerID, int territory, int troopNum)	{
+	public boolean place(int territory, int troopNum)	{
 		
 		// Debug Statement
-		System.out.println(this.players[playerID].getUserName() + " wants to place " + troopNum + " troops at " + this.territoryMap[territory].getName() + " which has " + this.territoryMap[territory].getTroops() + " troops");
+		System.out.println(this.players[this.territoryMap[territory].getOccupier()].getUserName() + " wants to place " + troopNum + " troops at " + this.territoryMap[territory].getName() + " which has " + this.territoryMap[territory].getTroops() + " troops");
 		
 		// Place the troops so long as the player places onto a self-controlled territory
-		if (this.territoryMap[territory].getOccupier() != playerID)	{
-			System.out.println(this.territoryMap[territory].getName() + " belongs to " + this.players[this.territoryMap[territory].getOccupier()].getUserName() + ", not " + this.players[playerID].getUserName());
+		if (this.territoryMap[territory].getOccupier() != this.territoryMap[territory].getOccupier())	{
+			System.out.println(this.territoryMap[territory].getName() + " belongs to " + this.players[this.territoryMap[territory].getOccupier()].getUserName() + ", not " + this.players[this.territoryMap[territory].getOccupier()].getUserName());
 			return false;
 		}
 		
 		// Updates the troops on the territory and belonging to the player
 		this.territoryMap[territory].addTroops(troopNum);
-		this.players[playerID].addTroops(troopNum);
+		this.players[this.territoryMap[territory].getOccupier()].addTroops(troopNum);
 		
 		// Debug Statement
 		System.out.println(this.territoryMap[territory].getName() + " now has " + this.territoryMap[territory].getTroops() + " troops");
