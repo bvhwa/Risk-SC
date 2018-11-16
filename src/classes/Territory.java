@@ -85,7 +85,7 @@ public class Territory {
 	
 	/**
 	 * Decrements the amount of troops in the territory by troops
-	 * @param troops
+	 * @param troops the amount of troops to remove
 	 */
 	public void removeTroops(int troops)	{
 		this.troops -= troops;
