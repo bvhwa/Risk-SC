@@ -162,28 +162,31 @@ public abstract class Adjacencies {
 			annenbergSchool
 	};
 	
-	/*
+	/**
 	 * Grabs the array of territories with the index being the associated
 	 * key to the value stored at that location. The aforementioned key will
 	 * be used within the adjacencyList to determine if the country given by
 	 * the value of the key contains an edge with a country of another given value
+	 * 
+	 * @return a string array of all the territories with the index being the territory id
 	 */
 	public static String[] getTerritories()	{
 		return territories;
 	}
 	
-	/*
-	 * Returns the String located at location i
-	 * Essentially returns the name of the ith territory
+	/**
+	 * @param index the territory id
+	 * @return the string associated with that territory id
 	 */
-	public static String getTerritory(int i)	{
-		return territories[i];
+	public static String getTerritory(int index)	{
+		return territories[index];
 	}
 	
-	/*
-	 * Returns the list of adjacencies between multiple different countries
+	/**
 	 * The row corresponds with the index of the country in territories
-	 * The columns in those rows are the list of the countries it is adjacent to
+	 * The columns in those rows are the list of the countries it is adjacent to.
+	 * 
+	 * @return the list of adjacencies between multiple different countries
 	 */
 	public static int[][] getAdjacencyList()	{
 		return adjacencyList;

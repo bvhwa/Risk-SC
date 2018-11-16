@@ -172,6 +172,9 @@ public class User {
 		this.troops -= 1;
 	}
 	
+	/**
+	 * @return a string representation of the user in a human-readable format
+	 */
 	public String toString()	{
 		return this.firstName + " " + this.lastName + "(" + this.userName + ")";
 	}

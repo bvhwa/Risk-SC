@@ -2,10 +2,11 @@ package classes;
 import java.math.BigInteger;
 
 public class Authentication {
-
-	/*
-	 * Given: A raw-text password
-	 * Returns; Hashed password
+	
+	/**
+	 * 
+	 * @param string raw-text password
+	 * @return a string of the hashed password
 	 */
 	public static String hashString(String string)	{
 
