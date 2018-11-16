@@ -225,7 +225,7 @@ public class Game {
 	
 	/**
 	 * 
-	 * @return true if there is any player who has exceeded the win condition, false otherwise
+	 * @return true if there is any player among the list of players who has exceeded the win condition, false otherwise
 	 */
 	public boolean checkWin()	{
 		for (User player: this.players)
@@ -238,7 +238,7 @@ public class Game {
 	/**
 	 * 
 	 * @param playerID the player to check if they have won
-	 * @return true if the player has won, false otherwise
+	 * @return true if the player with the playerID has won, false otherwise
 	 */
 	public boolean checkWin(int playerID)	{
 		
@@ -271,7 +271,7 @@ public class Game {
 	}
 	
 	/**
-	 * @return the map
+	 * @return the map of the territories
 	 */
 	public Territory[] getMap() {
 		return this.territoryMap;
@@ -285,7 +285,7 @@ public class Game {
 	}
 
 	/**
-	 * @return the winAmount
+	 * @return the number of territories necessary to win
 	 */
 	public int getWinAmount() {
 		return this.winAmount;
