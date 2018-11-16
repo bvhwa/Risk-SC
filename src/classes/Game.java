@@ -1,6 +1,8 @@
 package classes;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Vector;
 
 public class Game {
@@ -48,7 +50,7 @@ public class Game {
 				temp = (int) (Math.random()*playerNum);
 			
 			int troops = (Math.random() < 0.5) ? 1 : 2;
-			this.territoryMap[i] = new Territory(Adjacencies.getTerritory(i), temp, troops);
+			this.territoryMap[i] = new Territory(Adjacencies.getTerritory(i), i, temp, troops);
 			this.players[temp].addTerritory();
 			this.players[temp].addTroops(troops);
 			territoriesToAllocate[temp]--;
@@ -265,9 +267,9 @@ public class Game {
 	}
 	
 	/**
-	 * @return the map of the territories
+	 * @return the territory map of the territories
 	 */
-	public Territory[] getMap() {
+	public Territory[] getTerritoryMap() {
 		return this.territoryMap;
 	}
 
@@ -285,5 +287,67 @@ public class Game {
 		return this.winAmount;
 	}
 	
+	/**
+	 * 
+	 * @param playerID the id of the player whose controlled territories are requested
+	 * @return the owned territories of the player with the associated playerID
+	 */
+	public Territory[] getOwnedTerritories(int playerID)	{
+		Territory[] ownedTerritories = new Territory[this.players[playerID].getTerritories()];
+		
+		// Update the list of owned territories
+		int index = 0;
+		for (int i = 0; i < this.territoryMap.length; i++)
+			if (this.territoryMap[i].getOccupier() == playerID)
+				ownedTerritories[index++] = this.territoryMap[i];
+	
+		return ownedTerritories;
+	}
+	
+	/**
+	 * 
+	 * @param territory the id of the territory to find non-owned adjacent territories
+	 * @return an array of non-owned adjacent territories
+	 */
+	public Territory[] getAdjacentNonOwnedTerritories(int territory)	{
+		
+		List<Territory> adjacentNonOwnedTerritoriesList = new LinkedList <Territory>();
+		
+		// Find the Territory List of the Adjacencies with different occupiers
+		int[] adjacentTerritories = Adjacencies.getAdjacencyList()[territory];
+		for (int i = 0; i < adjacentTerritories.length; i++)
+			if (this.territoryMap[territory].getOccupier() != this.territoryMap[adjacentTerritories[i]].getOccupier())
+				adjacentNonOwnedTerritoriesList.add(this.territoryMap[adjacentTerritories[i]]);
+		
+		// Convert the Territory List of Non Owned Adjacencies into an array 
+		Territory[] adjacentNonOwnedTerritories = new Territory[adjacentNonOwnedTerritoriesList.size()];
+		adjacentNonOwnedTerritories = adjacentNonOwnedTerritoriesList.toArray(adjacentNonOwnedTerritories);
+		
+		return adjacentNonOwnedTerritories;
+		
+	}
+	
+	/**
+	 * 
+	 * @param territory the id of the territory to find owned adjacent territories
+	 * @return an array of owned adjacent territories
+	 */
+	public Territory[] getAdjacentOwnedTerritories(int territory)	{
+		
+		List<Territory> adjacentOwnedTerritoriesList = new LinkedList <Territory>();
+		
+		// Find the Territory List of the Adjacencies with same occupiers
+		int[] adjacentTerritories = Adjacencies.getAdjacencyList()[territory];
+		for (int i = 0; i < adjacentTerritories.length; i++)
+			if (this.territoryMap[territory].getOccupier() == this.territoryMap[adjacentTerritories[i]].getOccupier())
+				adjacentOwnedTerritoriesList.add(this.territoryMap[adjacentTerritories[i]]);
+		
+		// Convert the Territory List of Owned Adjacencies into an array 
+		Territory[] adjacentOwnedTerritories = new Territory[adjacentOwnedTerritoriesList.size()];
+		adjacentOwnedTerritories = adjacentOwnedTerritoriesList.toArray(adjacentOwnedTerritories);
+		
+		return adjacentOwnedTerritories;
+		
+	}
 	
 }

@@ -6,19 +6,21 @@ public class Territory {
 	 * Private Instance Variables
 	 */
 	private String name;
-	private int occupier, troops;
+	private int id, occupier, troops;
 	
 	/*
 	 * Constructors	
 	 */
 	public Territory()	{
 		this.name = "";
+		this.id = -1;
 		this.occupier = -1;
 		this.troops = 0;
 	}
 	
-	public Territory(String name, int occupier, int troops)	{
+	public Territory(String name, int id, int occupier, int troops)	{
 		this.name = name;
+		this.id = id;
 		this.occupier = occupier;
 		this.troops = troops;
 	}
@@ -34,13 +36,13 @@ public class Territory {
 	public String getName() {
 		return name;
 	}
-
+	
 	/**
 	 * 
-	 * @param name the name to set
+	 * @return the territory ID 
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public int getID()	{
+		return this.id;
 	}
 
 	/**

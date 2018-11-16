@@ -6,6 +6,7 @@ public class User {
 	 * Private Instance Variables
 	 */
 	
+	private int id;
 	private String firstName;
 	private String lastName;
 	private String userName;
@@ -19,6 +20,7 @@ public class User {
 	 */
 	
 	public User()	{
+		this.id = -1;
 		this.firstName = "";
 		this.lastName = "";
 		this.userName = "";
@@ -28,7 +30,8 @@ public class User {
 		this.troops = 0;
 	}
 	
-	public User(String firstName, String lastName, String userName, boolean isHost)	{
+	public User(int id, String firstName, String lastName, String userName, boolean isHost)	{
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
@@ -43,18 +46,18 @@ public class User {
 	 */
 	
 	/**
+	 * 
+	 * @return the player ID
+	 */
+	public int getID()	{
+		return this.id;
+	}
+	
+	/**
 	 * @return first name of the user
 	 */
 	public String getFirstName() {
 		return firstName;
-	}
-
-	/**
-	 * 
-	 * @param firstName the first name to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
 	}
 
 	/**
@@ -65,14 +68,6 @@ public class User {
 		return lastName;
 	}
 
-	/**
-	 * 
-	 * @param lastName the last name to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 	
 	/**
 	 * 
@@ -80,15 +75,6 @@ public class User {
 	 */
 	public String getUserName() {
 		return userName;
-	}
-
-	
-	/**
-	 * 
-	 * @param userName the user name to set
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	/**
@@ -115,13 +101,6 @@ public class User {
 		return isHost;
 	}
 
-	/**
-	 * 
-	 * @param isHost set whether the user is a host
-	 */
-	public void setHost(boolean isHost) {
-		this.isHost = isHost;
-	}
 
 	/**
 	 * 
