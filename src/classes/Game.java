@@ -98,35 +98,41 @@ public class Game {
 	
 	/**
 	 * 
-	 * @param attackPlayerID
 	 * @param attackTerritory
 	 * @param numAttack
-	 * @param defendPlayerID
 	 * @param defendTerritory
 	 * @param numDefend
 	 * @return true if the attack was successful, false otherwise
 	 */
-	public boolean attack(int attackPlayerID, int attackTerritory, int numAttack, int defendPlayerID, int defendTerritory, int numDefend)	{
+	public boolean attack(int attackTerritory, int numAttack, int defendTerritory, int numDefend)	{
 		
 		// Debug Statement
-		System.out.println(this.players[attackPlayerID].getUserName() + " wants to attack from " + this.territoryMap[attackTerritory].getName() + " with " + numAttack + " troops");
-		System.out.println(this.players[defendPlayerID].getUserName() + " wants to defend at " + this.territoryMap[defendTerritory].getName() + " with " + numDefend + " troops");
+		System.out.println(this.players[this.territoryMap[attackTerritory].getOccupier()].getUserName() + " wants to attack from " + this.territoryMap[attackTerritory].getName() + " with " + numAttack + " troops");
+		System.out.println(this.players[this.territoryMap[defendTerritory].getOccupier()].getUserName() + " wants to defend at " + this.territoryMap[defendTerritory].getName() + " with " + numDefend + " troops");
 		
 		// Not possible to attack the same player with itself
-		if (attackPlayerID == defendPlayerID)
+		if (this.territoryMap[attackTerritory].getOccupier() == this.territoryMap[defendTerritory].getOccupier())	{
+			System.out.println(this.players[this.territoryMap[attackTerritory].getOccupier()].getUserName() + " cannot attack himself");
 			return false;
+		}
 		
 		// Attacker cannot attack with more troops than strictly less than his current amount
-		if (this.territoryMap[attackTerritory].getTroops() <= numAttack)
+		if (this.territoryMap[attackTerritory].getTroops() <= numAttack)	{
+			System.out.println(this.players[this.territoryMap[attackTerritory].getOccupier()].getUserName() + " cannot attack with " + numAttack + " troops since he only has " + this.territoryMap[attackTerritory].getTroops() + " troops");
 			return false;
+		}
 		
 		// Defender cannot defend with more troops than less than or equal to his current amount
-		if (this.territoryMap[defendTerritory].getTroops() < numDefend)
+		if (this.territoryMap[defendTerritory].getTroops() < numDefend)	{
+			System.out.println(this.players[this.territoryMap[defendTerritory].getOccupier()].getUserName() + " cannot d with " + numDefend + " troops since he only has " + this.territoryMap[defendTerritory].getTroops() + " troops");
 			return false;
+		}
 
 		// Not possible to attack from one territory to another if they are not adjacent
-		if (!areNeighbors(attackTerritory, defendTerritory))
+		if (!areNeighbors(attackTerritory, defendTerritory))	{
+			System.out.println(this.players[this.territoryMap[attackTerritory].getOccupier()].getUserName() + " cannot attack from " + this.territoryMap[attackTerritory].getName() + " to " + this.players[this.territoryMap[defendTerritory].getOccupier()].getUserName() + " at " + this.territoryMap[defendTerritory].getName());
 			return false;
+		}
 		
 		// Store the simulated dice rolls for each attacker and defender
 		int attackValues[] = new int[numAttack];
@@ -145,7 +151,7 @@ public class Game {
 		// Compare the last results of each array as many times as the length of the smaller array
 		boolean result[] = new boolean[Math.min(attackValues.length, defendValues.length)];
 		for (int i = 0; i < result.length; i++)	{
-			if (attackValues[(attackValues.length - 1) - i] > defendValues[(attackValues.length - 1) - i])
+			if (attackValues[(attackValues.length - 1) - i] > defendValues[(defendValues.length - 1) - i])
 				result[i] = true;
 			else
 				result[i] = false;
@@ -158,12 +164,12 @@ public class Game {
 		for (int i = 0; i < result.length; i++)	{
 			if (result[i])	{
 				this.territoryMap[defendTerritory].removeTroops();
-				this.players[defendPlayerID].removeTroops();
+				this.players[this.territoryMap[defendTerritory].getOccupier()].removeTroops();
 				defendTroopsLost++;
 			}
 			else	{
 				this.territoryMap[attackTerritory].removeTroops();
-				this.players[attackPlayerID].removeTroops();
+				this.players[this.territoryMap[attackTerritory].getOccupier()].removeTroops();
 				attackTroopsLost++;
 			}
 		}
@@ -172,7 +178,7 @@ public class Game {
 		if (this.territoryMap[defendTerritory].getTroops() <= 0)	{
 			
 			// Update the occupier of the previously defended territory
-			this.territoryMap[defendTerritory].setOccupier(attackPlayerID);
+			this.territoryMap[defendTerritory].setOccupier(this.territoryMap[attackTerritory].getOccupier());
 			
 			// Move the remaining offensive troops into the defended territory
 			int attackTroopsRemaining = numAttack - attackTroopsLost;
@@ -180,14 +186,16 @@ public class Game {
 			this.territoryMap[attackTerritory].removeTroops(attackTroopsRemaining);
 			
 			// Update the territories each player has
-			this.players[attackPlayerID].addTerritory();
-			this.players[defendPlayerID].removeTerritory();
+			this.players[this.territoryMap[attackTerritory].getOccupier()].addTerritory();
+			this.players[this.territoryMap[defendTerritory].getOccupier()].removeTerritory();
+			
+			System.out.println(this.players[this.territoryMap[attackTerritory].getOccupier()].getUserName() + " conquered " + this.territoryMap[this.territoryMap[defendTerritory].getOccupier()].getName());
 			
 		}
 		
 		// Debug Statement
-		System.out.println(this.players[attackPlayerID].getUserName() + " attacked from " + this.territoryMap[attackTerritory].getName() + " and now has " + this.territoryMap[attackTerritory].getTroops() + " troops");
-		System.out.println(this.players[defendPlayerID].getUserName() + " defended at " + this.territoryMap[defendTerritory].getName() + " and now has " + this.territoryMap[defendTerritory].getTroops() + " troops");
+		System.out.println(this.players[this.territoryMap[attackTerritory].getOccupier()].getUserName() + " attacked from " + this.territoryMap[attackTerritory].getName() + " and now has " + this.territoryMap[attackTerritory].getTroops() + " troops");
+		System.out.println(this.players[this.territoryMap[defendTerritory].getOccupier()].getUserName() + " defended at " + this.territoryMap[defendTerritory].getName() + " and now has " + this.territoryMap[defendTerritory].getTroops() + " troops");
 		
 		// Successfully attacked from the attackingTerritory to the defendingTerritory
 		return true;		
