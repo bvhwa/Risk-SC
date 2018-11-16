@@ -8,10 +8,10 @@ import java.util.Vector;
 public class Game {
 	
 	private Territory[] territoryMap;
-	private User[] players;
+	private Player[] players;
 	private int winAmount;
 	
-	public Game(Vector<User> players)	{
+	public Game(Vector<Player> players)	{
 		
 		init(players);
 	}
@@ -20,14 +20,14 @@ public class Game {
 	 * Initialize the game based on the number of players
 	 * @param playerNum
 	 */
-	private void init(Vector<User> players)	{
+	private void init(Vector<Player> players)	{
 		initPlayers(players);
 		initMap(players.size());
 		initWinAmount(players.size());
 	}
 	
-	private void initPlayers(Vector <User> players)	{
-		this.players = new User[players.size()];
+	private void initPlayers(Vector <Player> players)	{
+		this.players = new Player[players.size()];
 		for (int i = 0; i < players.size(); i++)
 			this.players[i] = players.elementAt(i);
 	}
@@ -224,7 +224,7 @@ public class Game {
 	 * @return true if there is any player among the list of players who has exceeded the win condition, false otherwise
 	 */
 	public boolean checkWin()	{
-		for (User player: this.players)
+		for (Player player: this.players)
 			if (player.getTerritories() > this.winAmount)
 				return true;
 		
@@ -276,7 +276,7 @@ public class Game {
 	/**
 	 * @return the players
 	 */
-	public User[] getPlayers() {
+	public Player[] getPlayers() {
 		return this.players;
 	}
 

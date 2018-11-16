@@ -1,22 +1,22 @@
 package client;
 
 import java.util.Vector;
-import classes.User;
+import classes.Player;
 
 public class GameRoom {
 	private String host = null;
 	private int numUsers = 0;
-	private Vector<User> players = new Vector<User>();
+	private Vector<Player> players = new Vector<Player>();
 	
 	public GameRoom(String host) {
 		this.host = host;
 	}
 
-	public Vector<User> getPlayers() {
+	public Vector<Player> getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(Vector<User> players) {
+	public void setPlayers(Vector<Player> players) {
 		this.players = players;
 	}
 
@@ -36,11 +36,11 @@ public class GameRoom {
 		this.numUsers = numUsers;
 	}
 	
-	public synchronized void addUser(User user) {
+	public synchronized void addUser(Player user) {
 		this.players.add(user);
 	}
 	
-	public synchronized void removeUser(User user) {
+	public synchronized void removeUser(Player user) {
 		this.players.remove(user);
 	}
 }

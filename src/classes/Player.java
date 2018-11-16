@@ -1,6 +1,6 @@
 package classes;
 
-public class User {
+public class Player {
 	
 	/*
 	 * Private Instance Variables
@@ -19,7 +19,7 @@ public class User {
 	 * Constructors
 	 */
 	
-	public User()	{
+	public Player()	{
 		this.id = -1;
 		this.firstName = "";
 		this.lastName = "";
@@ -30,7 +30,7 @@ public class User {
 		this.troops = 0;
 	}
 	
-	public User(int id, String firstName, String lastName, String userName, boolean isHost)	{
+	public Player(int id, String firstName, String lastName, String userName, boolean isHost)	{
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
