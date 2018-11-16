@@ -163,6 +163,8 @@ public class SignUpServlet extends HttpServlet {
     	return 0;
     }
     
+    // Hopefully can implement with Regex
+    
     // Checks if password contains characters
     private boolean containsChars(String password) {
 		char[] passwordChars = password.toCharArray();

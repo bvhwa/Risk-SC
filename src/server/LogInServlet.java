@@ -54,6 +54,11 @@ public class LogInServlet extends HttpServlet {
         				if(!hash.equals(rs.getString("password"))) {
         					message = 1;
         				}
+        				else {
+        					ps = conn.prepareStatement("UPDATE final SET playing = ? WHERE username = '" + username + "'");
+        					ps.setBoolean(6, true);
+        					ps.execute();
+        				}
         			}
         		}
         		else {
