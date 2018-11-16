@@ -45,10 +45,6 @@
     		function error(message){
     			echoText.value += "Error! \n";
     		}
-    		
-    	
-    	
-    	
     	</script>
 	</body>
 </html>

@@ -1,33 +1,36 @@
 package server;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
+import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/waitingroom")
+@ServerEndpoint("/endpoint")
 public class WaitingRoomWS {
 	
+	// private int numUsers = 0;
+	static Set<Session> players = Collections.synchronizedSet(new HashSet<Session>());
+	
 	@OnOpen
-	public void onOpen() {
-		System.out.println("Open connection...");
+	public void onOpen(Session user) throws Exception {
+		// System.out.println("Open connection...");
+		players.add(user);
+		for(Session player: players) {
+			player.getBasicRemote().sendObject(player.getId());
+		}
 	}
-	
+
 	@OnClose
-	public void onClose() {
-		System.out.println("Close connection...");
-	}
-	
-	@OnMessage
-	public String onMessage(String message) {
-		System.out.println("Message from the client: " + message);
-		String echoMsg = "Echo from the server : " + message;
-		return echoMsg;
-	}
-	
-	@OnError
-	public void onError(Throwable e) {
-		System.out.println(e.getMessage());
+	public void onClose(Session user) throws Exception {
+		players.remove(user);
+		for(Session player: players) {
+			if(!user.getId().equals(player.getId())) {
+				player.getBasicRemote().sendObject(player.getId());
+			}
+		}
 	}
 }
