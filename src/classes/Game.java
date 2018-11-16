@@ -117,7 +117,7 @@ public class Game {
 		}
 		
 		// Attacker cannot attack with more troops than strictly less than his current amount
-		if (this.territoryMap[attackTerritory].getTroops() <= numAttack)	{
+		if (this.territoryMap[attackTerritory].getTroops() <= numAttack || this.territoryMap[attackTerritory].getTroops() == 1)	{
 			System.out.println(this.players[this.territoryMap[attackTerritory].getOccupier()].getUserName() + " cannot attack with " + numAttack + " troops since he only has " + this.territoryMap[attackTerritory].getTroops() + " troops");
 			return false;
 		}
@@ -147,10 +147,26 @@ public class Game {
 		// Sort Arrays by increasing value
 		Arrays.sort(attackValues); 
 		Arrays.sort(defendValues);
+		System.out.println();
+		
+		for (int i = 0; i < attackValues.length - 1; i++)
+			System.out.print(attackValues[i] + ",");
+		System.out.println(attackValues[attackValues.length - 1]);
+		
+		for (int i = 0; i < defendValues.length - 1; i++)
+			System.out.print(defendValues[i] + ",");
+		System.out.println(defendValues[defendValues.length - 1]);
+		
+		System.out.println();
 		
 		// Compare the last results of each array as many times as the length of the smaller array
 		boolean result[] = new boolean[Math.min(attackValues.length, defendValues.length)];
 		for (int i = 0; i < result.length; i++)	{
+			
+			System.out.println("Attacker: " + attackValues[(attackValues.length - 1) - i]);
+			System.out.println("Defender: " + defendValues[(defendValues.length - 1) - i]);
+			System.out.println();
+			
 			if (attackValues[(attackValues.length - 1) - i] > defendValues[(defendValues.length - 1) - i])
 				result[i] = true;
 			else
@@ -177,6 +193,10 @@ public class Game {
 		// If the defender has no more troops in his territory, then the attacker has conquered
 		if (this.territoryMap[defendTerritory].getTroops() <= 0)	{
 			
+			// Update the territories each player has
+			this.players[this.territoryMap[attackTerritory].getOccupier()].addTerritory();
+			this.players[this.territoryMap[defendTerritory].getOccupier()].removeTerritory();
+			
 			// Update the occupier of the previously defended territory
 			this.territoryMap[defendTerritory].setOccupier(this.territoryMap[attackTerritory].getOccupier());
 			
@@ -184,10 +204,6 @@ public class Game {
 			int attackTroopsRemaining = numAttack - attackTroopsLost;
 			this.territoryMap[defendTerritory].setTroops(attackTroopsRemaining);
 			this.territoryMap[attackTerritory].removeTroops(attackTroopsRemaining);
-			
-			// Update the territories each player has
-			this.players[this.territoryMap[attackTerritory].getOccupier()].addTerritory();
-			this.players[this.territoryMap[defendTerritory].getOccupier()].removeTerritory();
 			
 			System.out.println(this.players[this.territoryMap[attackTerritory].getOccupier()].getUserName() + " conquered " + this.territoryMap[this.territoryMap[defendTerritory].getOccupier()].getName());
 			
