@@ -298,9 +298,12 @@ public class Game {
 	/**
 	 * 
 	 * @param playerID the id of the player whose controlled territories are requested
-	 * @return the owned territories of the player with the associated playerID
+	 * @return the owned territories of the player with the associated playerID if valid, null otherwise
 	 */
 	public Territory[] getOwnedTerritories(int playerID)	{
+		if (playerID >= this.players.length)
+			return null;
+		
 		Territory[] ownedTerritories = new Territory[this.players[playerID].getTerritories()];
 		
 		// Update the list of owned territories
@@ -315,9 +318,12 @@ public class Game {
 	/**
 	 * 
 	 * @param territory the id of the territory to find non-owned adjacent territories
-	 * @return an array of non-owned adjacent territories
+	 * @return an array of non-owned adjacent territories if valid territory id, null otherwise
 	 */
 	public Territory[] getAdjacentNonOwnedTerritories(int territory)	{
+		
+		if (territory >= this.territoryMap.length)
+			return null;
 		
 		List<Territory> adjacentNonOwnedTerritoriesList = new LinkedList <Territory>();
 		
@@ -338,9 +344,12 @@ public class Game {
 	/**
 	 * 
 	 * @param territory the id of the territory to find owned adjacent territories
-	 * @return an array of owned adjacent territories
+	 * @return an array of owned adjacent territories if valid territory id, null otherwise
 	 */
 	public Territory[] getAdjacentOwnedTerritories(int territory)	{
+		
+		if (territory >= this.territoryMap.length)
+			return null;
 		
 		List<Territory> adjacentOwnedTerritoriesList = new LinkedList <Territory>();
 		
