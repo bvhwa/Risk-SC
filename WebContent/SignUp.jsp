@@ -3,8 +3,9 @@
 <!DOCTYPE html>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" type="text/css" href="LogInHelp.css" />
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
 
 
     <div class="container">
@@ -15,7 +16,7 @@
             <form class="form-signin1">
             	<input type="firstname" id="fname" class="form-control" placeholder="First Name" style = "margin-bottom:10px;">
                 <input type="lastname" id="lname" class="form-control" placeholder="Last Name" style = "margin-bottom:10px;">
-				<input type="pimage" id="image" class="form-control" placeholder="Profile Image URL" style = "margin-bottom:10px;">
+				<input type="pimage" id="image" class="form-control" placeholder="Profile Image URL (Optional)" style = "margin-bottom:10px;">
 				<input type="_username" id="_inputName" class="form-control" placeholder="Username" style = "margin-bottom:10px;">
                 <input type="_password" id="_inputPassword" class="form-control" placeholder="Password" style = "margin-bottom:10px;">
                 <input type="cpassword" id="confirmPassword" class="form-control" placeholder="Confirm Password" style = "margin-bottom:10px;">
