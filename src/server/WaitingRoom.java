@@ -15,62 +15,64 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint(value="/ss")
+@ServerEndpoint(value="/wr")
 public class WaitingRoom {
 	
-	private Vector <Session> players = new Vector<Session>();
-	private HashMap <Session, String> usernames = new HashMap <Session, String>();
+	private static Vector<Session> players = new Vector<Session>();
+	private static HashMap<Session, String> usernames = new HashMap <Session, String>();
 	
 	@OnOpen
+	// Add the player's session to the vector of sessions
 	public void open(Session session)	{
 		System.out.println("Connection!");
-		this.players.addElement(session);
+		players.addElement(session);
 	}
 	
 	@OnMessage
+	// Retrieve the message from the client
 	public void message(String message, Session session)	{
 		
 		if (message.equals("Ready to Start Game"))	{
-			for (Session player: this.players)	{
+			for (Session player: players)	{
 				try	{
 					player.getBasicRemote().sendText(message);
-				} catch (IOException ioe)	{
+				} 
+				catch (IOException ioe)	{
 					System.out.println("ioe: " + ioe.getMessage());
 				}
 			}
-		} else	{
-		
-			this.usernames.put(session, message);
+		} 
+		else {
+			usernames.put(session, message);
 			
 			System.out.println(message);
 			
 			String users = "";
-			for (int i = 0; i < this.players.size(); i++)	{
-				users += this.usernames.get(this.players.get(i)) + ((i < this.players.size() - 1) ? "&" : "");
+			for (int i = 0; i < players.size(); i++) {
+				users += usernames.get(players.get(i)) + ((i < players.size() - 1) ? "&" : "");
 			}
 			
-			System.out.println(users);
+			// System.out.println(users);
 			
-			for (Session player: this.players)	{
-				
+			for (Session player: players)	{
 				try {
 					player.getBasicRemote().sendText(users);
-				} catch (IOException ioe) {
+				} 
+				catch (IOException ioe) {
 					System.out.println("ioe: " + ioe.getMessage());
 				}
-	
 			}
 		}
 	}
 	
 	@OnClose
 	public void close(Session session)	{
-		System.out.println("Disconnected " + this.usernames.get(session) + "!");
+		System.out.println("Disconnected " + usernames.get(session) + "!");
 
 		try	{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
-			PreparedStatement ps = conn.prepareStatement("UPDATE users SET playing = ? WHERE username = '" + this.usernames.get(session) + "'");
+			PreparedStatement ps = conn.prepareStatement("UPDATE users SET playing = ? WHERE username = '" + usernames.get(session) + "'");
 			ps.setBoolean(1, false);
 			ps.execute();
 		}
@@ -81,14 +83,14 @@ public class WaitingRoom {
     		System.out.println(cnfe.getMessage());
 		}
 		
-		this.players.remove(session);
+		players.remove(session);
 		
 		String users = "";
-		for (int i = 0; i < this.players.size(); i++)	{
-			users += this.usernames.get(this.players.get(i)) + ((i < this.players.size() - 1) ? "&" : "");
+		for (int i = 0; i < players.size(); i++)	{
+			users += usernames.get(players.get(i)) + ((i < players.size() - 1) ? "&" : "");
 		}
 		
-		for (Session player: this.players)	{
+		for (Session player: players)	{
 			
 			try {
 				player.getBasicRemote().sendText(users);

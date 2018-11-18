@@ -17,10 +17,9 @@
             <form class="form-signin1">
 				<input type="username" id="inputName" class="form-control" placeholder="Username" style = "margin-bottom:10px;">
                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" style = "margin-bottom:10px;">
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" onClick="return login();">Log in</button>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" onClick="return signUp();">Sign up</button>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" onClick="return Guest();">Continue as Guest</button>
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" onClick="return login();">Log in</button>
-
             </form><!-- /form -->
         </div><!-- /card-container -->
     </div><!-- /container -->
