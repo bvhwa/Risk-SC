@@ -36,13 +36,7 @@ public class SignUpServlet extends HttpServlet {
     	/*
     	 * Message used to communicate with client about log-in
     	 * 
-    	 * Possibilities:
-    	 * 	Message = 0: User signed up
-    	 * 	Message = 1: Password is not at least eight characters long
-    	 * 	Message = 2: Password does not have any characters
-    	 * 	Message = 3: Password does not have any numbers
-    	 * 	Message = 4: User already exists with username
-    	 * 	Message = 5: Invalid Confirmation of password
+    	 * Returns the alert message
     	 */
     	
     	String message = "";
@@ -75,6 +69,10 @@ public class SignUpServlet extends HttpServlet {
         		
         		if (!password.equals(confirm))	{
         			message += "Your password doesn't match your confirm password\n";
+        		}
+        		
+        		if (!userExists(username, conn))	{
+        			message += "This username already exists\n";
         		}
         		
         		if (message.length() == 0)	{
