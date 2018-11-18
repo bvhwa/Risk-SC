@@ -18,8 +18,8 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint(value="/ss")
 public class WaitingRoom {
 	
-	private static Vector <Session> players = new Vector<Session>();
-	private static HashMap <Session, String> usernames = new HashMap <Session, String>();
+	private Vector <Session> players = new Vector<Session>();
+	private HashMap <Session, String> usernames = new HashMap <Session, String>();
 	
 	@OnOpen
 	public void open(Session session)	{
@@ -101,6 +101,6 @@ public class WaitingRoom {
 	
 	@OnError
 	public void error (Throwable error)	{
-		
+		// Handle errors here
 	}
 }
