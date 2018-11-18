@@ -25,6 +25,17 @@ public class WaitingRoom {
 	
 	@OnMessage
 	public void message(String message, Session session)	{
+		
+		if (message == "Ready to Start Game")	{
+			for (Session player: this.players)	{
+				try	{
+					player.getBasicRemote().sendText(message);
+				} catch (IOException ioe)	{
+					System.out.println("ioe: " + ioe.getMessage());
+				}
+			}
+		}
+		
 		System.out.println(message);
 		this.usernames.put(session, message);
 		

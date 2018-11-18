@@ -25,7 +25,7 @@
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h1 class="display-4">
-      	<a class="btn btn-success" href="#" style ="width: 50%;" onclick="startGame();">Start Game</a>
+      	<a class="btn btn-success" style ="width: 50%;" onclick="startGame();">Start Game</a>
       </h1>
     </div>
 

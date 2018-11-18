@@ -2,12 +2,19 @@
  * 
  */
 
+var socket;
+
 function connectToServer()	{
 	socket = new WebSocket("ws://localhost:8080/Risk-SC/ss");
 	socket.onopen = function(event)	{
 		socket.send(sessionStorage.getItem("username"));
 	}
 	socket.onmessage = function(event)	{
+		
+		if (event.data == "Ready to Start Game")	{
+			window.location.href = "/Risk-SC/Game.jsp";
+		}
+		
 		var usernames = event.data.split("&");
 		
 		for (var i = 1; i <= 4; i++)	{
@@ -22,7 +29,11 @@ function connectToServer()	{
 function startGame()	{
 	if (sessionStorage.getItem("username") == document.getElementById("wplayer1").innerHTML)	{
 		if (document.getElementById("wplayer2") != "Waiting for players")	{
-			window.location.href = "/Risk-SC/Game.jsp";
+			socket.send("Ready to Start Game");
+		} else	{
+			alert("You need at least 2 players to start the game");
 		}
+	} else	{
+		alert("Only the host can start the game");
 	}
 }
