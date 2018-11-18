@@ -15,7 +15,7 @@ function connectToServer()	{
 		}
 	}
 	socket.onclose = function(event)	{
-		document.getElementById("mychat").innerHTML += "Disconnected!<br />";
+//		document.getElementById("mychat").innerHTML += "Disconnected!<br />";
 	}
 }
 

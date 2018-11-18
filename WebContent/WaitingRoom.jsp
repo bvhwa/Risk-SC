@@ -15,10 +15,13 @@
 	
     <!-- Custom styles for this template -->
     <link href="WaitingRoom.css" rel="stylesheet">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="javascript/WaitingRoom.js"></script>
 
   </head>
 
-  <body style= "background-repeat: no-repeat; background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33)); height: -webkit-fill-available;">
+  <body style= "background-repeat: no-repeat; background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33)); height: -webkit-fill-available;" onload="connectToServer();">
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h1 class="display-4">
