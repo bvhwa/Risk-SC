@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" type="text/css" href="LogInHelp.css" />
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="javascript/login.js"></script>
 
 
@@ -20,6 +20,7 @@
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" onClick="return signUp();">Sign up</button>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" onClick="return Guest();">Continue as Guest</button>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" onClick="return login();">Log in</button>
+
             </form><!-- /form -->
         </div><!-- /card-container -->
     </div><!-- /container -->
