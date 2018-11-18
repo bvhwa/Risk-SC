@@ -19,30 +19,6 @@ function signUp()
     if (status == "Signed Up Successfully!")	{
     	sessionStorage.setItem("username", username);
     }
-//    if(status == 0)
-//    {
-//        sessionStorage.setItem("username", username);
-////        window.location.href = "/Risk-SC/LogIn.jsp";
-//    }
-//    else if(status == 1)
-//    {
-//        alert("Error! Password must contain at least 8 characters!");
-//    }
-//    else if(status == 2)
-//    {
-//        alert("Error! Your password must contain at least one letter.");
-//    }
-//    else if(status == 3)
-//    {
-//        alert("Error! Your password must contain at least one number.");
-//    }
-//    else if(status == 4)
-//    {
-//        alert("Error! The username you entered already exists.");
-//    }	
-//    else if (status == 5)	{
-//    	alert("Error! The passwords you have entered do not match.")
-//    }
     	
     return false;
 }

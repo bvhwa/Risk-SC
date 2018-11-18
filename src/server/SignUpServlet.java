@@ -18,6 +18,7 @@ import classes.Authentication;
 @WebServlet("/SignUpServlet")
 public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final String defaultImage = "https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwiD1OuxvtLdAhWNB3wKHd7NBDYQjRx6BAgBEAU&url=https%3A%2F%2Fcidco-smartcity.niua.org%2Fno-image-found%2F&psig=AOvVaw32m7njsNn-ln0B9xy6xvru&ust=1537838875192818";
        
     public SignUpServlet() {
         super();
@@ -45,8 +46,6 @@ public class SignUpServlet extends HttpServlet {
     	 */
     	
     	String message = "";
-    	
-    	System.out.println(first + " " + last + " " + username + " " + password + " " + confirm + " " + image);
     	
     	synchronized(this) {
     		try {
@@ -80,7 +79,7 @@ public class SignUpServlet extends HttpServlet {
         		
         		if (message.length() == 0)	{
         			message += "Signed Up Successfully!";
-        			this.createUser(first, last, username, password, image, conn);
+        			this.createUser(first, last, username, (password.isEmpty()) ? defaultImage : password, image, conn);
         		}
         		
         		conn.close();
