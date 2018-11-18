@@ -71,7 +71,7 @@ public class SignUpServlet extends HttpServlet {
         			message += "Your password doesn't match your confirm password\n";
         		}
         		
-        		if (!userExists(username, conn))	{
+        		if (userExists(username, conn))	{
         			message += "This username already exists\n";
         		}
         		
