@@ -18,6 +18,7 @@ function signUp()
     
     if (status == "Signed Up Successfully!")	{
     	sessionStorage.setItem("username", username);
+    	window.location.href = "/Risk-SC/LogIn.jsp";
     }
     	
     return false;
