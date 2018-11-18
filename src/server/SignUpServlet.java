@@ -25,10 +25,11 @@ public class SignUpServlet extends HttpServlet {
 
     // Service block to sign up the user based off the form constructed in the LogIn/SignUp JSP
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String fname = request.getParameter("fname");
-    	String lname = request.getParameter("lname");
+    	String first = request.getParameter("first");
+    	String last = request.getParameter("last");
     	String username = request.getParameter("username");
     	String password = request.getParameter("password");
+    	String confirm = request.getParameter("confirmPassword");
     	String image = request.getParameter("image");
     	
     	/*
@@ -40,41 +41,58 @@ public class SignUpServlet extends HttpServlet {
     	 * 	Message = 2: Password does not have any characters
     	 * 	Message = 3: Password does not have any numbers
     	 * 	Message = 4: User already exists with username
+    	 * 	Message = 5: Invalid Confirmation of password
     	 */
     	
-    	int message = 0;
+    	String message = "";
+    	
+    	System.out.println(first + " " + last + " " + username + " " + password + " " + confirm + " " + image);
     	
     	synchronized(this) {
     		try {
         		Class.forName("com.mysql.jdbc.Driver");
-        		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
+        		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/final?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
         		
-        		if(!this.userExists(username, conn)) {
-        			if(this.goodPass(password) == 0) {
-        				this.createUser(fname, lname, username, password, image, conn);
-        			}
-        			else if(this.goodPass(password) == 1) {
-        				message = 1;
-        			}
-        			else if(this.goodPass(password) == 2) {
-        				message = 2;
-        			}
-        			else {
-        				message = 3;
-        			}
+        		if (first.isEmpty())
+        			message += "Your first name cannot be empty\n";
+        		
+        		if (last.isEmpty())
+        			message += "Your last name cannot be empty\n";
+        		
+        		if (username.isEmpty())
+        			message += "Your username cannot be empty\n";
+        		
+        		if (!has8Characters(password))	{
+        			message += "Your password must have at least 8 characters\n";
         		}
-        		else {
-        			message = 4;
+        		
+        		if (!containsAlpha(password))	{
+        			message += "Your password must have at least one alphabetical character\n";
+        		}
+        		
+        		if (!containsDigit(password))	{
+        			message += "Your password must have at least one digit\n";
+        		}
+        		
+        		if (!password.equals(confirm))	{
+        			message += "Your password doesn't match your confirm password\n";
+        		}
+        		
+        		if (message.length() == 0)	{
+        			message += "Signed Up Successfully!";
+        			this.createUser(first, last, username, password, image, conn);
         		}
         		
         		conn.close();
         	}
         	catch (SQLException sqle) {
-        		System.out.println(sqle.getMessage());
+        		System.out.println("SQL Exception: " + sqle.getMessage());
         	} 
         	catch (ClassNotFoundException cnfe) {
-    			System.out.println(cnfe.getMessage());
+    			System.out.println("Class Not Found Exception: " + cnfe.getMessage());
     		}
+    		
+    		System.out.println(message);
         	
         	// Sends message back to jQuery call
         	response.setContentType("text/html;charset=UTF-8");
@@ -119,50 +137,15 @@ public class SignUpServlet extends HttpServlet {
     	}
     }
     
-    /* Checks if the password meets criteria:	
-   		1. Password length must be greater than or equal to 8 characters
-   		2. Password must contain characters
-   		3. Password must contain numbers
-   	*/
-    private int goodPass(String password) {
-		if(password.length() < 8) {
-			return 1;
-		}
-		if(!containsChars(password)) {
-			return 2;
-		}
-		if(!containsNums(password)) {
-			return 3;
-		}
-    	
-    	return 0;
+    private boolean containsAlpha(String s)	{
+    	return !s.matches("[^a-zA-Z]+");
     }
     
-    // Hopefully can implement with Regex
-    
-    // Checks if password contains characters
-    private boolean containsChars(String password) {
-		char[] passwordChars = password.toCharArray();
-    	
-		for(int i = 0; i < passwordChars.length; i++) {
-			if((passwordChars[i] >= 'a' && passwordChars[i] <= 'z') || (passwordChars[i] >= 'A' && passwordChars[i] <= 'Z')) {
-				return true;
-			}
-		}
-    	
-    	return false;
+    private boolean containsDigit(String s)	{
+    	return !s.matches("[^0-9]+");
     }
     
-    // Checks if password contains numbers
-    private boolean containsNums(String password) {
-    	char[] passwordChars = password.toCharArray();
-    	
-		for(int i = 0; i < passwordChars.length; i++) {
-			if(passwordChars[i] >= '0' && passwordChars[i] <= '9') {
-				return true;
-			}
-		}
-    	
-    	return false;
+    private boolean has8Characters(String s)	{
+    	return (s.length() >= 8);
     }
 }
