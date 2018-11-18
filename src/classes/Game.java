@@ -12,11 +12,9 @@ public class Game {
 	private int winAmount;
 	
 	/**
-	 * 
 	 * @param players a vector players who will play the game
 	 */
 	public Game(Vector<Player> players)	{
-		
 		init(players);
 	}
 	

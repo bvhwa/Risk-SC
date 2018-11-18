@@ -7,6 +7,6 @@
 <title>Game</title>
 </head>
 <body>
-
+	<p>Player Names passed through</p>
 </body>
 </html>
