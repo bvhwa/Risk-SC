@@ -18,3 +18,11 @@ function connectToServer()	{
 		
 	}
 }
+
+function startGame()	{
+	if (sessionStorage.getItem("username") == document.getElementById("wplayer1").innerHTML)	{
+		if (document.getElementById("wplayer2") != "Waiting for players")	{
+			window.location.href = "/Risk-SC/Game.jsp";
+		}
+	}
+}
