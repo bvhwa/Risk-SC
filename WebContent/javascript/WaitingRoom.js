@@ -28,7 +28,7 @@ function connectToServer()	{
 
 function startGame()	{
 	if (sessionStorage.getItem("username") == document.getElementById("wplayer1").innerHTML)	{
-		if (document.getElementById("wplayer2") != "Waiting for players")	{
+		if (document.getElementById("wplayer2").innerHTML != "Waiting for players")	{
 			socket.send("Ready to Start Game");
 		} else	{
 			alert("You need at least 2 players to start the game");
