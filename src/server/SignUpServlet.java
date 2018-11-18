@@ -25,12 +25,11 @@ public class SignUpServlet extends HttpServlet {
 
     // Service block to sign up the user based off the form constructed in the LogIn/SignUp JSP
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String name = request.getParameter("name");
+    	String fname = request.getParameter("fname");
+    	String lname = request.getParameter("lname");
     	String username = request.getParameter("username");
     	String password = request.getParameter("password");
     	String image = request.getParameter("image");
-    	String fname = this.getFirstName(name);
-    	String lname = this.getLastName(name);
     	
     	/*
     	 * Message used to communicate with client about log-in
@@ -81,30 +80,6 @@ public class SignUpServlet extends HttpServlet {
         	response.setContentType("text/html;charset=UTF-8");
         	response.getWriter().write(message);
     	}
-    }
-    
-    // Returns the first name from full name
-    private String getFirstName(String name) {
-    	String first = null;
-    	
-    	String[] names = name.split(" ");
-    	if(names != null) {
-    		first = names[0];
-    	}
-    	
-    	return first;
-    }
-    
-    // Returns the last name from full name
-    private String getLastName(String name) {
-    	String last = null;
-    	
-    	String[] names = name.split(" ");
-    	if(names != null) {
-    		last = names[0];
-    	}
-    	
-    	return last;
     }
     
     // Checks whether or not a user exists already
