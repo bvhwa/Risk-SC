@@ -68,7 +68,7 @@ public class SignUpServlet extends HttpServlet {
         		}
         		
         		if (!password.equals(confirm))	{
-        			message += "Your password doesn't match your confirm password\n";
+        			message += "Your re-entered password is incorrect\n";
         		}
         		
         		if (userExists(username, conn))	{
@@ -76,7 +76,7 @@ public class SignUpServlet extends HttpServlet {
         		}
         		
         		if (message.length() == 0)	{
-        			message += "Signed Up Successfully!";
+        			message += "Signed Up!";
         			this.createUser(first, last, username, (password.isEmpty()) ? defaultImage : password, image, conn);
         		}
         		
