@@ -61,7 +61,7 @@ function Guest()
 {
 	var xhttp = new XMLHttpRequest();
 	var username = "guest";
-	var password = "";
+	var password = "ThisIsALongPassword";
     xhttp.open("GET", "/Risk-SC/SignUpServlet?f&username="+username+"&password="+password, true);
     xhttp.send();
     window.location.href = "/Risk-SC/WaitingRoom.jsp";
