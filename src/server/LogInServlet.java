@@ -58,11 +58,12 @@ public class LogInServlet extends HttpServlet {
         				String storedHash = rs.getString("password");
         				
         				System.out.println(hash + " " + storedHash);
-        				
+        				        				
         				if(!hash.equals(storedHash)) {
         					message = "That is the incorrect password";
-        				}
-        				else {
+        				} else if (rs.getBoolean("playing"))	{
+        					message = "You are already logged in";
+        				} else {
         					ps = conn.prepareStatement("UPDATE users SET playing = ? WHERE username = '" + username + "'");
         					ps.setBoolean(1, true);
         					ps.execute();

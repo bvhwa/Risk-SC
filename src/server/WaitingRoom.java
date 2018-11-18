@@ -1,6 +1,10 @@
 package server;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -62,6 +66,21 @@ public class WaitingRoom {
 	@OnClose
 	public void close(Session session)	{
 		System.out.println("Disconnected " + this.usernames.get(session) + "!");
+
+		try	{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
+			PreparedStatement ps = conn.prepareStatement("UPDATE users SET playing = ? WHERE username = '" + this.usernames.get(session) + "'");
+			ps.setBoolean(1, false);
+			ps.execute();
+		}
+    	catch (SQLException sqle) {
+    		System.out.println(sqle.getMessage());
+    	} 
+    	catch (ClassNotFoundException cnfe) {
+    		System.out.println(cnfe.getMessage());
+		}
+		
 		this.players.remove(session);
 		
 		String users = "";
