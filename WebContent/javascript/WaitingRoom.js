@@ -8,10 +8,13 @@ function connectToServer()	{
 		socket.send(sessionStorage.getItem("username"));
 	}
 	socket.onmessage = function(event)	{
-		var usernames = event.data.split("%");
+		var usernames = event.data.split("&");
+		
+		alert(event.data);
+		alert(usernames);
 		
 		for (var i = 1; i <= 4; i++)	{
-			document.getElementById("wplayer" + i).innerHTML = (i <= usernames.length) ?  usernames[i] : "Waiting for players";
+			document.getElementById("wplayer" + i).innerHTML = (i <= usernames.length) ?  usernames[i - 1] : "Waiting for players";
 		}
 	}
 	socket.onclose = function(event)	{
