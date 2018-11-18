@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="LogInHelp.css" />
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="javascript/signup.js"></script>
 
 
     <div class="container">
@@ -12,7 +13,7 @@
         	<div class ="title">Risk SC</div>
             <img id="profile-img" class="profile-img-card" src="trojan.png" style = "width: 200px; height: 200px;"/>
             <p id="profile-name" class="profile-name-card"></p>
-            <form class="form-signin1">
+            <form class="form-signin1" onsubmit="return signUp();">
             	<input type="firstname" id="fname" class="form-control" placeholder="First Name" style = "margin-bottom:10px;">
                 <input type="lastname" id="lname" class="form-control" placeholder="Last Name" style = "margin-bottom:10px;">
 				<input type="pimage" id="image" class="form-control" placeholder="Profile Image URL" style = "margin-bottom:10px;">
