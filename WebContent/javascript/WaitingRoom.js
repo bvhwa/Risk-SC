@@ -21,9 +21,7 @@ function connectToServer()	{
 			document.getElementById("wplayer" + i).innerHTML = (i <= usernames.length) ?  usernames[i - 1] : "Waiting for players";
 		}
 	}
-	socket.onclose = function(event)	{
-		
-	}
+	socket.onclose = function(event) {}
 }
 
 function startGame()	{
