@@ -28,6 +28,8 @@ public class LogInServlet extends HttpServlet {
     	String username = request.getParameter("username");
     	String password = request.getParameter("password");
     	
+    	System.out.println(username + " " + password);
+    	
     	/*
     	 * Message used to communicate with client about log-in
     	 * 
@@ -37,7 +39,7 @@ public class LogInServlet extends HttpServlet {
     	 * 	Message = 2: User does not exist
     	 */
     	
-    	int message = 0;
+    	String message = "";
     	
     	synchronized(this) {
     		try {
@@ -45,24 +47,30 @@ public class LogInServlet extends HttpServlet {
         		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
         		
         		if(this.userExists(username, conn)) {
-        			PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = '" + username + "'");
+        			PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = ?");
+        			ps.setString(1, username);
         			ResultSet rs = ps.executeQuery();
         			
         			if(rs.next()) {
-        				String hash = Authentication.hashString(password);
+        				System.out.println(rs.getString("password"));
         				
-        				if(!hash.equals(rs.getString("password"))) {
-        					message = 1;
+        				String hash = Authentication.hashString(password);
+        				String storedHash = rs.getString("password");
+        				
+        				System.out.println(hash + " " + storedHash);
+        				
+        				if(!hash.equals(storedHash)) {
+        					message = "That is the incorrect password";
         				}
         				else {
-        					ps = conn.prepareStatement("UPDATE final SET playing = ? WHERE username = '" + username + "'");
-        					ps.setBoolean(6, true);
+        					ps = conn.prepareStatement("UPDATE users SET playing = ? WHERE username = '" + username + "'");
+        					ps.setBoolean(1, true);
         					ps.execute();
+        					message = "User Signed In";
         				}
         			}
-        		}
-        		else {
-        			message = 2;
+        		} else	{
+        			message = "This user does not exist\n";
         		}
         		
         		conn.close();
