@@ -26,7 +26,7 @@ public class WaitingRoom {
 	@OnMessage
 	public void message(String message, Session session)	{
 		
-		if (message == "Ready to Start Game")	{
+		if (message.equals("Ready to Start Game"))	{
 			for (Session player: this.players)	{
 				try	{
 					player.getBasicRemote().sendText(message);
@@ -34,28 +34,28 @@ public class WaitingRoom {
 					System.out.println("ioe: " + ioe.getMessage());
 				}
 			}
-		}
+		} else	{
 		
-		System.out.println(message);
-		this.usernames.put(session, message);
-		
-		System.out.println(message);
-		
-		String users = "";
-		for (int i = 0; i < this.players.size(); i++)	{
-			users += this.usernames.get(this.players.get(i)) + ((i < this.players.size() - 1) ? "&" : "");
-		}
-		
-		System.out.println(users);
-		
-		for (Session player: this.players)	{
+			this.usernames.put(session, message);
 			
-			try {
-				player.getBasicRemote().sendText(users);
-			} catch (IOException ioe) {
-				System.out.println("ioe: " + ioe.getMessage());
+			System.out.println(message);
+			
+			String users = "";
+			for (int i = 0; i < this.players.size(); i++)	{
+				users += this.usernames.get(this.players.get(i)) + ((i < this.players.size() - 1) ? "&" : "");
 			}
-
+			
+			System.out.println(users);
+			
+			for (Session player: this.players)	{
+				
+				try {
+					player.getBasicRemote().sendText(users);
+				} catch (IOException ioe) {
+					System.out.println("ioe: " + ioe.getMessage());
+				}
+	
+			}
 		}
 	}
 	
