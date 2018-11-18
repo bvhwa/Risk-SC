@@ -27,11 +27,10 @@ function signUp()	{
 
 function Guest()
 {
-	var xhttp = new XMLHttpRequest();
 	var username = "guest";
-	var password = "ThisIsALongPassword";
-    xhttp.open("GET", "/Risk-SC/SignUpServlet?f&username="+username+"&password="+password, true);
-    xhttp.send();
+	
+	sessionStorage.setItem("username", username);
+    
     window.location.href = "/Risk-SC/WaitingRoom.jsp";
     return false;
 }
