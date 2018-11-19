@@ -22,3 +22,18 @@ function connectToServer() {
 		
 	}
 }
+
+function placeTroops() {
+	
+}
+
+function attackTerritory() {
+	
+}
+
+function moveTroops()
+{
+	
+}
+
+
