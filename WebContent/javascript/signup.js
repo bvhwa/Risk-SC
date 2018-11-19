@@ -16,7 +16,7 @@ function signUp()
     var status = xhttp.response;
     alert(status);
     
-    if (status == "Signed Up Successfully!")	{
+    if (status == "Signed Up!")	{
     	sessionStorage.setItem("username", username);
     	window.location.href = "/Risk-SC/LogIn.jsp";
     }
