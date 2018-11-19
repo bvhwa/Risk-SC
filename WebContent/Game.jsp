@@ -148,6 +148,9 @@
 						<button id = "move_finish_button">Done</button>
 					</form>	
 				</div>
+				<div id = "waiting_stage" style="position: absolute; display:None; ">
+					Waiting for other players to finish!
+				</div>
 				</div>
 			</div>
 			<div id="SE">
