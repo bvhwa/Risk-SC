@@ -18,11 +18,13 @@ import javax.websocket.server.ServerEndpoint;
 
 import classes.Game;
 import classes.Player;
+import client.GameRoom;
 
 @ServerEndpoint("/gs")
 public class GameSocket {
+	private static String hostName = "";
 	private static Vector<Player> p = new Vector<Player>();
-	private static Game game = new Game(p);
+	private static GameRoom gameRoom = new GameRoom(hostName);
 	private static Vector<Session> players = new Vector<Session>();
 	private static HashMap<Session, String> usernames = new HashMap <Session, String>();
 	
@@ -58,6 +60,7 @@ public class GameSocket {
         				last = rs.getString(4);
         				Player player = new Player(0, first, last, message, true);
         				p.add(player);
+        				gameRoom.setPlayers(p);
         			}
         			else {
         				System.out.println("User does not exist.");
