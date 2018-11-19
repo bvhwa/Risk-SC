@@ -23,4 +23,5 @@
 hs_err_pid*
 
 # Exceptions
+.classpath
 !mysql-connector-java-5.1.46.jar
