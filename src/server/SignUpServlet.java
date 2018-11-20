@@ -1,6 +1,7 @@
 package server;
 
 import java.io.IOException;
+import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -32,6 +33,7 @@ public class SignUpServlet extends HttpServlet {
     	String password = request.getParameter("password");
     	String confirm = request.getParameter("confirmPassword");
     	String image = request.getParameter("image");
+    	HttpSession http = request.getSession();
     	
     	/*
     	 * Message used to communicate with client about log-in
@@ -78,6 +80,7 @@ public class SignUpServlet extends HttpServlet {
         		if (message.length() == 0)	{
         			message += "Signed Up!";
         			this.createUser(first, last, username, (password.isEmpty()) ? defaultImage : password, image, conn);
+        			http.setAttribute("username", username);
         		}
         		
         		conn.close();

@@ -20,12 +20,14 @@ public class WaitingRoom {
 	
 	private static Vector<Session> players = new Vector<Session>();
 	private static HashMap<Session, String> usernames = new HashMap <Session, String>();
+	public static int numConnections = 0;
 	
 	@OnOpen
 	// Add the player's session to the vector of sessions
 	public void open(Session session)	{
 		System.out.println("Connection!");
 		players.addElement(session);
+		numConnections++;
 	}
 	
 	@OnMessage
@@ -68,6 +70,7 @@ public class WaitingRoom {
 	@OnClose
 	public void close(Session session)	{
 		System.out.println("Disconnected " + usernames.get(session) + "!");
+		numConnections--;
 
 		try	{
 			Class.forName("com.mysql.jdbc.Driver");

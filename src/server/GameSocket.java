@@ -1,6 +1,5 @@
 package server;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,33 +7,54 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Vector;
-
+import javax.websocket.*;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-
+import javax.servlet.http.HttpSession;
 import classes.Game;
 import classes.Player;
 import client.GameRoom;
 
-@ServerEndpoint("/gs")
+
+@ServerEndpoint(value = "/gs", configurator = Configurator.class)
 public class GameSocket {
 	private static String hostName = "";
 	private static Vector<Player> p = new Vector<Player>();
 	private static GameRoom gameRoom = new GameRoom(hostName);
 	private static Vector<Session> players = new Vector<Session>();
 	private static HashMap<Session, String> usernames = new HashMap <Session, String>();
+	private String username;
+	private Connection conn;
 	
+	
+	/*Same as adding to vector as in waiting room
+	 * when reached number of connections in waiting room, broadcast initial stats and the map
+	 * insert username into hash map*/
 	@OnOpen
 	// Add the player's session to the vector of sessions
-	public void open(Session session)	{
-		players.add(session);
+	public void open(Session session, EndpointConfig config)
+	{
 		System.out.println("Connection!");
+		players.add(session);
+        HttpSession httpSession = (HttpSession) config.getUserProperties().get("httpSession");
+    
+        username = (String) httpSession.getAttribute("username");
+        
+		
+		usernames.put(session, username);
+		
+		if(players.size() == WaitingRoom.numConnections)
+		{
+			
+		}
 	}
 	
+	/*implement game functions
+	 * */
 	@OnMessage
 	// Retrieve the message from the client
 	public void message(String message, Session session)	{
@@ -79,7 +99,9 @@ public class GameSocket {
 
 	@OnClose
 	public void close(Session session)	{
-		
+		players.remove(session);
+		usernames.remove(session, username);
+		System.out.println("Disconnection!");		
 	}
 	
 	@OnError
