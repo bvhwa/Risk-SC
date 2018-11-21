@@ -1,4 +1,4 @@
-package classes;
+package gamelogic;
 
 public class Territory {
 	

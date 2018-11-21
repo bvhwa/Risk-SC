@@ -17,7 +17,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import classes.Player;
+import gamelogic.Player;
 
 
 @ServerEndpoint(value = "/gs", configurator = Configurator.class)

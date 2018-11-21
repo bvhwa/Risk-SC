@@ -11,6 +11,8 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import classes.JDBCDriver;
+
 @ServerEndpoint(value="/wr")
 public class WaitingRoom {
 	

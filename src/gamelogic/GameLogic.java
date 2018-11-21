@@ -1,11 +1,11 @@
-package classes;
+package gamelogic;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
-public class Game {
+public class GameLogic {
 	
 	private Territory[] territoryMap;
 	private Player[] players;
@@ -14,7 +14,7 @@ public class Game {
 	/**
 	 * @param players a vector players who will play the game
 	 */
-	public Game(Vector<Player> players)	{
+	public GameLogic(Vector<Player> players)	{
 		init(players);
 	}
 	

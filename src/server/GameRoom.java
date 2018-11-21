@@ -1,16 +1,17 @@
 package server;
 
 import java.util.Vector;
-import classes.Player;
-import classes.Game;
-import classes.Territory;
 import java.io.IOException;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 
+import gamelogic.GameLogic;
+import gamelogic.Player;
+import gamelogic.Territory;
+
 public class GameRoom 
 	{
-		private Game g;	
+		private GameLogic g;	
 		private String host = null;
 		private int numUsers = 0;
 		private Vector<Player> players = new Vector<Player>();
