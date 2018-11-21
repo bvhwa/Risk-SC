@@ -12,6 +12,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import classes.JDBCDriver;
+import gamelogic.Adjacencies;
 import gamelogic.GameLogic;
 import gamelogic.Player;
 import gamelogic.Territory;
@@ -40,10 +41,17 @@ public class Game {
 	// Retrieve the message from the client
 	public void message(String message, Session session)	{
 		
+		System.out.println(message);
+		
 		if (message.startsWith("player_info: "))	{	
 			intializePage(message, session);		
-		} else if (message.startsWith(""))	{
+		} else if (message.startsWith("Placing_Troops"))	{
+			String[] placeTroops = message.split(" ");
+			int numTroops = Integer.parseInt(placeTroops[1]);
+			String territory = placeTroops[2];
 			
+			Game.gl.place(Adjacencies.getTerritoryID(territory), numTroops);
+			this.sendStatistics(Game.gl.getPlayers());
 		}
 	}
 	

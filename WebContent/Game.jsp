@@ -97,19 +97,17 @@
 			<div id="SW">
 				<div class="card" style="width: auto; height: -webkit-fill-available;">
 				<div id = "place_troop" style="position: absolute; display:none;">
-					<form action='' method='post'>
-						<div id = "placeQuestion">Where do you want to place troops?</div>
-						<div class = "p1" style = "display: -webkit-box;">
-							<select class = "form-control" id="place_troop_location">
-    							<option value="locationA">Location A</option>
-    							<option value="locationB">Location B</option>
-							</select>
-							<input type="text" class="form-control" id="place_troop_numbers" placeholder = "Troop Size"/>
-						</div>
-						<div id = "TroopsRemain">Troops Left: Some numbers</div>
-						<button id = "place_troop_button">Place Troops</button>
-						<button id = "place_finish_button">Done</button>
-					</form>	
+					<div id = "placeQuestion">Where do you want to place troops?</div>
+					<div class = "p1" style = "display: -webkit-box;">
+						<select class = "form-control" id="place_troop_location">
+   							<option value="locationA">Location A</option>
+   							<option value="locationB">Location B</option>
+						</select>
+						<input type="number" class="form-control" id="place_troop_numbers" value = "1" min = "1"/>
+					</div>
+					<div id = "TroopsRemain">Troops Left: Some numbers</div>
+					<button id = "place_troop_button" onclick="placeTroops();">Place Troops</button>
+					<button id = "place_finish_button">Done</button>
 				</div>
 				<div id = "attack" style="position: absolute; display:none; ">
 					<form action='' method='post'>
