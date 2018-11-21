@@ -22,7 +22,8 @@ public class Game {
 	private static Vector<Player> players = new Vector<Player>();
 	private static HashMap<Session, Player> sessionPlayerMap = new HashMap <Session, Player>();
 	private static GameLogic gl;
-	public static int numOfConnections = 0;
+	private static int numOfConnections = 0;
+	private static int turnPlayer = -1;
 
 	
 	@OnOpen
@@ -38,11 +39,11 @@ public class Game {
 	// Retrieve the message from the client
 	public void message(String message, Session session)	{
 		
-		if (message.startsWith("player_info: "))	{
+		if (message.startsWith("player_info: "))	{	
+			intializePage(message, session);		
+		} else if (message.startsWith(""))	{
 			
-			initStatistics(message, session);
-			
-		} 
+		}
 	}
 	
 	@OnClose
@@ -58,7 +59,7 @@ public class Game {
 		// Handle errors here
 	}
 	
-	public void initStatistics(String message, Session session)	{
+	public void intializePage(String message, Session session)	{
 		String[] playerInfo = message.split(" ");
 		
 		String username = playerInfo[1];
@@ -78,11 +79,11 @@ public class Game {
 		Game.players.addElement(p);
 		
 		if (maxPlayers == Game.numOfConnections)	{
-			System.out.println("Updating Stats");
 			Game.gl = new GameLogic(Game.players);
 			this.sendStatistics(Game.gl.getPlayers());
+			Game.turnPlayer = 0;
+			this.sendMessageToSession("Place Troops", Game.playerSessions.get(turnPlayer));
 		} else	{
-			System.out.println("Updating Users");
 			this.sendStatistics(Game.players.toArray(new Player[Game.players.size()]));
 		}
 	}
@@ -95,11 +96,15 @@ public class Game {
 		}
 		
 		for (Session s : Game.playerSessions)	{
-			try {
-				s.getBasicRemote().sendText(message);
-			} catch (IOException ioe) {
-				System.out.println("IOException in sendStatistics: " + ioe.getMessage());
-			}
+			this.sendMessageToSession(message, s);
+		}
+	}
+	
+	public void sendMessageToSession(String message, Session session)	{
+		try {
+			session.getBasicRemote().sendText(message);
+		} catch (IOException ioe) {
+			System.out.println("IOException in sendStatistics: " + ioe.getMessage());
 		}
 	}
 }

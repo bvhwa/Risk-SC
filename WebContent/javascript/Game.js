@@ -26,20 +26,24 @@ function connectToServer() {
 		
 		if (event.data.startsWith(statisticsString))	{
 			updateStats(event.data.substring(statisticsString.length));
+		} else if(event.data.startsWith("Place Troops"))	{
+			document.getElementById("waiting_stage").style.display = "none";
+			document.getElementById("place_troop").style.display = "block";
+			placeTroops();
 		}
-		
-		if(event.data = "Place Troops")
-			{
-				placeTroops();
-			}
-		else if(event.data = "Attack")
-			{
-				attackTerritory();
-			}
-		else if(event.data = "Move Troops")
-			{
-				moveTroops();
-			}
+		else if(event.data == "Attack")	{
+			document.getElementById("place_troop").style.display = "none";
+			document.getElementById("attack").style.display = "block";
+			attackTerritory();
+		}
+		else if(event.data == "Move Troops")	{
+			document.getElementById("attack").style.display = "none";
+			document.getElementById("move_troop").style.display = "block";
+			moveTroops();
+		} else if (event.data == "Waiting")	{
+			document.getElementById("move_troop").style.display = "none";
+			document.getElementById("waiting_stage").style.display = "block";
+		}
 	}
 	
 	socket.onclose = function(event){
