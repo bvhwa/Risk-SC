@@ -96,7 +96,7 @@
 			</div>
 			<div id="SW">
 				<div class="card" style="width: auto; height: -webkit-fill-available;">
-				<div id = "place_troop" style="position: absolute; display:block;">
+				<div id = "place_troop" style="position: absolute; display:none;">
 					<form action='' method='post'>
 						<div id = "placeQuestion">Where do you want to place troops?</div>
 						<div class = "p1" style = "display: -webkit-box;">
@@ -152,7 +152,7 @@
 						<button id = "move_finish_button">Done</button>
 					</form>	
 				</div>
-				<div id = "waiting_stage" style="position: absolute; display:None; ">
+				<div id = "waiting_stage" style="position: absolute; display:block; ">
 					Waiting for other players to finish!
 				</div>
 				</div>
