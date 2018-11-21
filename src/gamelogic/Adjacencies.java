@@ -181,10 +181,23 @@ public abstract class Adjacencies {
 	
 	/**
 	 * @param index the territory id
-	 * @return the string associated with that territory id
+	 * @return the string name associated with that territory id
 	 */
-	public static String getTerritory(int index)	{
+	public static String getTerritoryName(int index)	{
 		return territories[index];
+	}
+	
+	/**
+	 * Returns the territory id of a given territory name
+	 * @param name the name of the territory to search for
+	 * @return the id associated with the territory of the given name, -1 if name not found
+	 */
+	public static int getTerritoryID(String name)	{
+		for (int i = 0; i < territories.length; i++)	{
+			if (territories[i].equals(name))
+				return i;
+		}
+		return -1;
 	}
 	
 	/**
