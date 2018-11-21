@@ -7,7 +7,6 @@ function connectToServer() {
 	socket = new WebSocket("ws://localhost:8080/Risk-SC/g");
 	
 	// onmessage starting identifiers
-	var userString = "users:";
 	var statisticsString = "statistics:\n";
 	
 	
@@ -25,11 +24,7 @@ function connectToServer() {
 	
 	socket.onmessage = function(event){
 		
-		if (event.data.startsWith(userString))	{
-			updateUsernames(event.data.substring(userString.length).split("&"));
-			
-			
-		} else if (event.data.startsWith(statisticsString))	{
+		if (event.data.startsWith(statisticsString))	{
 			updateStats(event.data.substring(statisticsString.length));
 		}
 		
