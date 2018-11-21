@@ -364,5 +364,51 @@ public class GameLogic {
 		return adjacentOwnedTerritories;
 		
 	}
+
+	/**
+	 * Returns the Player object at the given index
+	 * @param player the position of the player in the array to get
+	 * @return the Player object of the player at the player'th position in players
+	 */
+	public Player getPlayer(int player) {
+		return (player >= this.players.length) ? null : this.players[player];
+		
+	}
+	
+	
+	/**
+	 * Calculates the amount of players a given player can place on the start of their turn
+	 * @param player the position of the player in the array to find the troops to allocate
+	 * @return the amount of troops the player can allocate
+	 */
+	public int getPlaceNumOfTroops(int player)	{
+		
+		// At worst, always have three troops
+		int troops = 3;
+		
+		// Add the bonus troops from the territories owned
+		int bonusFromTerritories = (int) Math.floor(this.players[player].getTerritories() / 3.0);
+		
+		// Add the bonus troops from the continents owned
+		int bonusFromContinents = 0;
+		
+		int[] continents = Adjacencies.getContinents();
+		for (int i = 0; i < continents.length; i++)	{
+			
+			int startIndex = (i == 0) ? 0 : continents[i - 1];
+			int endIndex = continents[i];
+			
+			boolean holdsContinent = true;
+			
+			for (int j = startIndex; j <= endIndex && holdsContinent; j++)
+				if (this.territoryMap[j].getOccupier() != player)
+					holdsContinent = false;
+			
+			if (holdsContinent)
+				bonusFromContinents += (endIndex - startIndex) + 1;
+		}
+		
+		return troops + bonusFromTerritories + bonusFromContinents;
+	}
 	
 }
