@@ -3,6 +3,7 @@
  */
 
 var socket;
+var users;
 
 function connectToServer()	{
 	socket = new WebSocket("ws://localhost:8080/Risk-SC/wr");
@@ -16,7 +17,8 @@ function connectToServer()	{
 		} else	{
 		
 			var usernames = event.data.split("&");
-			sessionStorage.setItem("userNum", usernames.length);
+			users = usernames.length;
+			sessionStorage.setItem("userNum", users);
 			
 			for (var i = 1; i <= 4; i++)	{
 				document.getElementById("wplayer" + i).innerHTML = (i <= usernames.length) ?  usernames[i - 1] : "Waiting for players";
@@ -29,6 +31,7 @@ function connectToServer()	{
 function startGame()	{
 	if (sessionStorage.getItem("username") == document.getElementById("wplayer1").innerHTML)	{
 		if (document.getElementById("wplayer2").innerHTML != "Waiting for players")	{
+			sessionStorage.setItem("userNum", users);
 			socket.send("Ready to Start Game");
 		} else	{
 			alert("You need at least 2 players to start the game");
