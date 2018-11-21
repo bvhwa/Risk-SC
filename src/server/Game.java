@@ -40,32 +40,7 @@ public class Game {
 		
 		if (message.startsWith("player_info: "))	{
 			
-			String[] playerInfo = message.split(" ");
-			
-			String username = playerInfo[1];
-			String image = playerInfo[2];
-			int maxPlayers = Integer.parseInt(playerInfo[3]);
-			
-			// Remove old instances of username
-			for (int i = 0; i < Game.players.size(); i++)	{
-				if (Game.players.get(i).getUserName().equals(username))	{
-					Game.players.remove(i);
-				}
-			}
-			
-			Player p = new Player(username, image);
-			
-			Game.sessionPlayerMap.put(session, p);
-			Game.players.addElement(p);
-			
-			if (maxPlayers == Game.numOfConnections)	{
-				System.out.println("Updating Stats");
-				Game.gl = new GameLogic(Game.players);
-				this.sendStatistics(Game.gl.getPlayers());
-			} else	{
-				System.out.println("Updating Users");
-				this.sendStatistics(Game.players.toArray(new Player[Game.players.size()]));
-			}
+			initStatistics(message, session);
 			
 		} 
 	}
@@ -81,6 +56,35 @@ public class Game {
 	@OnError
 	public void error(Throwable error) {
 		// Handle errors here
+	}
+	
+	public void initStatistics(String message, Session session)	{
+		String[] playerInfo = message.split(" ");
+		
+		String username = playerInfo[1];
+		String image = playerInfo[2];
+		int maxPlayers = Integer.parseInt(playerInfo[3]);
+		
+		// Remove old instances of username
+		for (int i = 0; i < Game.players.size(); i++)	{
+			if (Game.players.get(i).getUserName().equals(username))	{
+				Game.players.remove(i);
+			}
+		}
+		
+		Player p = new Player(username, image);
+		
+		Game.sessionPlayerMap.put(session, p);
+		Game.players.addElement(p);
+		
+		if (maxPlayers == Game.numOfConnections)	{
+			System.out.println("Updating Stats");
+			Game.gl = new GameLogic(Game.players);
+			this.sendStatistics(Game.gl.getPlayers());
+		} else	{
+			System.out.println("Updating Users");
+			this.sendStatistics(Game.players.toArray(new Player[Game.players.size()]));
+		}
 	}
 	
 	public void sendStatistics(Player[] players)	{
