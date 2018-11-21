@@ -16,7 +16,7 @@ function connectToServer()	{
 		}
 		
 		var usernames = event.data.split("&");
-		sessionStorage.setItem("userNum", usernames.size());
+		sessionStorage.setItem("userNum", usernames.length);
 		
 		for (var i = 1; i <= 4; i++)	{
 			document.getElementById("wplayer" + i).innerHTML = (i <= usernames.length) ?  usernames[i - 1] : "Waiting for players";

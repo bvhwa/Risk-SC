@@ -7,17 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Vector;
-import javax.websocket.*;
+
+import javax.servlet.http.HttpSession;
+import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-import javax.servlet.http.HttpSession;
-import classes.Game;
+
 import classes.Player;
-import client.GameRoom;
 
 
 @ServerEndpoint(value = "/gs", configurator = Configurator.class)

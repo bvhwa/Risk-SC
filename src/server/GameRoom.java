@@ -8,7 +8,6 @@ import java.io.IOException;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint(value = "/gs")
 public class GameRoom 
 	{
 		private Game g;	
