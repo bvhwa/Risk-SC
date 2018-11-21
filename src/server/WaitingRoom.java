@@ -25,16 +25,7 @@ public class WaitingRoom {
 	// Add the player's session to the vector of sessions
 	public void open(Session session)	{
 		
-		JDBCDriver database = new JDBCDriver();
-		
-		String username = WaitingRoom.usernames.get(session);
-		
-		if (username != null)
-			database.setSignedIn(username, true);
-		
-		database.close();
-		
-		System.out.println("Connection!");
+		System.out.println("Connection to Waiting Room!");
 		players.addElement(session);
 		numConnections++;
 	}
@@ -75,7 +66,7 @@ public class WaitingRoom {
 	
 	@OnClose
 	public void close(Session session)	{
-		System.out.println("Disconnected " + usernames.get(session) + "!");
+		System.out.println("Disconnected " + usernames.get(session) + " from Waiting Room!");
 		numConnections--;
 
 		

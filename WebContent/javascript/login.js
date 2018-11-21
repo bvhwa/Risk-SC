@@ -11,6 +11,7 @@ function login()
     if(status == "User Signed In")
     {
         sessionStorage.setItem("username", username);
+        sessionStorage.setItem("image", "test_image");
         window.location.href = "/Risk-SC/WaitingRoom.jsp";
     }    
 

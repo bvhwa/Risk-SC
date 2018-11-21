@@ -72,8 +72,12 @@
 		}    
 		
 		</style>
+		
+	    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		<script src="javascript/Game.js"></script>
 	</head>
-	<body>
+	<body onload="connectToServer();">
 		<div class = "Main" style="background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));">
 			<div id = "NW">
 				<button onclick="changeMap()" class="btn btn-info" id = "change_map" style = "top: 2%;left: 5%; position: fixed; z-index:10;"> Switch Map </button>
@@ -169,24 +173,24 @@
 				    </thead>
 				    <tbody>
 				      <tr>
-				        <td>Player 1</td>
-				        <td>0</td>
-				        <td>0</td>
+				        <td id = "player_1_username">Player 1</td>
+				        <td id = "player_1_territories">0</td>
+				        <td id = "player_1_troops">0</td>
 				      </tr>
 				      <tr>
-				        <td>Player 2</td>
-				        <td>0</td>
-				        <td>0</td>
+				        <td id = "player_2_username">Player 2</td>
+				        <td id = "player_2_territories">0</td>
+				        <td id = "player_2_troops">0</td>
 				      </tr>
 				      <tr>
-				        <td>Player 3</td>
-				        <td>0</td>
-				        <td>0</td>
+				        <td id = "player_3_username">Player 3</td>
+				        <td id = "player_3_territories">0</td>
+				        <td id = "player_3_troops">0</td>
 				      </tr>
 				      <tr>
-				        <td>Player 4</td>
-				        <td>0</td>
-				        <td>0</td>
+				        <td id = "player_4_username">Player 4</td>
+				        <td id = "player_4_territories">0</td>
+				        <td id = "player_4_troops">0</td>
 				      </tr>
 				    </tbody>
 				  </table>
