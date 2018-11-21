@@ -134,6 +134,14 @@ public class Player {
 		this.troops -= 1;
 	}
 	
+	@Override
+	/**
+	 * Creates and returns a copy of this Player object
+	 */
+	protected Player clone() {
+		return new Player(this.userName, this.image);
+	}
+
 	/**
 	 * @return a string representation of the user in a human-readable format
 	 */

@@ -35,7 +35,7 @@ public class GameLogic {
 	private void initPlayers(Vector <Player> players)	{
 		this.players = new Player[players.size()];
 		for (int i = 0; i < players.size(); i++)
-			this.players[i] = players.elementAt(i);
+			this.players[i] = players.elementAt(i).clone();
 	}
 	
 	/**
