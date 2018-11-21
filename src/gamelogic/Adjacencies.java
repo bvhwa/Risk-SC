@@ -162,6 +162,11 @@ public abstract class Adjacencies {
 			annenbergSchool
 	};
 	
+	/*
+	 * List of Continents
+	 */
+	private static int[] continents = {5, 11, 17, 22, 25, 32, 35};
+	
 	/**
 	 * Grabs the array of territories with the index being the associated
 	 * key to the value stored at that location. The aforementioned key will
@@ -190,5 +195,24 @@ public abstract class Adjacencies {
 	 */
 	public static int[][] getAdjacencyList()	{
 		return adjacencyList;
+	}
+	
+	/**
+	 * List of Continents:
+	 * 		A continent is the territories starting at the previous index plus one to the current index
+	 * 		i.e. 	Athletics		0-5
+	 * 				Dornsife STEM	6-11
+	 * 				Viterbi			12-17
+	 * 				Marshall		18-22
+	 * 				Cinematic Arts	23-25
+	 * 				Dornsife LAC	26-33
+	 * 				Annenberg		34-35
+	 * 
+	 * 		If a player owns a continent, they earn a bonus of the same amount of troops as territories of the continent
+	 * 
+	 * @return the list of continents by their last territory number
+	 */
+	public static int[]	getContinents()	{
+		return continents;
 	}
 }
