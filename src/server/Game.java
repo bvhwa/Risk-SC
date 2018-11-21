@@ -14,6 +14,7 @@ import javax.websocket.server.ServerEndpoint;
 import classes.JDBCDriver;
 import gamelogic.GameLogic;
 import gamelogic.Player;
+import gamelogic.Territory;
 
 @ServerEndpoint(value="/g")
 public class Game {
@@ -82,7 +83,13 @@ public class Game {
 			Game.gl = new GameLogic(Game.players);
 			this.sendStatistics(Game.gl.getPlayers());
 			Game.turnPlayer = 0;
-			this.sendMessageToSession("Place Troops", Game.playerSessions.get(turnPlayer));
+			
+			String firstSendMessage = "Place Troops:" + Game.gl.getPlaceNumOfTroops(turnPlayer);
+			for (Territory t: Game.gl.getOwnedTerritories(turnPlayer))	{
+				firstSendMessage += "\n" + t.getName();
+			}
+			
+			this.sendMessageToSession(firstSendMessage, Game.playerSessions.get(turnPlayer));
 		} else	{
 			this.sendStatistics(Game.players.toArray(new Player[Game.players.size()]));
 		}

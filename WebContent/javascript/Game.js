@@ -29,6 +29,18 @@ function connectToServer() {
 		} else if(event.data.startsWith("Place Troops"))	{
 			document.getElementById("waiting_stage").style.display = "none";
 			document.getElementById("place_troop").style.display = "block";
+			
+			var territories = event.data.split("\n");
+			document.getElementById("TroopsRemain").innerHTML = "Troops Left: " + territories[0].split(":")[1];
+			
+			territories.splice(0,1);
+			var territoryString = "";
+			for (var i = 0; i < territories.length; i++)	{
+				territoryString += "<option>" + territories[i] + "</option>\n";
+			}
+			
+			document.getElementById("place_troop_location").innerHTML = territoryString;
+			
 			placeTroops();
 		}
 		else if(event.data == "Attack")	{
