@@ -56,7 +56,7 @@ public class GameLogic {
 				temp = (int) (Math.random()*playerNum);
 			
 			int troops = (Math.random() < 0.5) ? 1 : 2;
-			this.territoryMap[i] = new Territory(Adjacencies.getTerritory(i), i, temp, troops);
+			this.territoryMap[i] = new Territory(Adjacencies.getTerritoryName(i), i, temp, troops);
 			this.players[temp].addTerritory();
 			this.players[temp].addTroops(troops);
 			territoriesToAllocate[temp]--;
