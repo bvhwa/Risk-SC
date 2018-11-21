@@ -33,7 +33,7 @@
       <div class="card-deck mb-3 text-center">
         <div class="card mb-4 box-shadow">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal" id = "wplayer1">Player 1: Username</h4>
+            <h4 class="my-0 font-weight-normal" id = "wplayer1">Waiting for players</h4>
           </div>
           <div class="card-body">
             <!-- <h1 class="card-title pricing-card-title">Username</h1> -->
@@ -45,7 +45,7 @@
         </div>
         <div class="card mb-4 box-shadow">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal" id = "wplayer2">Player 2: Username</h4>
+            <h4 class="my-0 font-weight-normal" id = "wplayer2">Waiting for players</h4>
           </div>
           <div class="card-body">
             <ul class="list-unstyled mt-3 mb-4">
