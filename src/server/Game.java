@@ -48,6 +48,13 @@ public class Game {
 			String image = playerInfo[2];
 			int maxPlayers = Integer.parseInt(playerInfo[3]);
 			
+			// Remove old instances of username
+			for (int i = 0; i < Game.players.size(); i++)	{
+				if (Game.players.get(i).getUserName().equals(username))	{
+					Game.players.remove(i);
+				}
+			}
+			
 			Player p = new Player(username, image);
 			
 			Game.sessionPlayerMap.put(session, p);

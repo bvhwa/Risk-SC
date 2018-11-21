@@ -167,8 +167,8 @@
 				    <thead>
 				      <tr>
 				        <th>User</th>
-				        <th># of territories</th>
-				        <th># of troops</th>
+				        <th>Territories</th>
+				        <th>Troops</th>
 				      </tr>
 				    </thead>
 				    <tbody>

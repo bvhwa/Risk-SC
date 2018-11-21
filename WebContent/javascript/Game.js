@@ -60,8 +60,10 @@ function updateUsernames(usernamesString)	{
 
 function updateStats(statString)	{
 	
+	alert(statString);
+	
 	// Start of the htmlString is always the same
-	var htmlString = "<thead>\n<tr>\n<th>User</th>\n<th># of territories</th>\n<th># of troops</th>\n</tr>\n</thead>\n<tbody>";
+	var htmlString = "<thead>\n<tr>\n<th>User</th>\n<th>Territories</th>\n<th>Troops</th>\n</tr>\n</thead>\n<tbody>";
 	
 	var playerStats = statString.split("\n");
 	
