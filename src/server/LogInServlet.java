@@ -17,6 +17,8 @@ import classes.Authentication;
 @WebServlet("/LogInServlet")
 public class LogInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private String password = "root";
        
     public LogInServlet() {
         super();
@@ -43,7 +45,7 @@ public class LogInServlet extends HttpServlet {
     	synchronized(this) {
     		try {
         		Class.forName("com.mysql.jdbc.Driver");
-        		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
+        		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final?user=root&password=" + password + "&allowPublicKeyRetrieval=true&useSSL=false");
         		
         		if(this.userExists(username, conn)) {
         			PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = ?");

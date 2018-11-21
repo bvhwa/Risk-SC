@@ -22,9 +22,27 @@ public class WaitingRoom {
 	private static HashMap<Session, String> usernames = new HashMap <Session, String>();
 	public static int numConnections = 0;
 	
+	private String password = "root";
+
+	
 	@OnOpen
 	// Add the player's session to the vector of sessions
 	public void open(Session session)	{
+		
+		try	{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final?user=root&password=" + password + "&allowPublicKeyRetrieval=true&useSSL=false");
+			PreparedStatement ps = conn.prepareStatement("UPDATE users SET playing = ? WHERE username = '" + usernames.get(session) + "'");
+			ps.setBoolean(1, false);
+			ps.execute();
+		}
+    	catch (SQLException sqle) {
+    		System.out.println(sqle.getMessage());
+    	} 
+    	catch (ClassNotFoundException cnfe) {
+    		System.out.println(cnfe.getMessage());
+		}
+		
 		System.out.println("Connection!");
 		players.addElement(session);
 		numConnections++;
@@ -74,7 +92,7 @@ public class WaitingRoom {
 
 		try	{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final?user=root&password=root&allowPublicKeyRetrieval=true&useSSL=false");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final?user=root&password=" + password + "&allowPublicKeyRetrieval=true&useSSL=false");
 			PreparedStatement ps = conn.prepareStatement("UPDATE users SET playing = ? WHERE username = '" + usernames.get(session) + "'");
 			ps.setBoolean(1, false);
 			ps.execute();
