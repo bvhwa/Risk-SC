@@ -61,6 +61,7 @@ public class Game {
 		numOfConnections--;
 		
 		playerSessions.remove(session);
+		players.remove(sessionPlayerMap.get(session));
 	}
 	
 	@OnError
