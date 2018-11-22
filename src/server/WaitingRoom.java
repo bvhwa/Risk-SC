@@ -45,6 +45,11 @@ public class WaitingRoom {
 			}
 		} 
 		else {
+			
+			JDBCDriver database = new JDBCDriver();
+			database.setSignedIn(message, true);	
+			database.close();
+			
 			WaitingRoom.usernames.put(session, message);
 			
 			String users = "";

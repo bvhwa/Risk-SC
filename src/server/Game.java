@@ -12,6 +12,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import classes.JDBCDriver;
 import gamelogic.Adjacencies;
 import gamelogic.GameLogic;
 import gamelogic.Player;
@@ -68,8 +69,12 @@ public class Game {
 
 	@OnClose
 	public void close(Session session)	{
-		System.out.println("Disconnected " + sessionPlayerMap.get(session) + " from Game!");
+		System.out.println("Disconnected " + sessionPlayerMap.get(session).getUserName() + " from Game!");
 		numOfConnections--;
+		
+		JDBCDriver database = new JDBCDriver();
+		database.setSignedIn(sessionPlayerMap.get(session).getUserName(), false);
+		database.close();
 		
 		playerSessions.remove(session);
 		players.remove(sessionPlayerMap.get(session));
@@ -93,6 +98,11 @@ public class Game {
 		String username = playerInfo[1];
 		String image = playerInfo[2];
 		int maxPlayers = Integer.parseInt(playerInfo[3]);
+		
+		// Set the Sign-In To True
+		JDBCDriver database = new JDBCDriver();
+		database.setSignedIn(username, true);
+		database.close();
 		
 		// Remove old instances of username
 		for (int i = 0; i < Game.players.size(); i++)	{
