@@ -106,49 +106,45 @@
 						<input type="number" class="form-control" id="place_troop_numbers" value = "1" min = "1"/>
 					</div>
 					<div id = "TroopsRemain">Troops Left: Some numbers</div>
-					<button id = "place_troop_button" onclick="placeTroops();">Place Troops</button>
+					<button onclick="placeTroops();" type="button" id = "place_troop_button" >Place Troops</button>
 					<button id = "place_finish_button">Done</button>
 				</div>
 				<div id = "attack" style="position: absolute; display:none; ">
-					<form action='' method='post'>
-						<div class = "a1" style = "display: -webkit-box;">
-							<div id = "attack_from">Attack From: </div>
-							<select class = "form-control" id="attack_from_location">
-    							<option value="locationA">Location A</option>
-    							<option value="locationB">Location B</option>
-							</select>
-						</div>
-						<div class = "a2" style = "display: -webkit-box;">
-							<div id = "attack_to">Attack To: </div>
-							<select class = "form-control" id="attack_to_location">
-    							<option value="locationA">Location A</option>
-    							<option value="locationB">Location B</option>
-							</select>
-						</div>
-						<input type="text" class="form-control" id="attack_troop_numbers" placeholder = "Troop Size"/>
-						<button id = "attack_button">Attack</button>
-						<button id = "attack_finish_button">Done</button>
-					</form>	
+					<div class = "a1" style = "display: -webkit-box;">
+						<div id = "attack_from">Attack From: </div>
+						<select class = "form-control" id="attack_from_location">
+   							<option value="locationA">Location A</option>
+   							<option value="locationB">Location B</option>
+						</select>
+					</div>
+					<div class = "a2" style = "display: -webkit-box;">
+						<div id = "attack_to">Attack To: </div>
+						<select class = "form-control" id="attack_to_location">
+   							<option value="locationA">Location A</option>
+   							<option value="locationB">Location B</option>
+						</select>
+					</div>
+					<input type="text" class="form-control" id="attack_troop_numbers" placeholder = "Troop Size"/>
+					<button id = "attack_button">Attack</button>
+					<button id = "attack_finish_button">Done</button>
 				</div>
 				<div id = "move_troop" style="position: absolute; display:None; ">
-					<form action='' method='post'>
-						<div class = "m1" style = "display: -webkit-box;">
-							<div id = "move_from">Move from: </div>
-							<select class = "form-control" id="move_from_location">
-    							<option value="locationA">Location A</option>
-    							<option value="locationB">Location B</option>
-							</select>
-						</div>
-						<div class = "m2" style = "display: -webkit-box;">
-							<div id = "move_to">Move To: </div>
-							<select class = "form-control" id="move_to_location">
-    							<option value="locationA">Location A</option>
-    							<option value="locationB">Location B</option>
-							</select>
-						</div>
-						<input type="text" class="form-control" id="move_troop_numbers" placeholder = "Troop Size"/>
-						<button id = "move_finish_button">Done</button>
-					</form>	
+					<div class = "m1" style = "display: -webkit-box;">
+						<div id = "move_from">Move from: </div>
+						<select class = "form-control" id="move_from_location">
+   							<option value="locationA">Location A</option>
+   							<option value="locationB">Location B</option>
+						</select>
+					</div>
+					<div class = "m2" style = "display: -webkit-box;">
+						<div id = "move_to">Move To: </div>
+						<select class = "form-control" id="move_to_location">
+   							<option value="locationA">Location A</option>
+   							<option value="locationB">Location B</option>
+						</select>
+					</div>
+					<input type="text" class="form-control" id="move_troop_numbers" placeholder = "Troop Size"/>
+					<button id = "move_finish_button">Done</button>
 				</div>
 				<div id = "waiting_stage" style="position: absolute; display:block; ">
 					Waiting for other players to finish!
