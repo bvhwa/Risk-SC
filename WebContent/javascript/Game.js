@@ -278,15 +278,26 @@ function updateMoveAfterSelection(message)	{
  */
 function placeTroops() {
 	var placingString = "Placing,";
+	
 	var troopsToPlace = document.getElementById("place_troop_numbers").value;
+	var territory = document.getElementById("place_troop_location").value;
 	
 	var troops = parseInt(document.getElementById("TroopsRemain").innerHTML.split(":")[1]);
 	
-	if (troopsToPlace > troops)	{
-		alert(troopsToPlace + " troops cannot be placed with only " + troops + " troops remaining");
-	} else	{
-		var territory = document.getElementById("place_troop_location").value;
-		alert(territory);
+	var message = "";
+	
+	// Error Checking
+	if (territory.length == 0)	{
+		message += "A territory must be selected\n";
+	}
+	
+	if (troopsToPlace.length == 0)	{
+		message += "An amount of troops must be filled in\n"
+	} else if ((troopsToPlace > troops) || (troopsToPlace < 1))	{
+		message += troopsToPlace + " troops cannot be placed";
+	} 
+	
+	if (message.length == 0)	{
 		
 		placingString += troopsToPlace + "," + territory;
 		socket.send(placingString);
@@ -300,6 +311,8 @@ function placeTroops() {
 			
 			socket.send("Finished Placing");
 		}
+	} else	{
+		alert(message);
 	}
 	
 	return false;
@@ -369,9 +382,28 @@ function attackTerritory() {
 	var troops = document.getElementById("attack_troop_numbers").value;
 	
 	// Add Error Validation
+	var message = "";
 	
-	socket.send("Attacking," + attackFromLocation + "," + attackToLocation + "," + troops);
-	socket.send("Attacked");
+	if (attackFromLocation.length == 0)	{
+		message += "The location to attack from cannot be empty\n";
+	}
+	
+	if (attackToLocation.length == 0)	{
+		message += "The location to attack cannot be empty\n";
+	}
+	
+	if (troops.length == 0)	{
+		message += "The amount of troops to attack with cannot be empty\n";
+	} else if ((troops > document.getElementById("attack_troop_numbers").max) ||  (troops < document.getElementById("attack_troop_numbers").min))	{
+		message += "The amount of troops to attack with cannot be " + troops + "\n";
+	}
+	
+	if (message.length == 0)	{
+		socket.send("Attacking," + attackFromLocation + "," + attackToLocation + "," + troops);
+		socket.send("Attacked");
+	} else	{
+		alert(message);
+	}
 	return false;
 }
 
