@@ -2,6 +2,7 @@ package server;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Vector;
 
 import javax.websocket.OnClose;
@@ -11,7 +12,6 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import classes.JDBCDriver;
 import gamelogic.Adjacencies;
 import gamelogic.GameLogic;
 import gamelogic.Player;
@@ -57,10 +57,10 @@ public class Game {
 			getNonOwnedAdjacent(message, session);
 		} else if (message.startsWith("Move from:"))	{
 			getOwnedAdjacent(message, session);
-		} else if (message.equals("Finished Placing"))	{
-			finishedPlacing(session);
+		} else if (message.equals("Finished Placing") || message.equals("Attacked"))	{
+			initAttacking(session);
 		} else if (message.equals("Finished Attacking"))	{
-			finishedAttacking(session);
+			initMoving(session);
 		}
 	}
 
@@ -211,15 +211,25 @@ public class Game {
 	 * A method called by the onMessage method to initialize the elements on the Attacking Stage
 	 * @param session the session to send the data of the elements to
 	 */
-	private void finishedPlacing(Session session)	{
+	private void initAttacking(Session session)	{
 
 		Territory[] ownedTerritories = Game.gl.getOwnedTerritories(turnPlayer);
-		Territory initTerritory = ownedTerritories[0];
+		
+		// Only Display the Territories the player can actually attack from
+		LinkedList <Territory> ownedTerritoriesWithMoreThanOneTroopLinkedList = new LinkedList<Territory>();
+		for (Territory t: ownedTerritories)
+			if (t.getTroops() > 0)
+				ownedTerritoriesWithMoreThanOneTroopLinkedList.add(t.clone());
+		
+		Territory[] ownedTerritoriesWithMoreThanOneTroop = ownedTerritoriesWithMoreThanOneTroopLinkedList.toArray(new Territory[ownedTerritoriesWithMoreThanOneTroopLinkedList.size()]);
+		
+		Territory initTerritory = ownedTerritoriesWithMoreThanOneTroop[0];
 		Territory[] nonOwnedAdjacentTerritories = Game.gl.getAdjacentNonOwnedTerritories(initTerritory.getID());
 		int maxAttackTroops = initTerritory.getTroops() - 1;
 		
+		// Update the attack message
 		String updateAttacking = "Update Attacking\n";
-		for (Territory t: ownedTerritories)
+		for (Territory t: ownedTerritoriesWithMoreThanOneTroop)
 			updateAttacking += "\t" + t.getName();
 		updateAttacking += "\n";
 		for (Territory t: nonOwnedAdjacentTerritories)
@@ -235,15 +245,25 @@ public class Game {
 	 * A method called by the onMessage method to initialize the elements on the Waiting Stage
 	 * @param session the session to send the data of the elements to
 	 */
-	private void finishedAttacking(Session session)	{
+	private void initMoving(Session session)	{
 
 		Territory[] ownedTerritories = Game.gl.getOwnedTerritories(turnPlayer);
-		Territory initTerritory = ownedTerritories[0];
+
+		// Only Display the Territories the player can actually move from
+		LinkedList <Territory> ownedTerritoriesWithMoreThanOneTroopLinkedList = new LinkedList<Territory>();
+		for (Territory t: ownedTerritories)
+			if (t.getTroops() > 0)
+				ownedTerritoriesWithMoreThanOneTroopLinkedList.add(t.clone());
+		
+		Territory[] ownedTerritoriesWithMoreThanOneTroop = ownedTerritoriesWithMoreThanOneTroopLinkedList.toArray(new Territory[ownedTerritoriesWithMoreThanOneTroopLinkedList.size()]);
+		
+		Territory initTerritory = ownedTerritoriesWithMoreThanOneTroop[0];
 		Territory[] ownedAdjacentTerritories = Game.gl.getAdjacentOwnedTerritories(initTerritory.getID());
 		int maxAttackTroops = initTerritory.getTroops() - 1;
 		
+		// Update the move message
 		String updateAttacking = "Update Moving\n";
-		for (Territory t: ownedTerritories)
+		for (Territory t: ownedTerritoriesWithMoreThanOneTroop)
 			updateAttacking += "\t" + t.getName();
 		updateAttacking += "\n";
 		for (Territory t: ownedAdjacentTerritories)

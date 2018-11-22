@@ -392,6 +392,7 @@ function attackTerritory() {
 	// Add Error Validation
 	
 	socket.send("Attacking," + attackFromLocation + "," + attackToLocation + "," + troops);
+	socket.send("Attacked");
 	return false;
 }
 
