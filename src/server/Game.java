@@ -69,7 +69,7 @@ public class Game {
 			System.out.println(attackToTerritories);
 			this.sendMessageToSession(attackToTerritories, session);
 		} else if (message.startsWith("Move from:"))	{
-			String moveToTerritories = "Move To";
+			String moveToTerritories = "Move To:";
 			String moveFromTerritory = message.split(":")[1];
 			moveToTerritories += Game.gl.getTerritory(moveFromTerritory).getTroops() - 1;
 			Territory[] territories = Game.gl.getAdjacentOwnedTerritories(Adjacencies.getTerritoryID(moveFromTerritory));
