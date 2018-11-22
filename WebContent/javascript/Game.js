@@ -41,6 +41,8 @@ function connectToServer() {
 			}
 			
 			document.getElementById("place_troop_location").innerHTML = territoryString;
+			document.getElementById("attack_from_location").innerHTML = territoryString;
+			document.getElementById("move_from").innerHTML = territoryString;
 			
 		}
 		else if(event.data == "Attack")	{

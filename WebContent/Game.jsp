@@ -106,7 +106,7 @@
 						<input type="number" class="form-control" id="place_troop_numbers" value = "1" min = "1"/>
 					</div>
 					<div id = "TroopsRemain">Troops Left: Some numbers</div>
-					<button onclick="placeTroops();" type="button" id = "place_troop_button" >Place Troops</button>
+					<button onclick="placeTroops();" type="button" id = "place_troop_button">Place Troops</button>
 					<button id = "place_finish_button">Done</button>
 				</div>
 				<div id = "attack" style="position: absolute; display:none; ">
