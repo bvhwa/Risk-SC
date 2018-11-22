@@ -48,6 +48,7 @@ public class Game {
 		if (message.startsWith("player_info: "))	{	
 			intializePage(message, session);
 			logMessage += message.split(" ")[1] + " has joined the game";
+			this.sendLog(logMessage);
 		} else if (message.startsWith("Placing_Troops"))	{
 			String[] placeTroops = message.split(" ");
 			int numTroops = Integer.parseInt(placeTroops[1]);
@@ -56,10 +57,26 @@ public class Game {
 			Game.gl.place(Adjacencies.getTerritoryID(territory), numTroops);
 			this.sendStatistics(Game.gl.getPlayers());
 			logMessage += players.get(turnPlayer).getUserName() + " placed " + numTroops + " troops at " + territory; 
+			this.sendLog(logMessage);
+		} else if(message.startsWith("Attack from:"))	{
+			String attackToTerritories = "Attack To";
+			String attackFromTerritory = message.split(":")[1];
+			Territory[] territories = Game.gl.getAdjacentNonOwnedTerritories(Adjacencies.getTerritoryID(attackFromTerritory));
+			for (Territory t: territories)	{
+				attackToTerritories += "\n" + t.getName();
+			}
+			System.out.println(attackToTerritories);
+			this.sendMessageToSession(attackToTerritories, session);
+		} else if (message.startsWith("Move from:"))	{
+			String moveToTerritories = "Move To";
+			String moveFromTerritory = message.split(":")[1];
+			Territory[] territories = Game.gl.getAdjacentOwnedTerritories(Adjacencies.getTerritoryID(moveFromTerritory));
+			for (Territory t: territories)	{
+				moveToTerritories += "\n" + t.getName();
+			}
+			System.out.println(moveToTerritories);
+			this.sendMessageToSession(moveToTerritories, session);
 		}
-		
-		
-		this.sendLog(logMessage);
 	}
 
 	@OnClose

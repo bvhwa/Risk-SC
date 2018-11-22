@@ -106,13 +106,13 @@
 						<input type="number" class="form-control" id="place_troop_numbers" value = "1" min = "1"/>
 					</div>
 					<div id = "TroopsRemain">Troops Left: Some numbers</div>
-					<button onclick="placeTroops();" type="button" id = "place_troop_button">Place Troops</button>
+					<button onclick="return placeTroops();" type="button" id = "place_troop_button">Place Troops</button>
 					<button id = "place_finish_button">Done</button>
 				</div>
 				<div id = "attack" style="position: absolute; display:none; ">
 					<div class = "a1" style = "display: -webkit-box;">
 						<div id = "attack_from">Attack From: </div>
-						<select class = "form-control" id="attack_from_location">
+						<select class = "form-control" id="attack_from_location" onchange="return updateAttackPossiblities(this.value);">
    							<option value="locationA">Location A</option>
    							<option value="locationB">Location B</option>
 						</select>
@@ -131,7 +131,7 @@
 				<div id = "move_troop" style="position: absolute; display:None; ">
 					<div class = "m1" style = "display: -webkit-box;">
 						<div id = "move_from">Move from: </div>
-						<select class = "form-control" id="move_from_location">
+						<select class = "form-control" id="move_from_location" onchange="return updateMovePossibilities(this.value);">
    							<option value="locationA">Location A</option>
    							<option value="locationB">Location B</option>
 						</select>

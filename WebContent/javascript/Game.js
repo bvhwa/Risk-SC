@@ -45,7 +45,7 @@ function connectToServer() {
 			
 			document.getElementById("place_troop_location").innerHTML = territoryString;
 			document.getElementById("attack_from_location").innerHTML = territoryString;
-			document.getElementById("move_from").innerHTML = territoryString;
+			document.getElementById("move_from_location").innerHTML = territoryString;
 			
 		}
 		else if(event.data == "Attack")	{
@@ -62,6 +62,22 @@ function connectToServer() {
 			document.getElementById("waiting_stage").style.display = "block";
 		} else if (event.data.startsWith(activityString))	{
 			document.getElementById("activity").innerHTML += event.data.substring(activityString.length) + "<br />";
+		} else if (event.data.startsWith("Attack To"))	{
+			var territories = event.data.split("\n");
+			territories.splice(0,1);
+			var territoryString = "";
+			for (var i = 0; i < territories.length; i++)	{
+				territoryString += "<option>" + territories[i] + "</option>\n";
+			}
+			document.getElementById("attack_to_location").innerHTML = territoryString;
+		} else if (event.data.startsWith("Move To"))	{
+			var territories = event.data.split("\n");
+			territories.splice(0,1);
+			var territoryString = "";
+			for (var i = 0; i < territories.length; i++)	{
+				territoryString += "<option>" + territories[i] + "</option>\n";
+			}
+			document.getElementById("move_to_location").innerHTML = territoryString;
 		}
 		
 	}
@@ -131,6 +147,16 @@ function placeTroops() {
 		}
 	}
 	
+	return false;
+}
+
+function updateAttackPossiblities(value)	{
+	socket.send("Attack from:" + value);
+	return false;
+}
+
+function updateMovePossibilities(value)	{
+	socket.send("Move from:" + value);
 	return false;
 }
 
