@@ -134,6 +134,37 @@ function connectToServer() {
 				attackTroops.max = maxTroops;
 			}
 			
+		} else if (event.data.startsWith("Update Moving"))	{
+			var data = event.data.split("\n");
+			var ownedTerritories = data[1].split("\t");
+			var ownedAdjacentTerritories = data[2].split("\t");
+			var maxTroops = data[3];
+			
+			// Update Move From Location Possibilities
+			var territoryString = "";
+			for (var i = 1; i < ownedTerritories.length; i++)	{
+				territoryString += "<option>" + ownedTerritories[i] + "</option>\n";
+			}
+			document.getElementById("move_from_location").innerHTML = territoryString;
+			
+			// Update Move To Location Possiblities
+			var ownedTerritoryString = "";
+			for (var i = 1; i < ownedAdjacentTerritories.length; i++)	{
+				ownedTerritoryString += "<option>" + ownedAdjacentTerritories[i] + "</option>";
+			}
+			document.getElementById("move_to_location").innerHTML = ownedTerritoryString;
+			
+			// Update the Maximum amount of troops
+			var attackTroops = document.getElementById("move_troop_numbers");
+			if (maxTroops == "0")	{
+				attackTroops.value = "0";
+				attackTroops.min = "0";
+				attackTroops.max = "0";
+			} else	{
+				attackTroops.value = "1";
+				attackTroops.min = "1";
+				attackTroops.max = maxTroops;
+			}
 		}
 		
 	}
@@ -219,7 +250,7 @@ function updateMovePossibilities(value)	{
 function finishAttack()	{
 	document.getElementById("attack").style.display = "none";
 	document.getElementById("move_troop").style.display = "block";
-	socket.send("test");
+	socket.send("Finished Attacking");
 	return false;
 }
 

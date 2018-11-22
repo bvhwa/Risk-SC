@@ -121,6 +121,23 @@ public class Game {
 			
 			this.sendMessageToSession(updateAttacking, session);
 			// Need to check for player have 0 territories
+		} else if (message.equals("Finished Attacking"))	{
+			Territory[] ownedTerritories = Game.gl.getOwnedTerritories(turnPlayer);
+			Territory initTerritory = ownedTerritories[0];
+			Territory[] ownedAdjacentTerritories = Game.gl.getAdjacentOwnedTerritories(initTerritory.getID());
+			int maxAttackTroops = initTerritory.getTroops() - 1;
+			
+			String updateAttacking = "Update Moving\n";
+			for (Territory t: ownedTerritories)
+				updateAttacking += "\t" + t.getName();
+			updateAttacking += "\n";
+			for (Territory t: ownedAdjacentTerritories)
+				updateAttacking += "\t" + t.getName();
+			updateAttacking += "\n";
+			updateAttacking += maxAttackTroops;
+			
+			this.sendMessageToSession(updateAttacking, session);
+			// Need to check for player have 0 territories
 		}
 	}
 
