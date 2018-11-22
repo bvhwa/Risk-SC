@@ -111,7 +111,15 @@ public class Territory {
 		this.troops--;
 	}
 	
-	
+	@Override
+	/**
+	 * Creates and returns a clone of the current Territory object
+	 * @return a cloned Territory object
+	 */
+	protected Territory clone() {
+		return new Territory(this.name, this.id, this.occupier, this.troops);
+	}
+
 	/**
 	 * @return the string printed out in human-readable format
 	 */
