@@ -9,6 +9,7 @@ function connectToServer() {
 	// onmessage starting identifiers
 	var statisticsString = "statistics:\n";
 	var activityString = "Activity:";
+	var attackToString = "Attack To:";
 	
 	
 	
@@ -62,8 +63,9 @@ function connectToServer() {
 			document.getElementById("waiting_stage").style.display = "block";
 		} else if (event.data.startsWith(activityString))	{
 			document.getElementById("activity").innerHTML += event.data.substring(activityString.length) + "<br />";
-		} else if (event.data.startsWith("Attack To"))	{
+		} else if (event.data.startsWith(attackToString))	{
 			var territories = event.data.split("\n");
+			document.getElementById("attack_troop_numbers").max = territories[0].split(":")[1];	
 			territories.splice(0,1);
 			var territoryString = "";
 			for (var i = 0; i < territories.length; i++)	{
@@ -72,6 +74,7 @@ function connectToServer() {
 			document.getElementById("attack_to_location").innerHTML = territoryString;
 		} else if (event.data.startsWith("Move To"))	{
 			var territories = event.data.split("\n");
+			document.getElementById("move_troop_numbers").max = territories[0].split(":")[1];
 			territories.splice(0,1);
 			var territoryString = "";
 			for (var i = 0; i < territories.length; i++)	{

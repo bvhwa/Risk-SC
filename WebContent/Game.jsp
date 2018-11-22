@@ -124,7 +124,7 @@
    							<option value="locationB">Location B</option>
 						</select>
 					</div>
-					<input type="text" class="form-control" id="attack_troop_numbers" placeholder = "Troop Size"/>
+					<input type="number" class="form-control" id="attack_troop_numbers" value="0" min="0"/>
 					<button id = "attack_button">Attack</button>
 					<button id = "attack_finish_button">Done</button>
 				</div>
@@ -143,7 +143,7 @@
    							<option value="locationB">Location B</option>
 						</select>
 					</div>
-					<input type="text" class="form-control" id="move_troop_numbers" placeholder = "Troop Size"/>
+					<input type="number" class="form-control" id="move_troop_numbers" value="0" min="0"/>
 					<button id = "move_finish_button">Done</button>
 				</div>
 				<div id = "waiting_stage" style="position: absolute; display:block; ">

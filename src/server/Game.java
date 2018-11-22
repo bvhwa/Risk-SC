@@ -59,8 +59,9 @@ public class Game {
 			logMessage += players.get(turnPlayer).getUserName() + " placed " + numTroops + " troops at " + territory; 
 			this.sendLog(logMessage);
 		} else if(message.startsWith("Attack from:"))	{
-			String attackToTerritories = "Attack To";
+			String attackToTerritories = "Attack To:";			
 			String attackFromTerritory = message.split(":")[1];
+			attackToTerritories += Game.gl.getTerritory(attackFromTerritory).getTroops() - 1;
 			Territory[] territories = Game.gl.getAdjacentNonOwnedTerritories(Adjacencies.getTerritoryID(attackFromTerritory));
 			for (Territory t: territories)	{
 				attackToTerritories += "\n" + t.getName();
@@ -70,6 +71,7 @@ public class Game {
 		} else if (message.startsWith("Move from:"))	{
 			String moveToTerritories = "Move To";
 			String moveFromTerritory = message.split(":")[1];
+			moveToTerritories += Game.gl.getTerritory(moveFromTerritory).getTroops() - 1;
 			Territory[] territories = Game.gl.getAdjacentOwnedTerritories(Adjacencies.getTerritoryID(moveFromTerritory));
 			for (Territory t: territories)	{
 				moveToTerritories += "\n" + t.getName();
