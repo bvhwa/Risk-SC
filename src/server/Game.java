@@ -58,9 +58,9 @@ public class Game {
 		} else if (message.startsWith("Move from:"))	{
 			getOwnedAdjacent(message, session);
 		} else if (message.equals("Finished Placing"))	{
-			finishedPlacing(message, session);
+			finishedPlacing(session);
 		} else if (message.equals("Finished Attacking"))	{
-			finishedAttacking(message, session);
+			finishedAttacking(session);
 		}
 	}
 
@@ -78,6 +78,12 @@ public class Game {
 		// Handle errors here
 	}
 	
+	/**
+	 * Initializes the page and the internal data of the class to match.
+	 * Starts a game when the maximum expected number of connections is reached.
+	 * @param message the message containing the user data who has just joined
+	 * @param session the session of the user who has just joined
+	 */
 	private void initializePage(String message, Session session)	{
 		String[] playerInfo = message.split(" ");
 		
@@ -112,6 +118,10 @@ public class Game {
 		this.sendLog(logMessage);
 	}
 
+	/**
+	 * Performs the place and sends the data to every active session
+	 * @param message the message containing the information of the place
+	 */
 	private void place(String message) {
 
 		String[] placeTroops = message.split(",");
@@ -124,6 +134,10 @@ public class Game {
 		this.sendLog(logMessage);
 	}
 	
+	/**
+	 * Performs the attack and sends the data to every active session
+	 * @param message the message containing the information of the attack
+	 */
 	private void attack(String message)	{
 
 		String[] attackTroops = message.split(",");
@@ -140,6 +154,10 @@ public class Game {
 		this.sendLog(logMessage);
 	}
 	
+	/**
+	 * Performs the move and sends the data to every active session
+	 * @param message the message containing the information of the move
+	 */
 	private void move(String message)	{
 
 		String[] moveTroops = message.split(",");
@@ -155,6 +173,11 @@ public class Game {
 		this.startTurn();
 	}
 	
+	/**
+	 * Return the territories that can be attacked from the current territory
+	 * @param message the message containing the current territory
+	 * @param session the session to send the data of the possible territories to
+	 */
 	private void getNonOwnedAdjacent(String message, Session session)	{
 
 		String attackToTerritories = "Attack To:";			
@@ -167,6 +190,11 @@ public class Game {
 		this.sendMessageToSession(attackToTerritories, session);
 	}
 	
+	/**
+	 * Return the territories that can be moved to from the current territory
+	 * @param message the message containing the current territory
+	 * @param session the session to send the data of the possible territories to
+	 */
 	private void getOwnedAdjacent(String message, Session session)	{
 
 		String moveToTerritories = "Move To:";
@@ -179,7 +207,11 @@ public class Game {
 		this.sendMessageToSession(moveToTerritories, session);
 	}
 	
-	private void finishedPlacing(String message, Session session)	{
+	/**
+	 * A method called by the onMessage method to initialize the elements on the Attacking Stage
+	 * @param session the session to send the data of the elements to
+	 */
+	private void finishedPlacing(Session session)	{
 
 		Territory[] ownedTerritories = Game.gl.getOwnedTerritories(turnPlayer);
 		Territory initTerritory = ownedTerritories[0];
@@ -199,7 +231,11 @@ public class Game {
 		// Need to check for player have 0 territories
 	}
 	
-	private void finishedAttacking(String message, Session session)	{
+	/**
+	 * A method called by the onMessage method to initialize the elements on the Waiting Stage
+	 * @param session the session to send the data of the elements to
+	 */
+	private void finishedAttacking(Session session)	{
 
 		Territory[] ownedTerritories = Game.gl.getOwnedTerritories(turnPlayer);
 		Territory initTerritory = ownedTerritories[0];
@@ -219,6 +255,10 @@ public class Game {
 		// Need to check for player have 0 territories
 	}
 	
+	/**
+	 * Sends a list of statistics to every active session
+	 * @param players the list of players create statistics upon
+	 */
 	private void sendStatistics(Player[] players)	{
 		String message = "statistics:";
 		
@@ -232,13 +272,20 @@ public class Game {
 	}
 
 	
-	private void sendLog(String logMessage) {
+	/**
+	 * Sends a message to every active session
+	 * @param message the message to send to every available session
+	 */
+	private void sendLog(String message) {
 		for (Session s: Game.playerSessions)	{
-			this.sendMessageToSession(logMessage, s);
+			this.sendMessageToSession(message, s);
 		}
 			
 	}
 	
+	/**
+	 * Sends a message to the user whose turn is next that they may start their turn
+	 */
 	private void startTurn()	{
 		Game.turnPlayer = (Game.turnPlayer + 1) % Game.gl.getPlayers().length;
 		
@@ -250,6 +297,11 @@ public class Game {
 		this.sendMessageToSession(startMessage, Game.playerSessions.get(turnPlayer));
 	}
 	
+	/**
+	 * Sends a message to a session
+	 * @param message the message to send to the session
+	 * @param session the session to send the message to
+	 */
 	private void sendMessageToSession(String message, Session session)	{
 		try {
 			session.getBasicRemote().sendText(message);
