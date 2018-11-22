@@ -225,7 +225,7 @@ function showMove(message)	{
 	// Update the Maximum amount of troops
 	var moveTroops = document.getElementById("move_troop_numbers");
 	moveTroops.value = maxTroops;
-	moveTroops.min = "1";
+	moveTroops.min = "0";
 	moveTroops.max = maxTroops;
 }
 
@@ -362,11 +362,31 @@ function finishMove()	{
 	var moveToLocation = document.getElementById("move_to_location").value;
 	var troops = document.getElementById("move_troop_numbers").value;
 	
-	// Add Error Validation	
+	// Add Error Validation
 	
-	document.getElementById("move_troop").style.display = "none";
-	document.getElementById("waiting_stage").style.display = "block";
-	socket.send("Moving," + moveFromLocation + "," + moveToLocation + "," + troops);
+	var message = "";
+	
+	if (moveFromLocation.length == 0)	{
+		message += "The location to move from cannot be empty\n";
+	}
+	
+	if (moveToLocation.length == 0)	{
+		message += "The location to move to cannot be empty\n";
+	}
+	
+	if (troops.length == 0)	{
+		message += "The amount of troops to move with cannot be empty\n";
+	} else if ((troops > document.getElementById("move_troop_numbers").max) ||  (troops < document.getElementById("move_troop_numbers").min))	{
+		message += "The amount of troops to move with cannot be " + troops + "\n";
+	}
+	
+	if (message.length == 0)	{
+		document.getElementById("move_troop").style.display = "none";
+		document.getElementById("waiting_stage").style.display = "block";
+		socket.send("Moving," + moveFromLocation + "," + moveToLocation + "," + troops);
+	} else	{
+		alert(message);
+	}
 	return false;
 }
 

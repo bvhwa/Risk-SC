@@ -223,12 +223,20 @@ public class Game {
 		
 		Territory[] ownedTerritoriesWithMoreThanOneTroop = ownedTerritoriesWithMoreThanOneTroopLinkedList.toArray(new Territory[ownedTerritoriesWithMoreThanOneTroopLinkedList.size()]);
 		
-		Territory initTerritory = ownedTerritoriesWithMoreThanOneTroop[0];
-		Territory[] nonOwnedAdjacentTerritories = Game.gl.getAdjacentNonOwnedTerritories(initTerritory.getID());
-		int maxAttackTroops = initTerritory.getTroops() - 1;
-		
 		// Update the attack message
 		String updateAttacking = "Update Attacking\n";
+		
+		Territory[] nonOwnedAdjacentTerritories = new Territory[0];
+		int maxAttackTroops = 0;
+		
+		if (ownedTerritoriesWithMoreThanOneTroop.length > 0)	{
+		
+			Territory initTerritory = ownedTerritoriesWithMoreThanOneTroop[0];
+			nonOwnedAdjacentTerritories = Game.gl.getAdjacentNonOwnedTerritories(initTerritory.getID());
+			maxAttackTroops = initTerritory.getTroops() - 1;
+		}
+		
+		
 		for (Territory t: ownedTerritoriesWithMoreThanOneTroop)
 			updateAttacking += "\t" + t.getName();
 		updateAttacking += "\n";
@@ -257,21 +265,26 @@ public class Game {
 		
 		Territory[] ownedTerritoriesWithMoreThanOneTroop = ownedTerritoriesWithMoreThanOneTroopLinkedList.toArray(new Territory[ownedTerritoriesWithMoreThanOneTroopLinkedList.size()]);
 		
-		Territory initTerritory = ownedTerritoriesWithMoreThanOneTroop[0];
-		Territory[] ownedAdjacentTerritories = Game.gl.getAdjacentOwnedTerritories(initTerritory.getID());
-		int maxAttackTroops = initTerritory.getTroops() - 1;
+		Territory[] ownedAdjacentTerritories = new Territory[0];
+		int maxMoveTroops = 0;
+		
+		if (ownedTerritoriesWithMoreThanOneTroop.length > 0)	{
+			Territory initTerritory = ownedTerritoriesWithMoreThanOneTroop[0];
+			ownedAdjacentTerritories = Game.gl.getAdjacentOwnedTerritories(initTerritory.getID());
+			maxMoveTroops = initTerritory.getTroops() - 1;
+	}
 		
 		// Update the move message
-		String updateAttacking = "Update Moving\n";
+		String updateMoving = "Update Moving\n";
 		for (Territory t: ownedTerritoriesWithMoreThanOneTroop)
-			updateAttacking += "\t" + t.getName();
-		updateAttacking += "\n";
+			updateMoving += "\t" + t.getName();
+		updateMoving += "\n";
 		for (Territory t: ownedAdjacentTerritories)
-			updateAttacking += "\t" + t.getName();
-		updateAttacking += "\n";
-		updateAttacking += maxAttackTroops;
+			updateMoving += "\t" + t.getName();
+		updateMoving += "\n";
+		updateMoving += maxMoveTroops;
 		
-		this.sendMessageToSession(updateAttacking, session);
+		this.sendMessageToSession(updateMoving, session);
 		// Need to check for player have 0 territories
 	}
 	
