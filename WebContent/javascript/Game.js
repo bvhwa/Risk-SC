@@ -102,14 +102,51 @@ function connectToServer() {
 				territoryString += "<option>" + territories[i] + "</option>\n";
 			}
 			document.getElementById("move_to_location").innerHTML = territoryString;
+		} else if (event.data.startsWith("Update Attacking"))	{
+			var data = event.data.split("\n");
+			var ownedTerritories = data[1].split("\t");
+			var nonOwnedAdjacentTerritories = data[2].split("\t");
+			var maxTroops = data[3];
+			
+			// Update Attack From Location Possibilities
+			var territoryString = "";
+			for (var i = 1; i < ownedTerritories.length; i++)	{
+				territoryString += "<option>" + ownedTerritories[i] + "</option>\n";
+			}
+			document.getElementById("attack_from_location").innerHTML = territoryString;
+			
+			// Update Attack To Location Possiblities
+			var nonOwnedTerritoryString = "";
+			for (var i = 1; i < nonOwnedAdjacentTerritories.length; i++)	{
+				nonOwnedTerritoryString += "<option>" + nonOwnedAdjacentTerritories[i] + "</option>";
+			}
+			document.getElementById("attack_to_location").innerHTML = nonOwnedTerritoryString;
+			
+			// Update the Maximum amount of troops
+			var attackTroops = document.getElementById("attack_troop_numbers");
+			if (maxTroops == "0")	{
+				attackTroops.value = "0";
+				attackTroops.min = "0";
+				attackTroops.max = "0";
+			} else	{
+				attackTroops.value = "1";
+				attackTroops.min = "1";
+				attackTroops.max = maxTroops;
+			}
+			
 		}
 		
 	}
 	
 	socket.onclose = function(event){
+		alert('Onclose called' + event);
+	    alert('code is' + event.code);
+	    alert('reason is ' + event.reason);
+	    alert('wasClean  is' + event.wasClean);
 	}
 	
-	socket.onerror = function(event){		
+	socket.onerror = function(event){
+		alert("Error: " + event.data);
 	}
 }
 
@@ -144,7 +181,7 @@ function updateStats(statString)	{
 
 
 function placeTroops() {
-	var placingString = "Placing_Troops ";
+	var placingString = "Placing_Troops,";
 	var troopsToPlace = document.getElementById("place_troop_numbers").value;
 	
 	var troops = parseInt(document.getElementById("TroopsRemain").innerHTML.split(":")[1]);
@@ -155,7 +192,7 @@ function placeTroops() {
 		var territory = document.getElementById("place_troop_location").value;
 		alert(territory);
 		
-		placingString += troopsToPlace + " " + territory;
+		placingString += troopsToPlace + "," + territory;
 		socket.send(placingString);
 		
 		var troopsLeft = troops - troopsToPlace;
@@ -164,6 +201,8 @@ function placeTroops() {
 		if (troopsLeft == 0)	{
 			document.getElementById("place_troop").style.display = "none";
 			document.getElementById("attack").style.display = "block";
+			
+			socket.send("Finished Placing");
 		}
 	}
 	
@@ -183,6 +222,7 @@ function updateMovePossibilities(value)	{
 function finishAttack()	{
 	document.getElementById("attack").style.display = "none";
 	document.getElementById("move_troop").style.display = "block";
+	socket.send("test");
 	return false;
 }
 
@@ -195,7 +235,7 @@ function finishMove()	{
 	
 	document.getElementById("move_troop").style.display = "none";
 	document.getElementById("waiting_stage").style.display = "block";
-	socket.send("Moving_Troops " + moveFromLocation + " " + moveToLocation + " " + troops);
+	socket.send("Moving_Troops," + moveFromLocation + "," + moveToLocation + "," + troops);
 	return false;
 }
 

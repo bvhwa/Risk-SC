@@ -50,7 +50,7 @@ public class Game {
 			logMessage += message.split(" ")[1] + " has joined the game";
 			this.sendLog(logMessage);
 		} else if (message.startsWith("Placing_Troops"))	{
-			String[] placeTroops = message.split(" ");
+			String[] placeTroops = message.split(",");
 			int numTroops = Integer.parseInt(placeTroops[1]);
 			String territory = placeTroops[2];
 			
@@ -61,7 +61,7 @@ public class Game {
 		} else if (message.startsWith("Attacking_Troops"))	{
 			
 		} else if (message.startsWith("Moving_Troops"))	{
-			String[] moveTroops = message.split(" ");
+			String[] moveTroops = message.split(",");
 			String moveFromTerritory = moveTroops[1];
 			String moveToTerritory = moveTroops[2];
 			int troops = Integer.parseInt(moveTroops[3]);
@@ -69,7 +69,6 @@ public class Game {
 			Game.gl.move(Adjacencies.getTerritoryID(moveFromTerritory), Adjacencies.getTerritoryID(moveToTerritory), troops);
 			logMessage += players.get(turnPlayer).getUserName() + " moved " + troops + " troops from " + moveFromTerritory + " to " + moveToTerritory;
 			this.sendLog(logMessage);
-			System.out.println(logMessage);
 			
 			// Move To next player's turn
 			this.startTurn();
@@ -94,6 +93,23 @@ public class Game {
 			}
 			System.out.println(moveToTerritories);
 			this.sendMessageToSession(moveToTerritories, session);
+		} else if (message.equals("Finished Placing"))	{
+			Territory[] ownedTerritories = Game.gl.getOwnedTerritories(turnPlayer);
+			Territory initTerritory = ownedTerritories[0];
+			Territory[] nonOwnedAdjacentTerritories = Game.gl.getAdjacentNonOwnedTerritories(initTerritory.getID());
+			int maxAttackTroops = initTerritory.getTroops() - 1;
+			
+			String updateAttacking = "Update Attacking\n";
+			for (Territory t: ownedTerritories)
+				updateAttacking += "\t" + t.getName();
+			updateAttacking += "\n";
+			for (Territory t: nonOwnedAdjacentTerritories)
+				updateAttacking += "\t" + t.getName();
+			updateAttacking += "\n";
+			updateAttacking += maxAttackTroops;
+			
+			this.sendMessageToSession(updateAttacking, session);
+			// Need to check for player have 0 territories
 		}
 	}
 
