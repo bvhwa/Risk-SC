@@ -218,7 +218,7 @@ public class Game {
 		// Only Display the Territories the player can actually attack from
 		LinkedList <Territory> ownedTerritoriesWithMoreThanOneTroopLinkedList = new LinkedList<Territory>();
 		for (Territory t: ownedTerritories)
-			if (t.getTroops() > 0)
+			if (t.getTroops() > 1)
 				ownedTerritoriesWithMoreThanOneTroopLinkedList.add(t.clone());
 		
 		Territory[] ownedTerritoriesWithMoreThanOneTroop = ownedTerritoriesWithMoreThanOneTroopLinkedList.toArray(new Territory[ownedTerritoriesWithMoreThanOneTroopLinkedList.size()]);
@@ -252,7 +252,7 @@ public class Game {
 		// Only Display the Territories the player can actually move from
 		LinkedList <Territory> ownedTerritoriesWithMoreThanOneTroopLinkedList = new LinkedList<Territory>();
 		for (Territory t: ownedTerritories)
-			if (t.getTroops() > 0)
+			if (t.getTroops() > 1)
 				ownedTerritoriesWithMoreThanOneTroopLinkedList.add(t.clone());
 		
 		Territory[] ownedTerritoriesWithMoreThanOneTroop = ownedTerritoriesWithMoreThanOneTroopLinkedList.toArray(new Territory[ownedTerritoriesWithMoreThanOneTroopLinkedList.size()]);
