@@ -115,8 +115,8 @@ public class Territory {
 	/**
 	 * Creates and returns a clone of the current Territory object
 	 * @return a cloned Territory object
-	 */
-	protected Territory clone() {
+	 */ 
+	public Territory clone() {
 		return new Territory(this.name, this.id, this.occupier, this.troops);
 	}
 
