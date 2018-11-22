@@ -89,7 +89,7 @@
 					<div class="card-body" >
 						<h5 class="card-title">Activity Log</h5>
 						<div class = "log-box" style = "overflow-y: scroll;">
-				    		<p class="card-text" id = "activity" style = "height: -webkit-fill-available;" >Player 1 places troops at Location A.</p>
+				    		<p class="card-text" id = "activity" style = "height: -webkit-fill-available;" ></p>
 				    	</div>
 				  	</div>
 				</div>

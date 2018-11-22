@@ -8,6 +8,7 @@ function connectToServer() {
 	
 	// onmessage starting identifiers
 	var statisticsString = "statistics:\n";
+	var activityString = "Activity:";
 	
 	
 	
@@ -23,6 +24,8 @@ function connectToServer() {
 	
 	
 	socket.onmessage = function(event){
+		
+		alert(event.data);
 		
 		if (event.data.startsWith(statisticsString))	{
 			updateStats(event.data.substring(statisticsString.length));
@@ -57,7 +60,10 @@ function connectToServer() {
 		} else if (event.data == "Waiting")	{
 			document.getElementById("move_troop").style.display = "none";
 			document.getElementById("waiting_stage").style.display = "block";
+		} else if (event.data.startsWith(activityString))	{
+			document.getElementById("activity").innerHTML += event.data.substring(activityString.length) + "<br />";
 		}
+		
 	}
 	
 	socket.onclose = function(event){
@@ -72,8 +78,6 @@ function updateUsernames(usernamesString)	{
 }
 
 function updateStats(statString)	{
-	
-	alert(statString);
 	
 	// Start of the htmlString is always the same
 	var htmlString = "<thead>\n<tr>\n<th>User</th>\n<th>Territories</th>\n<th>Troops</th>\n</tr>\n</thead>\n<tbody>";

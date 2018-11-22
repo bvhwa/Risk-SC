@@ -43,8 +43,11 @@ public class Game {
 		
 		System.out.println(message);
 		
+		String logMessage = "Activity:";
+		
 		if (message.startsWith("player_info: "))	{	
-			intializePage(message, session);		
+			intializePage(message, session);
+			logMessage += message.split(" ")[1] + " has joined the game";
 		} else if (message.startsWith("Placing_Troops"))	{
 			String[] placeTroops = message.split(" ");
 			int numTroops = Integer.parseInt(placeTroops[1]);
@@ -52,9 +55,13 @@ public class Game {
 			
 			Game.gl.place(Adjacencies.getTerritoryID(territory), numTroops);
 			this.sendStatistics(Game.gl.getPlayers());
+			logMessage += players.get(turnPlayer).getUserName() + " placed " + numTroops + " troops at " + territory; 
 		}
+		
+		
+		this.sendLog(logMessage);
 	}
-	
+
 	@OnClose
 	public void close(Session session)	{
 		System.out.println("Disconnected " + sessionPlayerMap.get(session) + " from Game!");
@@ -114,6 +121,14 @@ public class Game {
 		for (Session s : Game.playerSessions)	{
 			this.sendMessageToSession(message, s);
 		}
+	}
+
+	
+	private void sendLog(String logMessage) {
+		for (Session s: Game.playerSessions)	{
+			this.sendMessageToSession(logMessage, s);
+		}
+			
 	}
 	
 	public void sendMessageToSession(String message, Session session)	{
