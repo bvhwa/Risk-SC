@@ -46,98 +46,21 @@ public class Game {
 		String logMessage = "Activity:";
 		
 		if (message.startsWith("player_info: "))	{	
-			intializePage(message, session);
-			logMessage += message.split(" ")[1] + " has joined the game";
-			this.sendLog(logMessage);
+			initializePage(message, session);
 		} else if (message.startsWith("Placing"))	{
-			String[] placeTroops = message.split(",");
-			int numTroops = Integer.parseInt(placeTroops[1]);
-			String territory = placeTroops[2];
-			
-			Game.gl.place(Adjacencies.getTerritoryID(territory), numTroops);
-			this.sendStatistics(Game.gl.getPlayers());
-			logMessage += players.get(turnPlayer).getUserName() + " placed " + numTroops + " troops at " + territory; 
-			this.sendLog(logMessage);
+			place(message);
 		} else if (message.startsWith("Attacking"))	{
-			String[] attackTroops = message.split(",");
-			String attackFromTerritory = attackTroops[1];
-			String attackToTerritory = attackTroops[2];
-			int troops = Integer.parseInt(attackTroops[3]);
-			// Update so the defender has a choice of the troops
-			int defendTroops = Game.gl.getTerritory(attackToTerritory).getTroops();
-			
-			// Update attack to return the result of the battle
-			Game.gl.attack(Adjacencies.getTerritoryID(attackFromTerritory), troops, Adjacencies.getTerritoryID(attackToTerritory), defendTroops);
-			this.sendStatistics(Game.gl.getPlayers());
-			logMessage += players.get(turnPlayer).getUserName() + " attacked from " + attackFromTerritory + " with " + troops + " troops while " + players.get(Game.gl.getTerritory(attackToTerritory).getOccupier()).getUserName() + " defended " + attackToTerritory + " with " + defendTroops + " troops";
-			this.sendLog(logMessage);
+			attack(message);
 		} else if (message.startsWith("Moving"))	{
-			String[] moveTroops = message.split(",");
-			String moveFromTerritory = moveTroops[1];
-			String moveToTerritory = moveTroops[2];
-			int troops = Integer.parseInt(moveTroops[3]);
-			
-			Game.gl.move(Adjacencies.getTerritoryID(moveFromTerritory), Adjacencies.getTerritoryID(moveToTerritory), troops);
-			logMessage += players.get(turnPlayer).getUserName() + " moved " + troops + " troops from " + moveFromTerritory + " to " + moveToTerritory;
-			this.sendLog(logMessage);
-			
-			// Move To next player's turn
-			this.startTurn();
-			
+			move(message);
 		} else if(message.startsWith("Attack from:"))	{
-			String attackToTerritories = "Attack To:";			
-			String attackFromTerritory = message.split(":")[1];
-			attackToTerritories += Game.gl.getTerritory(attackFromTerritory).getTroops() - 1;
-			Territory[] territories = Game.gl.getAdjacentNonOwnedTerritories(Adjacencies.getTerritoryID(attackFromTerritory));
-			for (Territory t: territories)	{
-				attackToTerritories += "\n" + t.getName();
-			}
-			System.out.println(attackToTerritories);
-			this.sendMessageToSession(attackToTerritories, session);
+			getNonOwnedAdjacent(message, session);
 		} else if (message.startsWith("Move from:"))	{
-			String moveToTerritories = "Move To:";
-			String moveFromTerritory = message.split(":")[1];
-			moveToTerritories += Game.gl.getTerritory(moveFromTerritory).getTroops() - 1;
-			Territory[] territories = Game.gl.getAdjacentOwnedTerritories(Adjacencies.getTerritoryID(moveFromTerritory));
-			for (Territory t: territories)	{
-				moveToTerritories += "\n" + t.getName();
-			}
-			System.out.println(moveToTerritories);
-			this.sendMessageToSession(moveToTerritories, session);
+			getOwnedAdjacent(message, session);
 		} else if (message.equals("Finished Placing"))	{
-			Territory[] ownedTerritories = Game.gl.getOwnedTerritories(turnPlayer);
-			Territory initTerritory = ownedTerritories[0];
-			Territory[] nonOwnedAdjacentTerritories = Game.gl.getAdjacentNonOwnedTerritories(initTerritory.getID());
-			int maxAttackTroops = initTerritory.getTroops() - 1;
-			
-			String updateAttacking = "Update Attacking\n";
-			for (Territory t: ownedTerritories)
-				updateAttacking += "\t" + t.getName();
-			updateAttacking += "\n";
-			for (Territory t: nonOwnedAdjacentTerritories)
-				updateAttacking += "\t" + t.getName();
-			updateAttacking += "\n";
-			updateAttacking += maxAttackTroops;
-			
-			this.sendMessageToSession(updateAttacking, session);
-			// Need to check for player have 0 territories
+			finishedPlacing(message, session);
 		} else if (message.equals("Finished Attacking"))	{
-			Territory[] ownedTerritories = Game.gl.getOwnedTerritories(turnPlayer);
-			Territory initTerritory = ownedTerritories[0];
-			Territory[] ownedAdjacentTerritories = Game.gl.getAdjacentOwnedTerritories(initTerritory.getID());
-			int maxAttackTroops = initTerritory.getTroops() - 1;
-			
-			String updateAttacking = "Update Moving\n";
-			for (Territory t: ownedTerritories)
-				updateAttacking += "\t" + t.getName();
-			updateAttacking += "\n";
-			for (Territory t: ownedAdjacentTerritories)
-				updateAttacking += "\t" + t.getName();
-			updateAttacking += "\n";
-			updateAttacking += maxAttackTroops;
-			
-			this.sendMessageToSession(updateAttacking, session);
-			// Need to check for player have 0 territories
+			finishedAttacking(message, session);
 		}
 	}
 
@@ -155,9 +78,10 @@ public class Game {
 		// Handle errors here
 	}
 	
-	public void intializePage(String message, Session session)	{
+	private void initializePage(String message, Session session)	{
 		String[] playerInfo = message.split(" ");
 		
+		// Extract the data from the message
 		String username = playerInfo[1];
 		String image = playerInfo[2];
 		int maxPlayers = Integer.parseInt(playerInfo[3]);
@@ -174,6 +98,7 @@ public class Game {
 		Game.sessionPlayerMap.put(session, p);
 		Game.players.addElement(p);
 		
+		// If we have reached the maximum number of connections, initialize the game and broadcast the stats
 		if (maxPlayers == Game.numOfConnections)	{
 			Game.gl = new GameLogic(Game.players);
 			this.sendStatistics(Game.gl.getPlayers());
@@ -181,9 +106,120 @@ public class Game {
 		} else	{
 			this.sendStatistics(Game.players.toArray(new Player[Game.players.size()]));
 		}
+		
+		// Send "username has joined" to every active session
+		String logMessage = "Activity:" + username + " has joined the game";
+		this.sendLog(logMessage);
+	}
+
+	private void place(String message) {
+
+		String[] placeTroops = message.split(",");
+		int numTroops = Integer.parseInt(placeTroops[1]);
+		String territory = placeTroops[2];
+		
+		Game.gl.place(Adjacencies.getTerritoryID(territory), numTroops);
+		this.sendStatistics(Game.gl.getPlayers());
+		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " placed " + numTroops + " troops at " + territory; 
+		this.sendLog(logMessage);
 	}
 	
-	public void sendStatistics(Player[] players)	{
+	private void attack(String message)	{
+
+		String[] attackTroops = message.split(",");
+		String attackFromTerritory = attackTroops[1];
+		String attackToTerritory = attackTroops[2];
+		int troops = Integer.parseInt(attackTroops[3]);
+		// Update so the defender has a choice of the troops
+		int defendTroops = Game.gl.getTerritory(attackToTerritory).getTroops();
+		
+		// Update attack to return the result of the battle
+		Game.gl.attack(Adjacencies.getTerritoryID(attackFromTerritory), troops, Adjacencies.getTerritoryID(attackToTerritory), defendTroops);
+		this.sendStatistics(Game.gl.getPlayers());
+		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " attacked from " + attackFromTerritory + " with " + troops + " troops while " + players.get(Game.gl.getTerritory(attackToTerritory).getOccupier()).getUserName() + " defended " + attackToTerritory + " with " + defendTroops + " troops";
+		this.sendLog(logMessage);
+	}
+	
+	private void move(String message)	{
+
+		String[] moveTroops = message.split(",");
+		String moveFromTerritory = moveTroops[1];
+		String moveToTerritory = moveTroops[2];
+		int troops = Integer.parseInt(moveTroops[3]);
+		
+		Game.gl.move(Adjacencies.getTerritoryID(moveFromTerritory), Adjacencies.getTerritoryID(moveToTerritory), troops);
+		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " moved " + troops + " troops from " + moveFromTerritory + " to " + moveToTerritory;
+		this.sendLog(logMessage);
+		
+		// Move To next player's turn
+		this.startTurn();
+	}
+	
+	private void getNonOwnedAdjacent(String message, Session session)	{
+
+		String attackToTerritories = "Attack To:";			
+		String attackFromTerritory = message.split(":")[1];
+		attackToTerritories += Game.gl.getTerritory(attackFromTerritory).getTroops() - 1;
+		Territory[] territories = Game.gl.getAdjacentNonOwnedTerritories(Adjacencies.getTerritoryID(attackFromTerritory));
+		for (Territory t: territories)	{
+			attackToTerritories += "\n" + t.getName();
+		}
+		this.sendMessageToSession(attackToTerritories, session);
+	}
+	
+	private void getOwnedAdjacent(String message, Session session)	{
+
+		String moveToTerritories = "Move To:";
+		String moveFromTerritory = message.split(":")[1];
+		moveToTerritories += Game.gl.getTerritory(moveFromTerritory).getTroops() - 1;
+		Territory[] territories = Game.gl.getAdjacentOwnedTerritories(Adjacencies.getTerritoryID(moveFromTerritory));
+		for (Territory t: territories)	{
+			moveToTerritories += "\n" + t.getName();
+		}
+		this.sendMessageToSession(moveToTerritories, session);
+	}
+	
+	private void finishedPlacing(String message, Session session)	{
+
+		Territory[] ownedTerritories = Game.gl.getOwnedTerritories(turnPlayer);
+		Territory initTerritory = ownedTerritories[0];
+		Territory[] nonOwnedAdjacentTerritories = Game.gl.getAdjacentNonOwnedTerritories(initTerritory.getID());
+		int maxAttackTroops = initTerritory.getTroops() - 1;
+		
+		String updateAttacking = "Update Attacking\n";
+		for (Territory t: ownedTerritories)
+			updateAttacking += "\t" + t.getName();
+		updateAttacking += "\n";
+		for (Territory t: nonOwnedAdjacentTerritories)
+			updateAttacking += "\t" + t.getName();
+		updateAttacking += "\n";
+		updateAttacking += maxAttackTroops;
+		
+		this.sendMessageToSession(updateAttacking, session);
+		// Need to check for player have 0 territories
+	}
+	
+	private void finishedAttacking(String message, Session session)	{
+
+		Territory[] ownedTerritories = Game.gl.getOwnedTerritories(turnPlayer);
+		Territory initTerritory = ownedTerritories[0];
+		Territory[] ownedAdjacentTerritories = Game.gl.getAdjacentOwnedTerritories(initTerritory.getID());
+		int maxAttackTroops = initTerritory.getTroops() - 1;
+		
+		String updateAttacking = "Update Moving\n";
+		for (Territory t: ownedTerritories)
+			updateAttacking += "\t" + t.getName();
+		updateAttacking += "\n";
+		for (Territory t: ownedAdjacentTerritories)
+			updateAttacking += "\t" + t.getName();
+		updateAttacking += "\n";
+		updateAttacking += maxAttackTroops;
+		
+		this.sendMessageToSession(updateAttacking, session);
+		// Need to check for player have 0 territories
+	}
+	
+	private void sendStatistics(Player[] players)	{
 		String message = "statistics:";
 		
 		for (Player p : players)	{
@@ -214,7 +250,7 @@ public class Game {
 		this.sendMessageToSession(startMessage, Game.playerSessions.get(turnPlayer));
 	}
 	
-	public void sendMessageToSession(String message, Session session)	{
+	private void sendMessageToSession(String message, Session session)	{
 		try {
 			session.getBasicRemote().sendText(message);
 		} catch (IOException ioe) {
