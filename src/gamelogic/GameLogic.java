@@ -310,7 +310,7 @@ public class GameLogic {
 			if (this.territoryMap[i].getOccupier() == playerID)
 				ownedTerritories[index++] = this.territoryMap[i];
 	
-		return ownedTerritories;
+		return ownedTerritories.clone();
 	}
 	
 	/**
@@ -335,7 +335,7 @@ public class GameLogic {
 		Territory[] adjacentNonOwnedTerritories = new Territory[adjacentNonOwnedTerritoriesList.size()];
 		adjacentNonOwnedTerritories = adjacentNonOwnedTerritoriesList.toArray(adjacentNonOwnedTerritories);
 		
-		return adjacentNonOwnedTerritories;
+		return adjacentNonOwnedTerritories.clone();
 		
 	}
 	
@@ -361,7 +361,7 @@ public class GameLogic {
 		Territory[] adjacentOwnedTerritories = new Territory[adjacentOwnedTerritoriesList.size()];
 		adjacentOwnedTerritories = adjacentOwnedTerritoriesList.toArray(adjacentOwnedTerritories);
 		
-		return adjacentOwnedTerritories;
+		return adjacentOwnedTerritories.clone();
 		
 	}
 
