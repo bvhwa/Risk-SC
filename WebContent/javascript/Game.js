@@ -150,7 +150,10 @@ function showPlace(message)	{
 	
 	var territories = message.split("\n");
 	document.getElementById("TroopsRemain").innerHTML = "Troops Left: " + territories[0].split(":")[1];
-	document.getElementById("place_troop_numbers").max = territories[0].split(":")[1];
+	
+	var element = document.getElementById("place_troop_numbers");
+	element.max = territories[0].split(":")[1];
+	element.value = element.max;
 	
 	var territoryString = "";
 	for (var i = 1; i < territories.length; i++)	{
@@ -188,15 +191,9 @@ function showAttack(message)	{
 	
 	// Update the Maximum amount of troops
 	var attackTroops = document.getElementById("attack_troop_numbers");
-	if (maxTroops == "0")	{
-		attackTroops.value = "0";
-		attackTroops.min = "0";
-		attackTroops.max = "0";
-	} else	{
-		attackTroops.value = "1";
-		attackTroops.min = "1";
-		attackTroops.max = maxTroops;
-	}
+	attackTroops.value = maxTroops;
+	attackTroops.min = "1";
+	attackTroops.max = maxTroops;
 	return false;
 }
 
@@ -227,15 +224,9 @@ function showMove(message)	{
 	
 	// Update the Maximum amount of troops
 	var moveTroops = document.getElementById("move_troop_numbers");
-	if (maxTroops == "0")	{
-		movekTroops.value = "0";
-		moveTroops.min = "0";
-		moveTroops.max = "0";
-	} else	{
-		moveTroops.value = "1";
-		moveTroops.min = "1";
-		moveTroops.max = maxTroops;
-	}
+	moveTroops.value = maxTroops;
+	moveTroops.min = "1";
+	moveTroops.max = maxTroops;
 }
 
 /**
@@ -248,14 +239,8 @@ function updateAttackAfterSelection(message)	{
 	var element = document.getElementById("attack_troop_numbers");
 	var num = territories[0].split(":")[1];
 	
-	if (num == "0")	{
-		element.min = num;
-		element.value = num;
-	} else	{
-		element.min = "1";
-		element.value = "1";
-	}
-	
+	element.value = num;
+	element.min = "1";
 	element.max = num;
 	territories.splice(0,1);
 	var territoryString = "";
@@ -275,14 +260,8 @@ function updateMoveAfterSelection(message)	{
 	var element = document.getElementById("move_troop_numbers");
 	var num = territories[0].split(":")[1];
 	
-	if (num == "0")	{
-		element.min = num;
-		element.value = num;
-	} else	{
-		element.min = "1";
-		element.value = "1";
-	}
-	
+	element.value = num;
+	element.min = "1";
 	element.max = num;
 	territories.splice(0,1);
 	var territoryString = "";
@@ -304,7 +283,7 @@ function placeTroops() {
 	var troops = parseInt(document.getElementById("TroopsRemain").innerHTML.split(":")[1]);
 	
 	if (troopsToPlace > troops)	{
-		alert(troopsToPlace + " troop cannot be placed with only " + troops + " troops remaining");
+		alert(troopsToPlace + " troops cannot be placed with only " + troops + " troops remaining");
 	} else	{
 		var territory = document.getElementById("place_troop_location").value;
 		alert(territory);
