@@ -106,7 +106,6 @@
 					</div>
 					<div id = "TroopsRemain">Troops Left: Some numbers</div>
 					<button onclick="return placeTroops();" type="button" id = "place_troop_button">Place Troops</button>
-					<button id = "place_finish_button">Done</button>
 				</div>
 				<div id = "attack" style="position: absolute; display: none; ">
 					<div class = "a1" style = "display: -webkit-box;">
