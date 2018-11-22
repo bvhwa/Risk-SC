@@ -410,5 +410,21 @@ public class GameLogic {
 		
 		return troops + bonusFromTerritories + bonusFromContinents;
 	}
+
+	/**
+	 * Returns the territory with the specified name
+	 * @param territoryName name of the territory to find
+	 * @return the territory with the specified name, null if no territory has that name
+	 */
+	public Territory getTerritory(String territoryName) {
+		
+		for (Territory t: this.territoryMap)	{
+			if (t.getName().equals(territoryName))	{
+				return t;
+			}
+		}
+		
+		return null;
+	}
 	
 }
