@@ -126,7 +126,7 @@
 					</div>
 					<input type="number" class="form-control" id="attack_troop_numbers" value="0" min="0"/>
 					<button id = "attack_button">Attack</button>
-					<button id = "attack_finish_button">Done</button>
+					<button id = "attack_finish_button" onclick="return finishAttack();">Done</button>
 				</div>
 				<div id = "move_troop" style="position: absolute; display:None; ">
 					<div class = "m1" style = "display: -webkit-box;">
@@ -144,7 +144,7 @@
 						</select>
 					</div>
 					<input type="number" class="form-control" id="move_troop_numbers" value="0" min="0"/>
-					<button id = "move_finish_button">Done</button>
+					<button id = "move_finish_button" onclick="return finishMove();">Done</button>
 				</div>
 				<div id = "waiting_stage" style="position: absolute; display:block; ">
 					Waiting for other players to finish!

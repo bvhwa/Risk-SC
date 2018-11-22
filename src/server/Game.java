@@ -58,6 +58,10 @@ public class Game {
 			this.sendStatistics(Game.gl.getPlayers());
 			logMessage += players.get(turnPlayer).getUserName() + " placed " + numTroops + " troops at " + territory; 
 			this.sendLog(logMessage);
+		} else if (message.startsWith("Attacking_Troops"))	{
+			
+		} else if (message.startsWith("Moving_Troops"))	{
+			
 		} else if(message.startsWith("Attack from:"))	{
 			String attackToTerritories = "Attack To:";			
 			String attackFromTerritory = message.split(":")[1];

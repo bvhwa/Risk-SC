@@ -9,7 +9,6 @@ function connectToServer() {
 	// onmessage starting identifiers
 	var statisticsString = "statistics:\n";
 	var activityString = "Activity:";
-	var attackToString = "Attack To:";
 	
 	
 	
@@ -61,7 +60,7 @@ function connectToServer() {
 		} else if (event.data == "Waiting")	{
 			document.getElementById("move_troop").style.display = "none";
 			document.getElementById("waiting_stage").style.display = "block";
-		} else if (event.data.startsWith(activityString))	{
+		} else if (event.data.startsWith("Attack To:"))	{
 			document.getElementById("activity").innerHTML += event.data.substring(activityString.length) + "<br />";
 		} else if (event.data.startsWith(attackToString))	{
 			var territories = event.data.split("\n");
@@ -184,6 +183,20 @@ function updateMovePossibilities(value)	{
 	socket.send("Move from:" + value);
 	return false;
 }
+
+function finishAttack()	{
+	document.getElementById("attack").style.display = "none";
+	document.getElementById("move_troop").style.display = "block";
+	return false;
+}
+
+function finishMove()	{
+	document.getElementById("move_troop").style.display = "none";
+	document.getElementById("waiting_stage").style.display = "block";
+	socket.send("Finish Turn");
+	return false;
+}
+
 
 function attackTerritory() {
 	
