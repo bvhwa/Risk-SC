@@ -122,7 +122,7 @@
 						</select>
 					</div>
 					<input type="number" class="form-control" id="attack_troop_numbers" value="0" min="0"/>
-					<button id = "attack_button">Attack</button>
+					<button id = "attack_button" onclick="return attackTerritory();">Attack</button>
 					<button id = "attack_finish_button" onclick="return finishAttack();">Done</button>
 				</div>
 				<div id = "move_troop" style="position: absolute; display: none; ">

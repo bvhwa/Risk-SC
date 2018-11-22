@@ -49,7 +49,7 @@ public class Game {
 			intializePage(message, session);
 			logMessage += message.split(" ")[1] + " has joined the game";
 			this.sendLog(logMessage);
-		} else if (message.startsWith("Placing_Troops"))	{
+		} else if (message.startsWith("Placing"))	{
 			String[] placeTroops = message.split(",");
 			int numTroops = Integer.parseInt(placeTroops[1]);
 			String territory = placeTroops[2];
@@ -58,9 +58,20 @@ public class Game {
 			this.sendStatistics(Game.gl.getPlayers());
 			logMessage += players.get(turnPlayer).getUserName() + " placed " + numTroops + " troops at " + territory; 
 			this.sendLog(logMessage);
-		} else if (message.startsWith("Attacking_Troops"))	{
+		} else if (message.startsWith("Attacking"))	{
+			String[] attackTroops = message.split(",");
+			String attackFromTerritory = attackTroops[1];
+			String attackToTerritory = attackTroops[2];
+			int troops = Integer.parseInt(attackTroops[3]);
+			// Update so the defender has a choice of the troops
+			int defendTroops = Game.gl.getTerritory(attackToTerritory).getTroops();
 			
-		} else if (message.startsWith("Moving_Troops"))	{
+			// Update attack to return the result of the battle
+			Game.gl.attack(Adjacencies.getTerritoryID(attackFromTerritory), troops, Adjacencies.getTerritoryID(attackToTerritory), defendTroops);
+			this.sendStatistics(Game.gl.getPlayers());
+			logMessage += players.get(turnPlayer).getUserName() + " attacked from " + attackFromTerritory + " with " + troops + " troops while " + players.get(Game.gl.getTerritory(attackToTerritory).getOccupier()).getUserName() + " defended " + attackToTerritory + " with " + defendTroops + " troops";
+			this.sendLog(logMessage);
+		} else if (message.startsWith("Moving"))	{
 			String[] moveTroops = message.split(",");
 			String moveFromTerritory = moveTroops[1];
 			String moveToTerritory = moveTroops[2];

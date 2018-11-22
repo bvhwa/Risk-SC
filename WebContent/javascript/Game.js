@@ -139,10 +139,7 @@ function connectToServer() {
 	}
 	
 	socket.onclose = function(event){
-		alert('Onclose called' + event);
-	    alert('code is' + event.code);
-	    alert('reason is ' + event.reason);
-	    alert('wasClean  is' + event.wasClean);
+		alert('Onclose called' + event + '\n' + 'code is' + event.code + '\n' + 'reason is ' + event.reason + '\n' + 'wasClean is ' + event.wasClean);
 	}
 	
 	socket.onerror = function(event){
@@ -181,7 +178,7 @@ function updateStats(statString)	{
 
 
 function placeTroops() {
-	var placingString = "Placing_Troops,";
+	var placingString = "Placing,";
 	var troopsToPlace = document.getElementById("place_troop_numbers").value;
 	
 	var troops = parseInt(document.getElementById("TroopsRemain").innerHTML.split(":")[1]);
@@ -235,13 +232,20 @@ function finishMove()	{
 	
 	document.getElementById("move_troop").style.display = "none";
 	document.getElementById("waiting_stage").style.display = "block";
-	socket.send("Moving_Troops," + moveFromLocation + "," + moveToLocation + "," + troops);
+	socket.send("Moving," + moveFromLocation + "," + moveToLocation + "," + troops);
 	return false;
 }
 
 
 function attackTerritory() {
+	var attackFromLocation = document.getElementById("attack_from_location").value;
+	var attackToLocation = document.getElementById("attack_to_location").value;
+	var troops = document.getElementById("attack_troop_numbers").value;
 	
+	// Add Error Validation
+	
+	socket.send("Attacking," + attackFromLocation + "," + attackToLocation + "," + troops);
+	return false;
 }
 
 function moveTroops()
