@@ -60,9 +60,9 @@ function connectToServer() {
 		} else if (event.data == "Waiting")	{
 			document.getElementById("move_troop").style.display = "none";
 			document.getElementById("waiting_stage").style.display = "block";
-		} else if (event.data.startsWith("Attack To:"))	{
+		} else if (event.data.startsWith(activityString))	{
 			document.getElementById("activity").innerHTML += event.data.substring(activityString.length) + "<br />";
-		} else if (event.data.startsWith(attackToString))	{
+		} else if (event.data.startsWith("Attack To:"))	{
 			var territories = event.data.split("\n");
 			var element = document.getElementById("attack_troop_numbers");
 			var num = territories[0].split(":")[1];
@@ -111,10 +111,6 @@ function connectToServer() {
 	
 	socket.onerror = function(event){		
 	}
-}
-
-function updateUsernames(usernamesString)	{
-	
 }
 
 function updateStats(statString)	{
@@ -191,9 +187,15 @@ function finishAttack()	{
 }
 
 function finishMove()	{
+	var moveFromLocation = document.getElementById("move_from_location").value;
+	var moveToLocation = document.getElementById("move_to_location").value;
+	var troops = document.getElementById("move_troop_numbers").value;
+	
+	// Add Error Validation	
+	
 	document.getElementById("move_troop").style.display = "none";
 	document.getElementById("waiting_stage").style.display = "block";
-	socket.send("Finish Turn");
+	socket.send("Moving_Troops " + moveFromLocation + " " + moveToLocation + " " + troops);
 	return false;
 }
 

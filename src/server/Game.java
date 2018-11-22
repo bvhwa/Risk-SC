@@ -61,6 +61,18 @@ public class Game {
 		} else if (message.startsWith("Attacking_Troops"))	{
 			
 		} else if (message.startsWith("Moving_Troops"))	{
+			String[] moveTroops = message.split(" ");
+			String moveFromTerritory = moveTroops[1];
+			String moveToTerritory = moveTroops[2];
+			int troops = Integer.parseInt(moveTroops[3]);
+			
+			Game.gl.move(Adjacencies.getTerritoryID(moveFromTerritory), Adjacencies.getTerritoryID(moveToTerritory), troops);
+			logMessage += players.get(turnPlayer).getUserName() + " moved " + troops + " troops from " + moveFromTerritory + " to " + moveToTerritory;
+			this.sendLog(logMessage);
+			System.out.println(logMessage);
+			
+			// Move To next player's turn
+			this.startTurn();
 			
 		} else if(message.startsWith("Attack from:"))	{
 			String attackToTerritories = "Attack To:";			
@@ -121,14 +133,7 @@ public class Game {
 		if (maxPlayers == Game.numOfConnections)	{
 			Game.gl = new GameLogic(Game.players);
 			this.sendStatistics(Game.gl.getPlayers());
-			Game.turnPlayer = 0;
-			
-			String firstSendMessage = "Place Troops:" + Game.gl.getPlaceNumOfTroops(turnPlayer);
-			for (Territory t: Game.gl.getOwnedTerritories(turnPlayer))	{
-				firstSendMessage += "\n" + t.getName();
-			}
-			
-			this.sendMessageToSession(firstSendMessage, Game.playerSessions.get(turnPlayer));
+			this.startTurn();
 		} else	{
 			this.sendStatistics(Game.players.toArray(new Player[Game.players.size()]));
 		}
@@ -152,6 +157,17 @@ public class Game {
 			this.sendMessageToSession(logMessage, s);
 		}
 			
+	}
+	
+	private void startTurn()	{
+		Game.turnPlayer = (Game.turnPlayer + 1) % Game.gl.getPlayers().length;
+		
+		String startMessage = "Place Troops:" + Game.gl.getPlaceNumOfTroops(turnPlayer);
+		for (Territory t: Game.gl.getOwnedTerritories(turnPlayer))	{
+			startMessage += "\n" + t.getName();
+		}
+		
+		this.sendMessageToSession(startMessage, Game.playerSessions.get(turnPlayer));
 	}
 	
 	public void sendMessageToSession(String message, Session session)	{
