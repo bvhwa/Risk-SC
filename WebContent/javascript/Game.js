@@ -36,6 +36,8 @@ function connectToServer() {
 		 * 
 		 * 		7. Update Attacking Territory Possibilities after Selection
 		 * 		8. Update Moving Territory Possibilities after Selection
+		 * 
+		 * 		9. Won Game
 		 */
 		
 		// Statistics
@@ -54,7 +56,6 @@ function connectToServer() {
 		if(event.data.startsWith("Place Troops"))	{
 			showPlace(event.data);
 			return false;
-			
 		}
 		
 		// Show Attack Option
@@ -69,6 +70,11 @@ function connectToServer() {
 			return false;
 		}
 		
+		if (event.data.startsWith("Update Waiting"))	{
+			showWaiting();
+			return false;
+		}
+		
 		// Update Attacking Territory Possibilities after Selection
 		if (event.data.startsWith("Attack To:"))	{
 			updateAttackAfterSelection(event.data);
@@ -79,6 +85,10 @@ function connectToServer() {
 		if (event.data.startsWith("Move To"))	{
 			updateMoveAfterSelection(event.data);
 			return false;
+		}
+		
+		if (event.data.startsWith("Winner - "))	{
+			endGame(event.data);
 		}
 		
 		
@@ -229,6 +239,11 @@ function showMove(message)	{
 	moveTroops.max = maxTroops;
 }
 
+function showWaiting()	{
+	document.getElementById("move_troop").style.display = "none";
+	document.getElementById("waiting_stage").style.display = "block";
+}
+
 /**
  * Updates the Attack Stage after the selection of the attacking territory
  * @param message the message containing the updated values of the attack stage after selection received from the WebSocket Server
@@ -269,6 +284,17 @@ function updateMoveAfterSelection(message)	{
 		territoryString += "<option>" + territories[i] + "</option>\n";
 	}
 	document.getElementById("move_to_location").innerHTML = territoryString;
+}
+
+/**
+ * Displays the winner on the screen and then takes the user back to the Waiting Room to Play another game
+ * @param message the message containing the details of who won the game
+ * @returns false to prevent updating
+ */
+function endGame(message)	{
+	alert(message);
+	window.location.href = "/Risk-SC/WaitingRoom.jsp";
+	return false;
 }
 
 /**
@@ -362,15 +388,16 @@ function finishMove()	{
 	var moveToLocation = document.getElementById("move_to_location").value;
 	var troops = document.getElementById("move_troop_numbers").value;
 	
+	// If there are no territories to move from with more than 1 troop, then just finished
+	if (moveFromLocation.length == 0)	{
+		socket.send("Finished Moving");
+	}
+	
 	// Add Error Validation
 	
 	var message = "";
 	
-	if (moveFromLocation.length == 0)	{
-		message += "The location to move from cannot be empty\n";
-	}
-	
-	if (moveToLocation.length == 0)	{
+	if ((moveFromLocation.length > 0) && (moveToLocation.length == 0))	{
 		message += "The location to move to cannot be empty\n";
 	}
 	
@@ -381,9 +408,8 @@ function finishMove()	{
 	}
 	
 	if (message.length == 0)	{
-		document.getElementById("move_troop").style.display = "none";
-		document.getElementById("waiting_stage").style.display = "block";
 		socket.send("Moving," + moveFromLocation + "," + moveToLocation + "," + troops);
+		socket.send("Finished Moving");
 	} else	{
 		alert(message);
 	}

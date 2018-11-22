@@ -61,6 +61,8 @@ public class Game {
 			initAttacking(session);
 		} else if (message.equals("Finished Attacking"))	{
 			initMoving(session);
+		} else if (message.equals("Finished Moving"))	{
+			initWaiting(session);
 		}
 	}
 
@@ -152,6 +154,13 @@ public class Game {
 		this.sendStatistics(Game.gl.getPlayers());
 		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " attacked from " + attackFromTerritory + " with " + troops + " troops while " + players.get(Game.gl.getTerritory(attackToTerritory).getOccupier()).getUserName() + " defended " + attackToTerritory + " with " + defendTroops + " troops";
 		this.sendLog(logMessage);
+		
+		// Check if the player has won
+		if (Game.gl.checkWin(turnPlayer))	{
+			for (Session s: this.playerSessions)	{
+				this.sendMessageToSession("Winner - " + this.players.get(turnPlayer).getUserName(), s);
+			}
+		}
 	}
 	
 	/**
@@ -168,9 +177,6 @@ public class Game {
 		Game.gl.move(Adjacencies.getTerritoryID(moveFromTerritory), Adjacencies.getTerritoryID(moveToTerritory), troops);
 		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " moved " + troops + " troops from " + moveFromTerritory + " to " + moveToTerritory;
 		this.sendLog(logMessage);
-		
-		// Move To next player's turn
-		this.startTurn();
 	}
 	
 	/**
@@ -250,7 +256,7 @@ public class Game {
 	}
 	
 	/**
-	 * A method called by the onMessage method to initialize the elements on the Waiting Stage
+	 * A method called by the onMessage method to initialize the elements on the Moving Stage
 	 * @param session the session to send the data of the elements to
 	 */
 	private void initMoving(Session session)	{
@@ -286,6 +292,17 @@ public class Game {
 		
 		this.sendMessageToSession(updateMoving, session);
 		// Need to check for player have 0 territories
+	}
+	
+	/**
+	 * A method called by the onMessage method to initialize the elements on the Waiting Stage
+	 * @param session the session to send the data of the elements to
+	 */
+	private void initWaiting(Session session)	{
+		
+		this.sendMessageToSession("Update Waiting", session);
+		
+		this.startTurn();
 	}
 	
 	/**
