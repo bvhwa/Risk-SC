@@ -8,10 +8,10 @@ function signUp()
     var password = document.getElementById("_inputPassword").value;
     var confirmPassword = document.getElementById("confirmPassword").value;
     
-    xhttp.open("GET", "/Risk-SC/SignUpServlet?first="+first+"&last="+last+"&username="+username+"&password="+password+"&confirmPassword="+confirmPassword+"&image="+image, false);
+    xhttp.open("GET", "/Risk-SC/server/SignUpServlet?first="+first+"&last="+last+"&username="+username+"&password="+password+"&confirmPassword="+confirmPassword+"&image="+image, false);
     xhttp.send();
     
-    console.log("/Risk-SC/SignUpServlet?first="+first+"&last="+last+"&username="+username+"&password="+password+"&confirmPassword="+confirmPassword+"&image="+image);
+    // console.log("/Risk-SC/server/SignUpServlet?first="+first+"&last="+last+"&username="+username+"&password="+password+"&confirmPassword="+confirmPassword+"&image="+image);
     
     var status = xhttp.response;
     alert(status);

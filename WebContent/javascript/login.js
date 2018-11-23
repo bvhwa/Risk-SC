@@ -3,7 +3,7 @@ function login()
     var xhttp = new XMLHttpRequest();
     var username = document.getElementById("inputName").value;
     var password = document.getElementById("inputPassword").value;
-    xhttp.open("GET", "/Risk-SC/LogInServlet?username="+username+"&password="+password, false);
+    xhttp.open("GET", "/Risk-SC/server/LogInServlet?username="+username+"&password="+password, false);
     xhttp.send();
 
     var status = xhttp.response;

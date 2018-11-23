@@ -118,7 +118,7 @@ public class GameLogic {
 		}
 		
 		// Defender cannot defend with more troops than less than or equal to his current amount
-		if (this.territoryMap[defendTerritory].getTroops() < defendTroops)	{
+		if (this.territoryMap[defendTerritory].getTroops() <= defendTroops)	{
 			return false;
 		}
 
@@ -152,9 +152,10 @@ public class GameLogic {
 		}
 		
 		// If the attacker won a single skirmish, then remove a troop from the defense
-		// Otherwise, the defender must have one, so remove a troop from the attacker
+		// Otherwise, the defender must have won, so remove a troop from the attacker
 		
-		int attackTroopsLost = 0, defendTroopsLost = 0;
+		int attackTroopsLost = 0;
+		int defendTroopsLost = 0;
 		for (int i = 0; i < result.length; i++)	{
 			if (result[i])	{
 				this.territoryMap[defendTerritory].removeTroops();

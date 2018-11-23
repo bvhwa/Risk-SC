@@ -14,8 +14,9 @@ public class Test {
 		System.out.println("There are " + playerNum + " players.");
 		
 		Vector<Player> players = new Vector<Player>();
-		for (int i = 0; i < playerNum; i++)
-			players.add(new Player(i, firstNames[i], lastNames[i], userNames[i], i == 0));
+		for (int i = 0; i < playerNum; i++) {
+			players.add(new Player(userNames[i], ""));
+		}
 
 		GameLogic g = new GameLogic(players);
 		
