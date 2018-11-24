@@ -6,7 +6,9 @@ public class Territory {
 	 * Private Instance Variables
 	 */
 	private String name;
-	private int id, occupier, troops;
+	private int id;
+	private int occupier;
+	private int troops;
 	
 	/*
 	 * Constructors	
