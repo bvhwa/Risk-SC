@@ -19,8 +19,8 @@
                 <input type="lastname" id="lname" class="form-control" placeholder="Last Name" style = "margin-bottom:10px;">
 				<input type="pimage" id="image" class="form-control" placeholder="Profile Image URL (Optional)" style = "margin-bottom:10px;">
 				<input type="_username" id="_inputName" class="form-control" placeholder="Username" style = "margin-bottom:10px;">
-                <input type="_password" id="_inputPassword" class="form-control" placeholder="Password" style = "margin-bottom:10px;">
-                <input type="cpassword" id="confirmPassword" class="form-control" placeholder="Confirm Password" style = "margin-bottom:10px;">
+                <input type="password" id="_inputPassword" class="form-control" placeholder="Password" style = "margin-bottom:10px;">
+                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" style = "margin-bottom:10px;">
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" style = "margin-bottom:0px;">Sign up</button>
             </form><!-- /form -->
         </div><!-- /card-container -->

@@ -1,6 +1,15 @@
 /**
  * Javascript file for the Game
  */
+
+function updateGuestFunctionality(username)	{
+	if (username == "guest")	{
+		document.getElementById("guest_stats").style.display = "block";
+		document.getElementById("stats_table").style.display = "none";
+	}
+}
+
+
 var socket;
 
 function connectToServer() {
@@ -14,6 +23,8 @@ function connectToServer() {
 		var username = sessionStorage.getItem("username");
 		var image = sessionStorage.getItem("image");
 		var maxPlayers = sessionStorage.getItem("userNum");
+		
+		updateGuestFunctionality(username);
 		
 		socket.send("player_info: " + username + " " + image + " " + maxPlayers);
 		
@@ -84,6 +95,12 @@ function connectToServer() {
 		// Update Moving Territory Possibilities after Selection
 		if (event.data.startsWith("Move To"))	{
 			updateMoveAfterSelection(event.data);
+			return false;
+		}
+		
+		// Update the Cytoscape Map
+		if (event.data.startsWith("Update Map:\n"))	{
+			updateMap(event.data);
 			return false;
 		}
 		
@@ -388,11 +405,6 @@ function finishMove()	{
 	var moveToLocation = document.getElementById("move_to_location").value;
 	var troops = document.getElementById("move_troop_numbers").value;
 	
-	// If there are no territories to move from with more than 1 troop, then just finished
-	if (moveFromLocation.length == 0)	{
-		socket.send("Finished Moving");
-	}
-	
 	// Add Error Validation
 	
 	var message = "";
@@ -407,7 +419,10 @@ function finishMove()	{
 		message += "The amount of troops to move with cannot be " + troops + "\n";
 	}
 	
-	if (message.length == 0)	{
+	// If there are no territories to move from with more than 1 troop, then just finished
+	if (moveFromLocation.length == 0)	{
+		socket.send("Finished Moving");
+	} else if (message.length == 0)	{
 		socket.send("Moving," + moveFromLocation + "," + moveToLocation + "," + troops);
 		socket.send("Finished Moving");
 	} else	{
@@ -451,6 +466,39 @@ function attackTerritory() {
 		alert(message);
 	}
 	return false;
+}
+
+function updateMap(data)	{
+	// Split the given data into an array of 36 Strings where every element contains the data of an individual country
+	
+	var countries = data.substring("Update Map:\n".length).split["\n"];
+	for (var i = 0; i < countries.length; i++)	{
+		// Split the data of an individual country into an array of 3 strings: territoryID, numberOfTroops, and ownerID
+		var countryData = countries[i].split(" ");
+		
+		var territoryID = countryData[0];
+		var numberOfTroops = countryData[1];
+		var ownerID = countryData[2];
+		
+		// TODO: Given the three elements above, update the associated map
+		var update = cy.$(territoryID);
+		update.data('value', numberOfTroops);
+		
+		if (ownerID == 0){
+			update.style('background-color', 'thistle');
+		}
+		else if (ownerID == 1){
+			update.style('background-color', 'peachpuff');
+		}
+		else if (ownerID == 2){
+			update.style('background-color', 'lightgreen');
+		}
+		else if (ownerID == 3){
+			update.style('background-color', 'lightblue');
+		}
+		
+	}
+	
 }
 
 
