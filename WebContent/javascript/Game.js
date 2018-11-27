@@ -1,6 +1,15 @@
 /**
  * Javascript file for the Game
  */
+
+function updateGuestFunctionality(username)	{
+	if (username == "guest")	{
+		document.getElementById("guest_stats").style.display = "block";
+		document.getElementById("stats_table").style.display = "none";
+	}
+}
+
+
 var socket;
 
 function connectToServer() {
@@ -14,6 +23,8 @@ function connectToServer() {
 		var username = sessionStorage.getItem("username");
 		var image = sessionStorage.getItem("image");
 		var maxPlayers = sessionStorage.getItem("userNum");
+		
+		updateGuestFunctionality(username);
 		
 		socket.send("player_info: " + username + " " + image + " " + maxPlayers);
 		
