@@ -81,14 +81,14 @@
 		<div class = "Main" style="background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));">
 			<div id = "NW">
 				<button onclick="changeMap()" class="btn btn-info" id = "change_map" style = "top: 2%;left: 5%; position: fixed; z-index:10;"> Switch Map </button>
-				<image id = "static_map" src = "SC.png" style = "max-width:100%; max-height:100%; display: block;"> </image>
+				<image id = "static_map" src = "draft-static-map.png" style = "max-width:100%; max-height:100%; display: block;"> </image>
 				<image id = "dynamic_map" src = "trojan.png" style = "max-width:100%; max-height:100%; display:none;"> </image>
 			</div>
 			<div id="NE">
-				<div class="card" style="width: auto; height: -webkit-fill-available;">
+				<div class="card" style="width: auto; height: -webkit-fill-available; overflow-y: scroll;">
 					<div class="card-body" >
 						<h5 class="card-title">Activity Log</h5>
-						<div class = "log-box" style = "overflow-y: scroll;">
+						<div class = "log-box" style = "">
 				    		<p class="card-text" id = "activity" style = "height: -webkit-fill-available;" ></p>
 				    	</div>
 				  	</div>
@@ -147,7 +147,7 @@
 			</div>
 			<div id="SE">
 				<!-- <div class="container" style="width: auto; height: -webkit-fill-available;"> -->
-				<div class="card" style="width: auto; height: -webkit-fill-available;">
+				<div class="card" style="width: auto; height: -webkit-fill-available; overflow-x: scroll; overflow-y: scroll;">
 					<div class="card-body" >
 						<h5 class="card-title">Game Statistics</h5>
 				  <!-- <h2>Game Statistics</h2>         -->
