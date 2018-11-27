@@ -156,7 +156,7 @@ public class Game {
 		String attackToTerritory = attackTroops[2];
 		int troops = Integer.parseInt(attackTroops[3]);
 		// Update so the defender has a choice of the troops
-		int defendTroops = Game.gl.getTerritory(attackToTerritory).getTroops();
+		int defendTroops = Math.min(Game.gl.getTerritory(attackToTerritory).getTroops(), 2); // Maximum value of 2 troops
 		
 		// Update attack to return the result of the battle
 		Game.gl.attack(Adjacencies.getTerritoryID(attackFromTerritory), troops, Adjacencies.getTerritoryID(attackToTerritory), defendTroops);
@@ -199,7 +199,7 @@ public class Game {
 
 		String attackToTerritories = "Attack To:";			
 		String attackFromTerritory = message.split(":")[1];
-		attackToTerritories += Game.gl.getTerritory(attackFromTerritory).getTroops() - 1;
+		attackToTerritories += Math.min(Game.gl.getTerritory(attackFromTerritory).getTroops() - 1, 3); // Maximum of 3 troops to attack
 		Territory[] territories = Game.gl.getAdjacentNonOwnedTerritories(Adjacencies.getTerritoryID(attackFromTerritory));
 		for (Territory t: territories)	{
 			attackToTerritories += "\n" + t.getName();
@@ -250,7 +250,7 @@ public class Game {
 		
 			Territory initTerritory = ownedTerritoriesWithMoreThanOneTroop[0];
 			nonOwnedAdjacentTerritories = Game.gl.getAdjacentNonOwnedTerritories(initTerritory.getID());
-			maxAttackTroops = initTerritory.getTroops() - 1;
+			maxAttackTroops = Math.min(initTerritory.getTroops() - 1, 3); // Maximum of 3 troops to attack with
 		}
 		
 		
