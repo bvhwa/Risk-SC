@@ -151,7 +151,7 @@
 					<div class="card-body" >
 						<h5 class="card-title">Game Statistics</h5>
 				  <!-- <h2>Game Statistics</h2>         -->
-				  <table class="table table-bordered" id = "stats_table">
+				  <table class="table table-bordered" id = "stats_table" style="display: block">
 				    <thead>
 				      <tr>
 				        <th>User</th>
@@ -182,6 +182,10 @@
 				      </tr>
 				    </tbody>
 				  </table>
+				  <div id="guest_stats" style="display: none">
+				  	Cannot display stats with guest login.
+				  	Create an account to see your stats!
+				  </div>
 				</div>
 				</div>
 			</div>
