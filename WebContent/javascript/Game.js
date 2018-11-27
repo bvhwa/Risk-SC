@@ -485,16 +485,16 @@ function updateMap(data)	{
 		update.data('value', numberOfTroops);
 		
 		if (ownerID == 0){
-			update.data('background-color', 'thistle');
+			update.style('background-color', 'thistle');
 		}
 		else if (ownerID == 1){
-			update.data('background-color', 'peachpuff');
+			update.style('background-color', 'peachpuff');
 		}
 		else if (ownerID == 2){
-			update.data('background-color', /*light green*/);
+			update.style('background-color', 'lightgreen');
 		}
 		else if (ownerID == 3){
-			update.data('background-color', 'lightblue');
+			update.style('background-color', 'lightblue');
 		}
 		
 	}
