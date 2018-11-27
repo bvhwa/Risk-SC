@@ -125,7 +125,7 @@ public class Game {
 		
 		// Send "username has joined" to every active session
 		String logMessage = "Activity:" + username + " has joined the game";
-		this.sendLog(logMessage);
+		this.sendMessageToEverySession(logMessage);
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class Game {
 		Game.gl.place(Adjacencies.getTerritoryID(territory), numTroops);
 		this.sendStatistics(Game.gl.getPlayers());
 		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " placed " + numTroops + " troops at " + territory; 
-		this.sendLog(logMessage);
+		this.sendMessageToEverySession(logMessage);
 		this.sendMap(Game.gl.getTerritoryMap());
 	}
 	
@@ -162,7 +162,7 @@ public class Game {
 		Game.gl.attack(Adjacencies.getTerritoryID(attackFromTerritory), troops, Adjacencies.getTerritoryID(attackToTerritory), defendTroops);
 		this.sendStatistics(Game.gl.getPlayers());
 		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " attacked from " + attackFromTerritory + " with " + troops + " troops while " + players.get(Game.gl.getTerritory(attackToTerritory).getOccupier()).getUserName() + " defended " + attackToTerritory + " with " + defendTroops + " troops";
-		this.sendLog(logMessage);
+		this.sendMessageToEverySession(logMessage);
 		
 		// Check if the player has won
 		if (Game.gl.checkWin(turnPlayer))	{
@@ -186,7 +186,7 @@ public class Game {
 		
 		Game.gl.move(Adjacencies.getTerritoryID(moveFromTerritory), Adjacencies.getTerritoryID(moveToTerritory), troops);
 		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " moved " + troops + " troops from " + moveFromTerritory + " to " + moveToTerritory;
-		this.sendLog(logMessage);
+		this.sendMessageToEverySession(logMessage);
 		this.sendMap(Game.gl.getTerritoryMap());
 	}
 	
@@ -350,7 +350,7 @@ public class Game {
 			updatedMap += territories[i].getOccupier();
 		}
 
-		this.sendLog(updatedMap);
+		this.sendMessageToEverySession(updatedMap);
 	}
 	
 	
@@ -358,7 +358,7 @@ public class Game {
 	 * Sends a message to every active session
 	 * @param message the message to send to every available session
 	 */
-	private void sendLog(String message) {
+	private void sendMessageToEverySession(String message) {
 		for (Session s: Game.playerSessions)	{
 			this.sendMessageToSession(message, s);
 		}
