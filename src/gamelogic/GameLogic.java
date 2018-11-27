@@ -113,12 +113,12 @@ public class GameLogic {
 		}
 		
 		// Attacker cannot attack with more troops than strictly less than his current amount
-		if (this.territoryMap[attackTerritory].getTroops() <= attackTroops || this.territoryMap[attackTerritory].getTroops() < 2)	{
+		if (this.territoryMap[attackTerritory].getTroops() <= attackTroops || this.territoryMap[attackTerritory].getTroops() == 1)	{
 			return false;
 		}
 		
 		// Defender cannot defend with more troops than less than or equal to his current amount
-		if (this.territoryMap[defendTerritory].getTroops() <= defendTroops)	{
+		if (this.territoryMap[defendTerritory].getTroops() < defendTroops)	{
 			return false;
 		}
 
