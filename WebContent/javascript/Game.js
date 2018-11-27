@@ -87,6 +87,12 @@ function connectToServer() {
 			return false;
 		}
 		
+		// Update the Cytoscape Map
+		if (event.data.startsWith("Update Map:\n"))	{
+			updateMap(event.data);
+			return false;
+		}
+		
 		if (event.data.startsWith("Winner - "))	{
 			endGame(event.data);
 		}
@@ -451,6 +457,21 @@ function attackTerritory() {
 		alert(message);
 	}
 	return false;
+}
+
+function updateMap(data)	{
+	// Split the given data into an array of 36 Strings where every element contains the data of an individual country
+	var countries = data.substring("Update Map:\n".length).split["\n"];
+	for (var i = 0; i < countries.length; i++)	{
+		// Split the data of an individual country into an array of 3 strings: territoryID, numberOfTroops, and ownerID
+		var countryData = countries[i].split(" ");
+		
+		var territoryID = countryData[0];
+		var numberOfTroops = countryData[1];
+		var ownerID = countryData[2];
+		
+		// TODO: Given the three elements above, update the associated map
+	}
 }
 
 
