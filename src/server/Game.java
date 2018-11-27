@@ -125,7 +125,7 @@ public class Game {
 		
 		// Send "username has joined" to every active session
 		String logMessage = "Activity:" + username + " has joined the game";
-		this.sendLog(logMessage);
+		this.sendMessageToEverySession(logMessage);
 	}
 
 	/**
@@ -141,7 +141,8 @@ public class Game {
 		Game.gl.place(Adjacencies.getTerritoryID(territory), numTroops);
 		this.sendStatistics(Game.gl.getPlayers());
 		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " placed " + numTroops + " troops at " + territory; 
-		this.sendLog(logMessage);
+		this.sendMessageToEverySession(logMessage);
+		this.sendMap(Game.gl.getTerritoryMap());
 	}
 	
 	/**
@@ -155,13 +156,13 @@ public class Game {
 		String attackToTerritory = attackTroops[2];
 		int troops = Integer.parseInt(attackTroops[3]);
 		// Update so the defender has a choice of the troops
-		int defendTroops = Game.gl.getTerritory(attackToTerritory).getTroops();
+		int defendTroops = Math.min(Game.gl.getTerritory(attackToTerritory).getTroops(), 2); // Maximum value of 2 troops
 		
 		// Update attack to return the result of the battle
 		Game.gl.attack(Adjacencies.getTerritoryID(attackFromTerritory), troops, Adjacencies.getTerritoryID(attackToTerritory), defendTroops);
 		this.sendStatistics(Game.gl.getPlayers());
 		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " attacked from " + attackFromTerritory + " with " + troops + " troops while " + players.get(Game.gl.getTerritory(attackToTerritory).getOccupier()).getUserName() + " defended " + attackToTerritory + " with " + defendTroops + " troops";
-		this.sendLog(logMessage);
+		this.sendMessageToEverySession(logMessage);
 		
 		// Check if the player has won
 		if (Game.gl.checkWin(turnPlayer))	{
@@ -169,6 +170,7 @@ public class Game {
 				this.sendMessageToSession("Winner - " + this.players.get(turnPlayer).getUserName(), s);
 			}
 		}
+		this.sendMap(Game.gl.getTerritoryMap());
 	}
 	
 	/**
@@ -184,7 +186,8 @@ public class Game {
 		
 		Game.gl.move(Adjacencies.getTerritoryID(moveFromTerritory), Adjacencies.getTerritoryID(moveToTerritory), troops);
 		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " moved " + troops + " troops from " + moveFromTerritory + " to " + moveToTerritory;
-		this.sendLog(logMessage);
+		this.sendMessageToEverySession(logMessage);
+		this.sendMap(Game.gl.getTerritoryMap());
 	}
 	
 	/**
@@ -196,7 +199,7 @@ public class Game {
 
 		String attackToTerritories = "Attack To:";			
 		String attackFromTerritory = message.split(":")[1];
-		attackToTerritories += Game.gl.getTerritory(attackFromTerritory).getTroops() - 1;
+		attackToTerritories += Math.min(Game.gl.getTerritory(attackFromTerritory).getTroops() - 1, 3); // Maximum of 3 troops to attack
 		Territory[] territories = Game.gl.getAdjacentNonOwnedTerritories(Adjacencies.getTerritoryID(attackFromTerritory));
 		for (Territory t: territories)	{
 			attackToTerritories += "\n" + t.getName();
@@ -247,7 +250,7 @@ public class Game {
 		
 			Territory initTerritory = ownedTerritoriesWithMoreThanOneTroop[0];
 			nonOwnedAdjacentTerritories = Game.gl.getAdjacentNonOwnedTerritories(initTerritory.getID());
-			maxAttackTroops = initTerritory.getTroops() - 1;
+			maxAttackTroops = Math.min(initTerritory.getTroops() - 1, 3); // Maximum of 3 troops to attack with
 		}
 		
 		
@@ -329,12 +332,33 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Sends an updated map to every active session
+	 * @param territories the list of territories to send to every available session
+	 */
+	private void sendMap(Territory[] territories)	{
+		
+		String updatedMap = "Update Map:";
+		
+		for(int i = 0; i < territories.length; i++)
+		{
+			updatedMap += "\n";
+			updatedMap += territories[i].getID();
+			updatedMap += " ";
+			updatedMap += territories[i].getTroops();
+			updatedMap += " ";
+			updatedMap += territories[i].getOccupier();
+		}
+
+		this.sendMessageToEverySession(updatedMap);
+	}
+	
 	
 	/**
 	 * Sends a message to every active session
 	 * @param message the message to send to every available session
 	 */
-	private void sendLog(String message) {
+	private void sendMessageToEverySession(String message) {
 		for (Session s: Game.playerSessions)	{
 			this.sendMessageToSession(message, s);
 		}
