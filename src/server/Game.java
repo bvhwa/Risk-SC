@@ -142,6 +142,7 @@ public class Game {
 		this.sendStatistics(Game.gl.getPlayers());
 		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " placed " + numTroops + " troops at " + territory; 
 		this.sendLog(logMessage);
+		this.sendMap(Game.gl.getTerritoryMap());
 	}
 	
 	/**
@@ -169,6 +170,7 @@ public class Game {
 				this.sendMessageToSession("Winner - " + this.players.get(turnPlayer).getUserName(), s);
 			}
 		}
+		this.sendMap(Game.gl.getTerritoryMap());
 	}
 	
 	/**
@@ -185,6 +187,7 @@ public class Game {
 		Game.gl.move(Adjacencies.getTerritoryID(moveFromTerritory), Adjacencies.getTerritoryID(moveToTerritory), troops);
 		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " moved " + troops + " troops from " + moveFromTerritory + " to " + moveToTerritory;
 		this.sendLog(logMessage);
+		this.sendMap(Game.gl.getTerritoryMap());
 	}
 	
 	/**
@@ -329,6 +332,27 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Sends an updated map to every active session
+	 * @param territories the list of territories to send to every available session
+	 */
+	private void sendMap(Territory[] territories)	{
+		
+		String updatedMap = "Update Map:";
+		
+		for(int i = 0; i < territories.length; i++)
+		{
+			updatedMap += "\n";
+			updatedMap += territories[i].getID();
+			updatedMap += " ";
+			updatedMap += territories[i].getTroops();
+			updatedMap += " ";
+			updatedMap += territories[i].getOccupier();
+		}
+
+		this.sendLog(updatedMap);
+	}
+	
 	
 	/**
 	 * Sends a message to every active session
