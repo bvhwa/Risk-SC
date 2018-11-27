@@ -81,7 +81,7 @@
 		<div class = "Main" style="background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));">
 			<div id = "NW">
 				<button onclick="changeMap()" class="btn btn-info" id = "change_map" style = "top: 2%;left: 5%; position: fixed; z-index:10;"> Switch Map </button>
-				<image id = "static_map" src = "SC.png" style = "max-width:100%; max-height:100%; display: block;"> </image>
+				<image id = "static_map" src = "draft-static-map.png" style = "max-width:100%; max-height:100%; display: block;"> </image>
 				<image id = "dynamic_map" src = "trojan.png" style = "max-width:100%; max-height:100%; display:none;"> </image>
 			</div>
 			<div id="NE">
