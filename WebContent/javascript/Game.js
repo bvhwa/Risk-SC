@@ -394,11 +394,6 @@ function finishMove()	{
 	var moveToLocation = document.getElementById("move_to_location").value;
 	var troops = document.getElementById("move_troop_numbers").value;
 	
-	// If there are no territories to move from with more than 1 troop, then just finished
-	if (moveFromLocation.length == 0)	{
-		socket.send("Finished Moving");
-	}
-	
 	// Add Error Validation
 	
 	var message = "";
@@ -413,7 +408,10 @@ function finishMove()	{
 		message += "The amount of troops to move with cannot be " + troops + "\n";
 	}
 	
-	if (message.length == 0)	{
+	// If there are no territories to move from with more than 1 troop, then just finished
+	if (moveFromLocation.length == 0)	{
+		socket.send("Finished Moving");
+	} else if (message.length == 0)	{
 		socket.send("Moving," + moveFromLocation + "," + moveToLocation + "," + troops);
 		socket.send("Finished Moving");
 	} else	{
