@@ -42,8 +42,6 @@ public class Game {
 	// Retrieve the message from the client
 	public void message(String message, Session session)	{
 		
-		System.out.println(message);
-		
 		String logMessage = "Activity:";
 		
 		if (message.startsWith("player_info: "))	{	

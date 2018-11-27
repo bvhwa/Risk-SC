@@ -151,6 +151,10 @@ public class GameLogic {
 				result[i] = false;
 		}
 		
+
+		System.out.println("The attacker attacks with " + attackTroops + " troops of " + this.territoryMap[attackTerritory].getTroops() + " total troops from " + Adjacencies.getTerritoryName(attackTerritory));
+		System.out.println("The defender defends with " + defendTroops + " troops of " + this.territoryMap[defendTerritory].getTroops() + " total troops from " + Adjacencies.getTerritoryName(defendTerritory));
+		
 		// If the attacker won a single skirmish, then remove a troop from the defense
 		// Otherwise, the defender must have won, so remove a troop from the attacker
 		
@@ -169,6 +173,9 @@ public class GameLogic {
 			}
 		}
 		
+		System.out.println("The attacker has lost " + attackTroopsLost + " troops");
+		System.out.println("The defender has lost " + defendTroopsLost + " troops");
+		
 		// If the defender has no more troops in his territory, then the attacker has conquered
 		if (this.territoryMap[defendTerritory].getTroops() <= 0)	{
 			
@@ -184,7 +191,10 @@ public class GameLogic {
 			this.territoryMap[defendTerritory].setTroops(attackTroopsRemaining);
 			this.territoryMap[attackTerritory].removeTroops(attackTroopsRemaining);
 			
+			System.out.println("The attacker has conquered the territory and has " + this.territoryMap[defendTerritory].getTroops() + " troops there now and " + this.territoryMap[attackTerritory].getTroops() + " troops in the original territory");
+			
 		}
+		System.out.println();
 		
 		// Successfully attacked from the attackingTerritory to the defendingTerritory
 		return true;		
