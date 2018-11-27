@@ -461,6 +461,7 @@ function attackTerritory() {
 
 function updateMap(data)	{
 	// Split the given data into an array of 36 Strings where every element contains the data of an individual country
+	
 	var countries = data.substring("Update Map:\n".length).split["\n"];
 	for (var i = 0; i < countries.length; i++)	{
 		// Split the data of an individual country into an array of 3 strings: territoryID, numberOfTroops, and ownerID
@@ -471,7 +472,24 @@ function updateMap(data)	{
 		var ownerID = countryData[2];
 		
 		// TODO: Given the three elements above, update the associated map
+		var update = cy.$(territoryID);
+		update.data('value', numberOfTroops);
+		
+		if (ownerID == 0){
+			update.data('background-color', 'thistle');
+		}
+		else if (ownerID == 1){
+			update.data('background-color', 'peachpuff');
+		}
+		else if (ownerID == 2){
+			update.data('background-color', /*light green*/);
+		}
+		else if (ownerID == 3){
+			update.data('background-color', 'lightblue');
+		}
+		
 	}
+	
 }
 
 
