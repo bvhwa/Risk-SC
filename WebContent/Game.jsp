@@ -147,11 +147,11 @@
 			</div>
 			<div id="SE">
 				<!-- <div class="container" style="width: auto; height: -webkit-fill-available;"> -->
-				<div class="card" style="width: auto; height: -webkit-fill-available; overflow-x: scroll; overflow-y: scroll;">
+				<div class="card" style="width: auto; height: -webkit-fill-available; overflow-y: scroll; overflow-x: scroll;">
 					<div class="card-body" >
 						<h5 class="card-title">Game Statistics</h5>
 				  <!-- <h2>Game Statistics</h2>         -->
-				  <table class="table table-bordered" id = "stats_table">
+				  <table class="table table-bordered" id = "stats_table" style="display: block">
 				    <thead>
 				      <tr>
 				        <th>User</th>
@@ -182,6 +182,10 @@
 				      </tr>
 				    </tbody>
 				  </table>
+				  <div id="guest_stats" style="display: none">
+				  	Cannot display stats with guest login.
+				  	Create an account to see your stats!
+				  </div>
 				</div>
 				</div>
 			</div>
