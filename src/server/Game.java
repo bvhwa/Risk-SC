@@ -12,8 +12,6 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.apache.tomcat.jni.Socket;
-
 import classes.JDBCDriver;
 import gamelogic.Adjacencies;
 import gamelogic.GameLogic;
@@ -43,8 +41,6 @@ public class Game {
 	@OnMessage
 	// Retrieve the message from the client
 	public void message(String message, Session session)	{
-		
-		String logMessage = "Activity:";
 		
 		if (message.startsWith("player_info: "))	{	
 			initializePage(message, session);
@@ -164,18 +160,51 @@ public class Game {
 		// Update so the defender has a choice of the troops
 		int defendTroops = Math.min(Game.gl.getTerritory(attackToTerritory).getTroops(), 2); // Maximum value of 2 troops
 		
-		// Update attack to return the result of the battle
+		// Calculate the stats before
+		int attackedTerritoryOccupier = Game.gl.getTerritory(attackToTerritory).getOccupier();
+		int attackTroopsLost = Game.gl.getTerritory(attackFromTerritory).getTroops();
+		int defendTroopsLost = Game.gl.getTerritory(attackToTerritory).getTroops();
+		
 		Game.gl.attack(Adjacencies.getTerritoryID(attackFromTerritory), troops, Adjacencies.getTerritoryID(attackToTerritory), defendTroops);
-		this.sendStatistics(Game.gl.getPlayers());
-		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " attacked from " + attackFromTerritory + " with " + troops + " troops while " + players.get(Game.gl.getTerritory(attackToTerritory).getOccupier()).getUserName() + " defended " + attackToTerritory + " with " + defendTroops + " troops";
+		
+		// Calculate stats after
+		attackTroopsLost -= Game.gl.getTerritory(attackFromTerritory).getTroops();
+		defendTroopsLost -= Game.gl.getTerritory(attackToTerritory).getTroops();
+		
+		String attacker = Game.players.elementAt(Game.turnPlayer).getUserName();
+		String defender = Game.players.elementAt(Game.gl.getTerritory(attackToTerritory).getOccupier()).getUserName();
+		
+		// Necessary check because the troops in defending territory will go up if conquered
+		String logMessage = "Activity:";
+		if (attackedTerritoryOccupier == Game.gl.getTerritory(attackToTerritory).getOccupier())	{			
+	
+			if (attackTroopsLost < defendTroopsLost)	{
+				logMessage += attacker + " wins - ";
+			} else if (defendTroopsLost < attackTroopsLost)	{
+				logMessage += defender + " wins - ";
+			} else	{
+				logMessage += "Tie - ";
+			}
+			
+			logMessage += attacker + " lost " + attackTroopsLost + " troops attacking from " + attackFromTerritory + " and " + defender + " lost " + defendTroopsLost + " troops defending " + attackToTerritory;
+		} else	{
+			logMessage += attacker + " conquered - " + attacker + " has " + Game.gl.getTerritory(attackFromTerritory).getTroops() + " troops in " + attackFromTerritory + " and " + Game.gl.getTerritory(attackToTerritory).getTroops() + " troops in " + attackToTerritory;
+		}
+		
 		this.sendMessageToEverySession(logMessage);
 		
-		this.sendMessageToSession("Finished Attack", this.playerSessions.elementAt(Game.gl.getTerritory(attackFromTerritory).getOccupier()));
+		this.sendStatistics(Game.gl.getPlayers());
+		
+		Session curSession = Game.playerSessions.elementAt(Game.gl.getTerritory(attackFromTerritory).getOccupier());
+		
+		this.sendMessageToSession("Finished Attack", curSession);
+		
+		this.initAttacking(curSession);
 		
 		// Check if the player has won
 		if (Game.gl.checkWin(turnPlayer))	{
-			for (Session s: this.playerSessions)	{
-				this.sendMessageToSession("Winner - " + this.players.get(turnPlayer).getUserName(), s);
+			for (Session s: Game.playerSessions)	{
+				this.sendMessageToSession("Winner - " + Game.players.get(turnPlayer).getUserName(), s);
 			}
 		}
 		this.sendMap(Game.gl.getTerritoryMap());

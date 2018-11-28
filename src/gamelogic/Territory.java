@@ -1,6 +1,6 @@
 package gamelogic;
 
-public class Territory {
+public class Territory implements Comparable<Territory> {
 	
 	/*
 	 * Private Instance Variables
@@ -127,6 +127,11 @@ public class Territory {
 	 */
 	public String toString()	{
 		return this.name + " is occupied by Player " + this.occupier + " and has " + this.troops + " troops.";
+	}
+
+	@Override
+	public int compareTo(Territory o) {
+		return this.name.compareTo(o.name);
 	}
 	
 	

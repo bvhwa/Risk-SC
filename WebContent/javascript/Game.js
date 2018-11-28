@@ -48,7 +48,11 @@ function connectToServer() {
 		 * 		7. Update Attacking Territory Possibilities after Selection
 		 * 		8. Update Moving Territory Possibilities after Selection
 		 * 
-		 * 		9. Won Game
+		 * 		9. Asks the user how many troops they would like to defend with
+		 * 		10. Tells the user the opponent has finished selecting the defending amount of troops
+		 * 
+		 * 		11. Update Map
+		 * 		12. Won Game
 		 */
 		
 		// Statistics
@@ -476,8 +480,6 @@ function attackTerritory() {
 		
 		document.getElementById("waiting_defend_stage").style.display = "block";
 		document.getElementById("attack").style.display = "none";
-		
-		socket.send("Attacked");
 	} else	{
 		alert(message);
 	}

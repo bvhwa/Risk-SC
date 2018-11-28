@@ -30,7 +30,7 @@ public abstract class Adjacencies {
 			"Hoffman Hall",						// 19
 			"Dauterive Hall",					// 20
 			"Popovich Hall",					// 21
-			"Fertita Hall",						// 22
+			"Fertitta Hall",					// 22
 
 			"Norris Cinema Theatre",			// 23
 			"SCB",								// 24
