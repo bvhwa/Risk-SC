@@ -802,12 +802,12 @@ function updateMap(data)	{
 						height: 8
 					}
 				},
-				//show: {
-					//event: 'mouseover'
-				//},
-				//hide: {
-					//event: 'mouseout'
-				//}
+				show: {
+					event: 'mouseover'
+				},
+				hide: {
+					event: 'mouseout'
+				}
 	});
 		
 	// Split the given data into an array of 36 Strings where every element contains the data of an individual country
