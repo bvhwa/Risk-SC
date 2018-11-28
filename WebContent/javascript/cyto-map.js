@@ -1,56 +1,57 @@
+document.addEventListener("DOMContentLoaded", function() {
 var cy = cytoscape({
 			  container: document.getElementById('cy'),
 			  elements: [
 				  // NODES
 				  // Athletics
-				  { data: { id: '0', name: 'Lyon Center', continent: 'Athletics', value: '0' }, position: { x: -300, y: -300 }, classes: 'Athletics', style: { 'background-color': 'white' } },
-				  { data: { id: '1', name: 'Dedeaux Field', continent: 'Athletics', value: '0' }, position: { x: -350, y: -250 }, classes: 'Athletics', style: { 'background-color': 'white' } },
-				  { data: { id: '2', name: 'McKay Center', continent: 'Athletics', value: '0' }, position: { x: -250, y: -225 }, classes: 'Athletics', style: { 'background-color': 'white' } },
-				  { data: { id: '3', name: 'Little Galen', continent: 'Athletics', value: '0' }, position: { x: -150, y: -200 }, classes: 'Athletics', style: { 'background-color': 'white' } },
-				  { data: { id: '4', name: 'Marks Tennis Stadium', continent: 'Athletics', value: '0' }, position: { x: -400, y: -200 }, classes: 'Athletics', style: { 'background-color': 'white' } },
-				  { data: { id: '5', name: 'Cromwell Field', continent: 'Athletics', value: '0' }, position: { x: -200, y: -150 }, classes: 'Athletics', style: { 'background-color': 'white' } },
+				  { data: { id: '0', name: 'Lyon Center', continent: 'Athletics', value: '0' }, position: { x: -300, y: -300 }, classes: 'Athletics', },
+				  { data: { id: '1', name: 'Dedeaux Field', continent: 'Athletics', value: '0' }, position: { x: -350, y: -250 }, classes: 'Athletics' },
+				  { data: { id: '2', name: 'McKay Center', continent: 'Athletics', value: '0' }, position: { x: -250, y: -225 }, classes: 'Athletics' },
+				  { data: { id: '3', name: 'Little Galen', continent: 'Athletics', value: '0' }, position: { x: -150, y: -200 }, classes: 'Athletics' },
+				  { data: { id: '4', name: 'Marks Tennis Stadium', continent: 'Athletics', value: '0' }, position: { x: -400, y: -200 }, classes: 'Athletics' },
+				  { data: { id: '5', name: 'Cromwell Field', continent: 'Athletics', value: '0' }, position: { x: -200, y: -150 }, classes: 'Athletics' },
 				  
 				  // Dornsife STEM
-				  { data: { id: '6', name: 'Kaprelian Hall', continent: 'Dornsife STEM', value: '0' }, position: { x: -450, y: -150 }, classes: 'DSTEM', style: { 'background-color': 'white' } },
-				  { data: { id: '7', name: 'Michelson Center', continent: 'Dornsife STEM', value: '0' }, position: { x: -350, y: -125 }, classes: 'DSTEM', style: { 'background-color': 'white' } },
-				  { data: { id: '8', name: 'Seeley G. Mudd', continent: 'Dornsife STEM', value: '0' }, position: { x: -250, y: -100 }, classes: 'DSTEM', style: { 'background-color': 'white' } },
-				  { data: { id: '9', name: 'Hedco Neuro', continent: 'Dornsife STEM', value: '0' }, position: { x: -150, y: -50 }, classes: 'DSTEM', style: { 'background-color': 'white' } },
-				  { data: { id: '10', name: 'Stauffer Hall', continent: 'Dornsife STEM', value: '0' }, position: { x: -75, y: 100 }, classes: 'DSTEM', style: { 'background-color': 'white' } },
-				  { data: { id: '11', name: 'Zumberge Hall', continent: 'Dornsife STEM', value: '0' }, position: { x: 0, y: 150 }, classes: 'DSTEM', style: { 'background-color': 'white' } },
+				  { data: { id: '6', name: 'Kaprelian Hall', continent: 'Dornsife STEM', value: '0' }, position: { x: -450, y: -150 }, classes: 'DSTEM' },
+				  { data: { id: '7', name: 'Michelson Center', continent: 'Dornsife STEM', value: '0' }, position: { x: -350, y: -125 }, classes: 'DSTEM' },
+				  { data: { id: '8', name: 'Seeley G. Mudd', continent: 'Dornsife STEM', value: '0' }, position: { x: -250, y: -100 }, classes: 'DSTEM' },
+				  { data: { id: '9', name: 'Hedco Neuro', continent: 'Dornsife STEM', value: '0' }, position: { x: -150, y: -50 }, classes: 'DSTEM' },
+				  { data: { id: '10', name: 'Stauffer Hall', continent: 'Dornsife STEM', value: '0' }, position: { x: -75, y: 100 }, classes: 'DSTEM' },
+				  { data: { id: '11', name: 'Zumberge Hall', continent: 'Dornsife STEM', value: '0' }, position: { x: 0, y: 150 }, classes: 'DSTEM' },
 				  
 				  // Viterbi
-				  { data: { id: '12', name: 'Olin Hall', continent: 'Viterbi School of Engineering', value: '0' }, position: { x: -300, y: 10 }, classes: 'Viterbi', style: { 'background-color': 'white' } },
-				  { data: { id: '13', name: 'Tutor Hall', continent: 'Viterbi School of Engineering', value: '0' }, position: { x: -450, y: 50 }, classes: 'Viterbi', style: { 'background-color': 'white' } },
-				  { data: { id: '14', name: 'EQuad', continent: 'Viterbi School of Engineering', value: '0' }, position: { x: -250, y: 80 }, classes: 'Viterbi', style: { 'background-color': 'white' } },
-				  { data: { id: '15', name: 'Vivian Hall', continent: 'Viterbi School of Engineering', value: '0' }, position: { x: -200, y: 30 }, classes: 'Viterbi', style: { 'background-color': 'white' } },
-				  { data: { id: '16', name: 'Salvatori Hall', continent: 'Viterbi School of Engineering', value: '0' }, position: { x: -300, y: 125 }, classes: 'Viterbi', style: { 'background-color': 'white' } },
-				  { data: { id: '17', name: 'Seaver Library', continent: 'Viterbi School of Engineering', value: '0' }, position: { x: -225, y: 150 }, classes: 'Viterbi', style: { 'background-color': 'white' } },
+				  { data: { id: '12', name: 'Olin Hall', continent: 'Viterbi School of Engineering', value: '0' }, position: { x: -300, y: 10 }, classes: 'Viterbi' },
+				  { data: { id: '13', name: 'Tutor Hall', continent: 'Viterbi School of Engineering', value: '0' }, position: { x: -450, y: 50 }, classes: 'Viterbi' },
+				  { data: { id: '14', name: 'EQuad', continent: 'Viterbi School of Engineering', value: '0' }, position: { x: -250, y: 80 }, classes: 'Viterbi' },
+				  { data: { id: '15', name: 'Vivian Hall', continent: 'Viterbi School of Engineering', value: '0' }, position: { x: -200, y: 30 }, classes: 'Viterbi' },
+				  { data: { id: '16', name: 'Salvatori Hall', continent: 'Viterbi School of Engineering', value: '0' }, position: { x: -300, y: 125 }, classes: 'Viterbi' },
+				  { data: { id: '17', name: 'Seaver Library', continent: 'Viterbi School of Engineering', value: '0' }, position: { x: -225, y: 150 }, classes: 'Viterbi' },
 				  
 				  // SCA
-				  { data: { id: '23', name: 'Norris Cinema', continent: 'School of Cinematic Arts', value: '0' }, position: { x: -50, y: -400}, classes: 'Cinema', style: { 'background-color': 'white' } },
-				  { data: { id: '24', name: 'SCB', continent: 'School of Cinematic Arts', value: '0' }, position: { x: -150, y: -300}, classes: 'Cinema', style: { 'background-color': 'white' } },
-				  { data: { id: '25', name: 'SCA', continent: 'School of Cinematic Arts', value: '0' }, position: { x: -50, y: -300}, classes: 'Cinema', style: { 'background-color': 'white' } },
+				  { data: { id: '23', name: 'Norris Cinema', continent: 'School of Cinematic Arts', value: '0' }, position: { x: -50, y: -400}, classes: 'Cinema' },
+				  { data: { id: '24', name: 'SCB', continent: 'School of Cinematic Arts', value: '0' }, position: { x: -150, y: -300}, classes: 'Cinema' },
+				  { data: { id: '25', name: 'SCA', continent: 'School of Cinematic Arts', value: '0' }, position: { x: -50, y: -300}, classes: 'Cinema' },
 				  
 				  // Marshall
-				  { data: { id: '18', name: 'Levanthal Hall', continent: 'Marshall School of Business', value: '0' }, position: { x: 100, y: 150 }, classes: 'Marshall', style: { 'background-color': 'white' } },
-				  { data: { id: '19', name: 'Hoffman Hall', continent: 'Marshall School of Business', value: '0' }, position: { x: 175, y: 250 }, classes: 'Marshall', style: { 'background-color': 'white' } },
-				  { data: { id: '20', name: 'Dauterive Hall', continent: 'Marshall School of Business', value: '0' }, position: { x: 300, y: 150 }, classes: 'Marshall', style: { 'background-color': 'white' } },
-				  { data: { id: '21', name: 'Popovich Hall', continent: 'Marshall School of Business', value: '0' }, position: { x: 350, y: 200 }, classes: 'Marshall', style: { 'background-color': 'white' } },
-				  { data: { id: '22', name: 'Fertitta Hall', continent: 'Marshall School of Business', value: '0' }, position: { x: 450, y: 200 }, classes: 'Marshall', style: { 'background-color': 'white' } },
+				  { data: { id: '18', name: 'Levanthal Hall', continent: 'Marshall School of Business', value: '0' }, position: { x: 100, y: 150 }, classes: 'Marshall' },
+				  { data: { id: '19', name: 'Hoffman Hall', continent: 'Marshall School of Business', value: '0' }, position: { x: 175, y: 250 }, classes: 'Marshall' },
+				  { data: { id: '20', name: 'Dauterive Hall', continent: 'Marshall School of Business', value: '0' }, position: { x: 300, y: 150 }, classes: 'Marshall' },
+				  { data: { id: '21', name: 'Popovich Hall', continent: 'Marshall School of Business', value: '0' }, position: { x: 350, y: 200 }, classes: 'Marshall' },
+				  { data: { id: '22', name: 'Fertitta Hall', continent: 'Marshall School of Business', value: '0' }, position: { x: 450, y: 200 }, classes: 'Marshall' },
 				  
 				  // Dornsife LAC
-				  { data: { id: '29', name: 'Tutor Campus Center', continent: 'Dornsife College of LAS', value: '0' }, position: { x: 100, y: 50 }, classes: 'LDornsife', style: { 'background-color': 'white' } },
-				  { data: { id: '26', name: 'Taper Hall', continent: 'Dornsife College of LAS', value: '0' }, position: { x: 60, y: -325 }, classes: 'LDornsife', style: { 'background-color': 'white' } },
-				  { data: { id: '27', name: 'Von KleinSmid Hall', continent: 'Dornsife College of LAS', value: '0' }, position: { x: 150, y: -250 }, classes: 'LDornsife', style: { 'background-color': 'white' } },
-				  { data: { id: '28', name: 'Leavey Library', continent: 'Dornsife College of LAS', value: '0' }, position: { x: 400, y: -300 }, classes: 'LDornsife', style: { 'background-color': 'white' } },
-				  { data: { id: '33', name: 'Doheny Library', continent: 'Dornsife College of LAS', value: '0' }, position: { x: 250, y: -125 }, classes: 'LDornsife', style: { 'background-color': 'white' } },
-				  { data: { id: '31', name: 'Alumni Park', continent: 'Dornsife College of LAS', value: '0' }, position: { x: 150, y: -150 }, classes: 'LDornsife', style: { 'background-color': 'white' } },
-				  { data: { id: '32', name: 'McCarthy Quad', continent: 'Dornsife College of LAS', value: '0' }, position: { x: 400, y: -200 }, classes: 'LDornsife', style: { 'background-color': 'white' } },
-				  { data: { id: '30', name: 'Tommy Trojan', continent: 'Dornsife College of LAS', value: '0' }, position: { x: 200, y: -10 }, classes: 'LDornsife', style: { 'background-color': 'white' } },
+				  { data: { id: '29', name: 'Tutor Campus Center', continent: 'Dornsife School of LAS', value: '0' }, position: { x: 100, y: 50 }, classes: 'LDornsife' },
+				  { data: { id: '26', name: 'Taper Hall', continent: 'Dornsife School of LAS', value: '0' }, position: { x: 60, y: -325 }, classes: 'LDornsife' },
+				  { data: { id: '27', name: 'Von KleinSmid Hall', continent: 'Dornsife School of LAS', value: '0' }, position: { x: 150, y: -250 }, classes: 'LDornsife' },
+				  { data: { id: '28', name: 'Leavey Library', continent: 'Dornsife School of LAS', value: '0' }, position: { x: 400, y: -300 }, classes: 'LDornsife' },
+				  { data: { id: '33', name: 'Doheny Library', continent: 'Dornsife School of LAS', value: '0' }, position: { x: 250, y: -125 }, classes: 'LDornsife' },
+				  { data: { id: '31', name: 'Alumni Park', continent: 'Dornsife School of LAS', value: '0' }, position: { x: 150, y: -150 }, classes: 'LDornsife' },
+				  { data: { id: '32', name: 'McCarthy Quad', continent: 'Dornsife School of LAS', value: '0' }, position: { x: 400, y: -200 }, classes: 'LDornsife' },
+				  { data: { id: '30', name: 'Tommy Trojan', continent: 'Dornsife School of LAS', value: '0' }, position: { x: 200, y: -10 }, classes: 'LDornsife' },
 			
 				  // Annenberg
-				  { data: { id: '34', name: 'Wallis Annenberg Hall', continent: 'Annenberg School of Comm', value: '0', 'background-color': 'white'  }, position: { x: -50, y: -50 }, classes: 'Annenberg', style: { 'background-color': 'white' } },
-				  { data: { id: '35', name: 'Annenberg School', continent: 'Annenberg School of Comm', value: '0' }, position: { x: 0, y: -150 }, classes: 'Annenberg', style: { 'background-color': 'white' } },
+				  { data: { id: '34', name: 'Wallis Annenberg Hall', continent: 'Annenberg School of Comm', value: '0' }, position: { x: -50, y: -50 }, classes: 'Annenberg' },
+				  { data: { id: '35', name: 'Annenberg School', continent: 'Annenberg School of Comm', value: '0' }, position: { x: 0, y: -150 }, classes: 'Annenberg' },
 				  
 				  // EDGES
 				  { data: { id: 'a', source: '0', target: '1' } },
@@ -153,9 +154,9 @@ var cy = cytoscape({
 			            selector: '.Athletics',
 			            style: {
 			                shape: 'circle',
-			                'border-color': 'saddlebrown',
+			                'border-color': 'darkred',
 			                'border-width': 4,
-			                
+			                'background-color': 'white', 
 							
 							
 			            }
@@ -164,16 +165,20 @@ var cy = cytoscape({
 			            selector: '.DSTEM',
 			            style: {
 			                shape: 'circle',
-			                'border-color': 'mediumblue',
+			                'border-color': 'blue',
 			                'border-width': 4,
+			                'background-color': 'white', 
+							
+							
 			            }
 			        },
 			        {
 			            selector: '.Viterbi',
 			            style: {
 			                shape: 'circle',
-			                'border-color': 'chocolate',
+			                'border-color': 'orange',
 			                'border-width': 4,
+			                'background-color': 'white', 
 							
 			            }
 			        },
@@ -181,16 +186,20 @@ var cy = cytoscape({
 			            selector: '.Cinema',
 			            style: {
 			                shape: 'circle',
-			                'border-color': 'indigo',
+			                'border-color': 'purple',
 			                'border-width': 4,
+			                'background-color': 'white', 
+							
 			            }
 			        },
 			        {
 			            selector: '.Marshall',
 			            style: {
 			                shape: 'circle',
-			                'border-color': 'crimson',
+			                'border-color': 'red',
 			                'border-width': 4,
+			                'background-color': 'white', 
+							
 			            }
 			        },
 			        {
@@ -199,14 +208,18 @@ var cy = cytoscape({
 			                shape: 'circle',
 			                'border-color': 'gold',
 			                'border-width': 4,
+			                'background-color': 'white', 
+							
 			            }
 			        },
 			        {
 			            selector: '.LDornsife',
 			            style: {
 			                shape: 'circle',
-			                'border-color': 'mediumvioletred',
+			                'border-color': 'pink',
 			                'border-width': 4,
+			                'background-color': 'white', 
+							
 			            }
 			        },
 			        {
@@ -271,8 +284,7 @@ var cy = cytoscape({
 						classes: 'qtip-bootstrap',
 						tip: {
 							width: 16,
-							height: 8,
-							// Change font?
+							height: 8
 						}
 					},
 					//show: {
@@ -282,3 +294,5 @@ var cy = cytoscape({
 						//event: 'mouseout'
 					//}
 			});
+});
+		
