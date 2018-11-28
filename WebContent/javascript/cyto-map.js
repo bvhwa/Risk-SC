@@ -168,8 +168,6 @@ var cy = cytoscape({
 			                'border-color': 'blue',
 			                'border-width': 4,
 			                'background-color': 'white', 
-							
-							
 			            }
 			        },
 			        {
@@ -178,7 +176,6 @@ var cy = cytoscape({
 			                'border-color': 'orange',
 			                'border-width': 4,
 			                'background-color': 'white', 
-							
 			            }
 			        },
 			        {
@@ -282,12 +279,6 @@ var cy = cytoscape({
 							height: 8
 						}
 					},
-					//show: {
-						//event: 'mouseover'
-					//},
-					//hide: {
-						//event: 'mouseout'
-					//}
 			});
 });
 		

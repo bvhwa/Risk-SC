@@ -27,8 +27,8 @@
 		  	box-sizing:border-box;
 		  	-moz-box-sizing:border-box;
 		  	-webkit-box-sizing:border-box;
-			/* background:orange; */
-			background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+			background: white;
+			/*background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
 			
 		}
 
@@ -83,7 +83,7 @@
 		<script src="//unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
 		<script src="javascript/Game.js"></script>
 		<script src="javascript/cytoscape.js"></script>
-		<script src="javascript/cyto-map.js"></script>
+		
 		<script src="javascript/cytoscape-qtip.js"></script>
 		
 		<style>
