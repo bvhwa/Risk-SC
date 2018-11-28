@@ -503,7 +503,7 @@ function askDefender(message)	{
 	
 	while (!valid)	{
 		userValue = parseInt(prompt(messages[1], "1"));
-		if (userValue > 0 && userValue <= defendTroops)	{
+		if (userValue > 0 && userValue <= Math.min(defendTroops, 2))	{
 			valid = true;
 		}	
 	}
