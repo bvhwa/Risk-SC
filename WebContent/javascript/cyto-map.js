@@ -143,6 +143,7 @@ var cy = cytoscape({
 			    	{
 			            selector: 'node',
 			            style: {
+			            	shape: 'circle',
 			            	label: 'data(value)',
 							'text-valign': 'center',
 							'text-halign': 'center',
@@ -153,7 +154,7 @@ var cy = cytoscape({
 			        {
 			            selector: '.Athletics',
 			            style: {
-			                shape: 'circle',
+			                
 			                'border-color': 'darkred',
 			                'border-width': 4,
 			                'background-color': 'white', 
@@ -164,7 +165,6 @@ var cy = cytoscape({
 			        {
 			            selector: '.DSTEM',
 			            style: {
-			                shape: 'circle',
 			                'border-color': 'blue',
 			                'border-width': 4,
 			                'background-color': 'white', 
@@ -175,7 +175,6 @@ var cy = cytoscape({
 			        {
 			            selector: '.Viterbi',
 			            style: {
-			                shape: 'circle',
 			                'border-color': 'orange',
 			                'border-width': 4,
 			                'background-color': 'white', 
@@ -185,7 +184,6 @@ var cy = cytoscape({
 			        {
 			            selector: '.Cinema',
 			            style: {
-			                shape: 'circle',
 			                'border-color': 'purple',
 			                'border-width': 4,
 			                'background-color': 'white', 
@@ -195,7 +193,6 @@ var cy = cytoscape({
 			        {
 			            selector: '.Marshall',
 			            style: {
-			                shape: 'circle',
 			                'border-color': 'red',
 			                'border-width': 4,
 			                'background-color': 'white', 
@@ -205,7 +202,6 @@ var cy = cytoscape({
 			        {
 			            selector: '.Annenberg',
 			            style: {
-			                shape: 'circle',
 			                'border-color': 'gold',
 			                'border-width': 4,
 			                'background-color': 'white', 
@@ -215,7 +211,6 @@ var cy = cytoscape({
 			        {
 			            selector: '.LDornsife',
 			            style: {
-			                shape: 'circle',
 			                'border-color': 'pink',
 			                'border-width': 4,
 			                'background-color': 'white', 

@@ -6,6 +6,10 @@
 		<meta charset="UTF-8">
 		<title>Game</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		
+	    <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		
 		<style>
 		html, body { 
 			height:100%; 
@@ -73,16 +77,37 @@
 		
 		</style>
 		
-	    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.css">
+
+		<script src="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.js"></script>
+		<script src="//unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
 		<script src="javascript/Game.js"></script>
+		<script src="javascript/cytoscape.js"></script>
+		<script src="javascript/cyto-map.js"></script>
+		<script src="javascript/cytoscape-qtip.js"></script>
+		
+		<style>
+		
+		#cy {
+        top:0;   
+		left:0;   
+		position:fixed; 
+		width:70%; 
+		height:60%;
+		padding:1em;
+		  box-sizing:border-box;
+		 -moz-box-sizing:border-box;
+		 -webkit-box-sizing:border-box;		
+		 }
+		
+		</style>
 	</head>
 	<body onload="connectToServer();">
 		<div class = "Main" style="background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));">
 			<div id = "NW">
 				<button onclick="changeMap()" class="btn btn-info" id = "change_map" style = "top: 2%;left: 5%; position: fixed; z-index:10;"> Switch Map </button>
 				<image id = "static_map" src = "draft-static-map.png" style = "max-width:100%; max-height:100%; display: block;"> </image>
-				<image id = "dynamic_map" src = "trojan.png" style = "max-width:100%; max-height:100%; display:none;"> </image>
+				<div id = "cy"></div>
 			</div>
 			<div id="NE">
 				<div class="card" style="width: auto; height: -webkit-fill-available; overflow-y: scroll;">
