@@ -122,6 +122,7 @@ public class Game {
 		if (maxPlayers == Game.numOfConnections)	{
 			Game.gl = new GameLogic(Game.players);
 			this.sendStatistics(Game.gl.getPlayers());
+			this.sendMap(Game.gl.getTerritoryMap());
 			this.startTurn();
 		} else	{
 			this.sendStatistics(Game.players.toArray(new Player[Game.players.size()]));

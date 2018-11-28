@@ -89,15 +89,17 @@
 		<style>
 		
 		#cy {
-        top:0;   
-		left:0;   
-		position:fixed; 
-		width:70%; 
-		height:60%;
-		padding:1em;
-		  box-sizing:border-box;
-		 -moz-box-sizing:border-box;
-		 -webkit-box-sizing:border-box;		
+	        top:0;   
+			left:0;   
+			position:fixed; 
+			width:70%; 
+			height:60%;
+			padding:1em;
+			  box-sizing:border-box;
+			 -moz-box-sizing:border-box;
+			 -webkit-box-sizing:border-box;	
+			
+			 	
 		 }
 		
 		</style>
@@ -106,8 +108,9 @@
 		<div class = "Main" style="background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));">
 			<div id = "NW">
 				<button onclick="changeMap()" class="btn btn-info" id = "change_map" style = "top: 2%;left: 5%; position: fixed; z-index:10;"> Switch Map </button>
+				<div id = "cy" style = "display: none;"></div>
 				<image id = "static_map" src = "draft-static-map.png" style = "max-width:100%; max-height:100%; display: block;"> </image>
-				<div id = "cy"></div>
+				
 			</div>
 			<div id="NE">
 				<div class="card" style="width: auto; height: -webkit-fill-available; overflow-y: scroll;">
@@ -229,7 +232,7 @@
 	<script type="text/javascript">
 	function changeMap() {
 	    var x = document.getElementById("static_map");
-	    var y = document.getElementById("dynamic_map");
+	    var y = document.getElementById("cy");
 	    if (x.style.display === "none") {
 	        x.style.display = "block";
 	        y.style.display = "none";

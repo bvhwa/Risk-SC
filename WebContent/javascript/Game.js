@@ -514,9 +514,10 @@ function askDefender(message)	{
 }
 
 function updateMap(data)	{
+	console.log(data);
 	// Split the given data into an array of 36 Strings where every element contains the data of an individual country
 	
-	var countries = data.substring("Update Map:\n".length).split["\n"];
+	var countries = data.substring("Update Map:\n".length).split("\n");
 	for (var i = 0; i < countries.length; i++)	{
 		// Split the data of an individual country into an array of 3 strings: territoryID, numberOfTroops, and ownerID
 		var countryData = countries[i].split(" ");
