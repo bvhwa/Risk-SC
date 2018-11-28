@@ -846,5 +846,3 @@ function updateMap(data)	{
 	}
 	
 }
-
-
