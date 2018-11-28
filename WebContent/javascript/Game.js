@@ -762,7 +762,7 @@ function updateMap(data)	{
 		cy.nodes().ungrabify();
 		
 		// Highlight neighboring nodes with edges upon hover
-		cy.on('mouseover', 'node', function(e) {
+		cy.on('select', 'node', function(e) {
 		    var sel = e.target;
 		    cy.elements()
 		        .difference(sel.outgoers()
@@ -774,7 +774,7 @@ function updateMap(data)	{
 		        .union(sel.incomers())
 		        .addClass('highlight');
 		});
-		cy.on('mouseout', 'node', function(e) {
+		cy.on('unselect', 'node', function(e) {
 		    var sel = e.target;
 		    cy.elements()
 		        .removeClass('semitransp');
