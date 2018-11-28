@@ -98,6 +98,12 @@ function connectToServer() {
 			return false;
 		}
 		
+		// Ask the user how many players to defend with
+		if (event.data.startsWith("Initiated Attack"))	{
+			askDefender(event.data);
+			return false;
+		}
+		
 		// Update the Cytoscape Map
 		if (event.data.startsWith("Update Map:\n"))	{
 			updateMap(event.data);
@@ -442,7 +448,6 @@ function attackTerritory() {
 	var attackToLocation = document.getElementById("attack_to_location").value;
 	var troops = document.getElementById("attack_troop_numbers").value;
 	
-	// Add Error Validation
 	var message = "";
 	
 	if (attackFromLocation.length == 0)	{
@@ -460,11 +465,40 @@ function attackTerritory() {
 	}
 	
 	if (message.length == 0)	{
-		socket.send("Attacking," + attackFromLocation + "," + attackToLocation + "," + troops);
+		socket.send("Initiated Attack," + attackFromLocation + "," + attackToLocation + "," + troops);
 		socket.send("Attacked");
 	} else	{
 		alert(message);
 	}
+	return false;
+}
+
+/**
+ * Asks the defender how many soldiers they would like to defend with given the attacking data
+ * @param message the message containing the data to tell the defender
+ * @returns false to prevent updating
+ */
+function askDefender(message)	{
+	var messages = message.split("\n");
+	var data = messages[0].split(",");
+	
+	var attackFromTerritory = data[1];
+	var attackToTerritory = data[2];
+	var attackTroops = parseInt(data[3]);
+	var defendTroops = parseInt(data[4]);
+	
+	var valid = false;
+	var userValue;
+	
+	while (!valid)	{
+		userValue = parseInt(prompt(messages[1], "1"));
+		if ((userValue == 1) || (userValue == 2))	{
+			valid = true;
+		}	
+	}
+	
+	socket.send("Attacking," + attackFromTerritory + "," + attackToTerritory + "," + attackTroops + "," + userValue);
+	
 	return false;
 }
 

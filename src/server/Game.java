@@ -12,6 +12,8 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.apache.tomcat.jni.Socket;
+
 import classes.JDBCDriver;
 import gamelogic.Adjacencies;
 import gamelogic.GameLogic;
@@ -62,6 +64,8 @@ public class Game {
 			initMoving(session);
 		} else if (message.equals("Finished Moving"))	{
 			initWaiting(session);
+		} else if (message.startsWith("Initiated Attack"))	{
+			askDefender(message);
 		}
 	}
 
@@ -150,6 +154,7 @@ public class Game {
 	 * @param message the message containing the information of the attack
 	 */
 	private void attack(String message)	{
+		System.out.println(message);
 
 		String[] attackTroops = message.split(",");
 		String attackFromTerritory = attackTroops[1];
@@ -351,6 +356,25 @@ public class Game {
 		}
 
 		this.sendMessageToEverySession(updatedMap);
+	}
+	
+	/**
+	 * Sends a message to the person who was allegedly attacked
+	 * @param message the message to send back to the defender as well as a well formatted human readable message
+	 */
+	private void askDefender(String message)	{
+		String[] attackTroops = message.split(",");
+		String attackFromTerritory = attackTroops[1];
+		String attackToTerritory = attackTroops[2];
+		int troops = Integer.parseInt(attackTroops[3]);
+		
+		Player attacker = Game.players.elementAt(Game.gl.getTerritory(attackFromTerritory).getOccupier());
+		int maxDefendTroops = Game.gl.getTerritory(attackToTerritory).getTroops();
+		
+		String sendMessage = attacker.getUserName() + " is going to attack " + attackToTerritory + " from " + attackFromTerritory + " with " + troops + " troops. How many of your " + maxDefendTroops + " troops will you defend with?";
+		
+		Session defenderSession = Game.playerSessions.elementAt(Game.gl.getTerritory(attackToTerritory).getOccupier());
+		this.sendMessageToSession(message + "," + maxDefendTroops + "\n" + sendMessage, defenderSession);
 	}
 	
 	
