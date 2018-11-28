@@ -121,53 +121,56 @@
 			</div>
 			<div id="SW">
 				<div class="card" style="width: auto; height: -webkit-fill-available;">
-				<div id = "place_troop" style="position: absolute; display: none;">
-					<div id = "placeQuestion">Where do you want to place troops?</div>
-					<div class = "p1" style = "display: -webkit-box;">
-						<select class = "form-control" id="place_troop_location">
- 
-						</select>
-						<input type="number" class="form-control" id="place_troop_numbers" value = "1" min = "1"/>
+					<div id = "place_troop" style="position: absolute; display: none;">
+						<div id = "placeQuestion">Where do you want to place troops?</div>
+						<div class = "p1" style = "display: -webkit-box;">
+							<select class = "form-control" id="place_troop_location">
+	 
+							</select>
+							<input type="number" class="form-control" id="place_troop_numbers" value = "1" min = "1"/>
+						</div>
+						<div id = "TroopsRemain">Troops Left: Some numbers</div>
+						<button onclick="return placeTroops();" type="button" id = "place_troop_button">Place Troops</button>
 					</div>
-					<div id = "TroopsRemain">Troops Left: Some numbers</div>
-					<button onclick="return placeTroops();" type="button" id = "place_troop_button">Place Troops</button>
-				</div>
-				<div id = "attack" style="position: absolute; display: none; ">
-					<div class = "a1" style = "display: -webkit-box;">
-						<div id = "attack_from">Attack From: </div>
-						<select class = "form-control" id="attack_from_location" onchange="return updateAttackPossiblities(this.value);">
-
-						</select>
+					<div id = "attack" style="position: absolute; display: none; ">
+						<div class = "a1" style = "display: -webkit-box;">
+							<div id = "attack_from">Attack From: </div>
+							<select class = "form-control" id="attack_from_location" onchange="return updateAttackPossiblities(this.value);">
+	
+							</select>
+						</div>
+						<div class = "a2" style = "display: -webkit-box;">
+							<div id = "attack_to">Attack To: </div>
+							<select class = "form-control" id="attack_to_location">
+	
+							</select>
+						</div>
+						<input type="number" class="form-control" id="attack_troop_numbers" value="0" min="0"/>
+						<button id = "attack_button" onclick="return attackTerritory();">Attack</button>
+						<button id = "attack_finish_button" onclick="return finishAttack();">Done</button>
 					</div>
-					<div class = "a2" style = "display: -webkit-box;">
-						<div id = "attack_to">Attack To: </div>
-						<select class = "form-control" id="attack_to_location">
-
-						</select>
+					<div id = "move_troop" style="position: absolute; display: none; ">
+						<div class = "m1" style = "display: -webkit-box;">
+							<div id = "move_from">Move from: </div>
+							<select class = "form-control" id="move_from_location" onchange="return updateMovePossibilities(this.value);">
+	
+							</select>
+						</div>
+						<div class = "m2" style = "display: -webkit-box;">
+							<div id = "move_to">Move To: </div>
+							<select class = "form-control" id="move_to_location">
+	
+							</select>
+						</div>
+						<input type="number" class="form-control" id="move_troop_numbers" value="0" min="0"/>
+						<button id = "move_finish_button" onclick="return finishMove();">Done</button>
 					</div>
-					<input type="number" class="form-control" id="attack_troop_numbers" value="0" min="0"/>
-					<button id = "attack_button" onclick="return attackTerritory();">Attack</button>
-					<button id = "attack_finish_button" onclick="return finishAttack();">Done</button>
-				</div>
-				<div id = "move_troop" style="position: absolute; display: none; ">
-					<div class = "m1" style = "display: -webkit-box;">
-						<div id = "move_from">Move from: </div>
-						<select class = "form-control" id="move_from_location" onchange="return updateMovePossibilities(this.value);">
-
-						</select>
+					<div id = "waiting_stage" style="position: absolute; display: block; ">
+						Waiting for other players to finish...
 					</div>
-					<div class = "m2" style = "display: -webkit-box;">
-						<div id = "move_to">Move To: </div>
-						<select class = "form-control" id="move_to_location">
-
-						</select>
+					<div id = "waiting_defend_stage" style="position: absolute; display: none;">
+						Waiting for defender to finish selecting troops...
 					</div>
-					<input type="number" class="form-control" id="move_troop_numbers" value="0" min="0"/>
-					<button id = "move_finish_button" onclick="return finishMove();">Done</button>
-				</div>
-				<div id = "waiting_stage" style="position: absolute; display: block; ">
-					Waiting for other players to finish!
-				</div>
 				</div>
 			</div>
 			<div id="SE">

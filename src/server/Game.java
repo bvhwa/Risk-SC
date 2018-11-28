@@ -169,6 +169,8 @@ public class Game {
 		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " attacked from " + attackFromTerritory + " with " + troops + " troops while " + players.get(Game.gl.getTerritory(attackToTerritory).getOccupier()).getUserName() + " defended " + attackToTerritory + " with " + defendTroops + " troops";
 		this.sendMessageToEverySession(logMessage);
 		
+		this.sendMessageToSession("Finished Attack", this.playerSessions.elementAt(Game.gl.getTerritory(attackFromTerritory).getOccupier()));
+		
 		// Check if the player has won
 		if (Game.gl.checkWin(turnPlayer))	{
 			for (Session s: this.playerSessions)	{

@@ -104,6 +104,13 @@ function connectToServer() {
 			return false;
 		}
 		
+		// Finished the attack call
+		if (event.data.startsWith("Finished Attack"))	{
+			document.getElementById("waiting_defend_stage").style.display = "none";
+			document.getElementById("attack").style.display = "block";
+			return false;
+		}
+		
 		// Update the Cytoscape Map
 		if (event.data.startsWith("Update Map:\n"))	{
 			updateMap(event.data);
@@ -466,6 +473,10 @@ function attackTerritory() {
 	
 	if (message.length == 0)	{
 		socket.send("Initiated Attack," + attackFromLocation + "," + attackToLocation + "," + troops);
+		
+		document.getElementById("waiting_defend_stage").style.display = "block";
+		document.getElementById("attack").style.display = "none";
+		
 		socket.send("Attacked");
 	} else	{
 		alert(message);
