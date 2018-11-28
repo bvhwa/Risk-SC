@@ -535,7 +535,7 @@ function updateMap(data)	{
 			  { data: { id: '5', name: 'Cromwell Field', continent: 'Athletics', value: '0' }, position: { x: -200, y: -150 }, classes: 'Athletics' },
 			  
 			  // Dornsife STEM
-			  { data: { id: '6', name: 'Kaprelian Hall', continent: 'Dornsife STEM', value: '0' }, position: { x: -450, y: -150 }, classes: 'DSTEM' },
+			  { data: { id: '6', name: 'Kaprielian Hall', continent: 'Dornsife STEM', value: '0' }, position: { x: -450, y: -150 }, classes: 'DSTEM' },
 			  { data: { id: '7', name: 'Michelson Center', continent: 'Dornsife STEM', value: '0' }, position: { x: -350, y: -125 }, classes: 'DSTEM' },
 			  { data: { id: '8', name: 'Seeley G. Mudd', continent: 'Dornsife STEM', value: '0' }, position: { x: -250, y: -100 }, classes: 'DSTEM' },
 			  { data: { id: '9', name: 'Hedco Neurosciences', continent: 'Dornsife STEM', value: '0' }, position: { x: -150, y: -50 }, classes: 'DSTEM' },
@@ -661,7 +661,6 @@ function updateMap(data)	{
 			layout:{
 				name: 'preset' // To allow manual positioning
 			},
-
 		    style: [
 		    	{
 		            selector: 'node',
