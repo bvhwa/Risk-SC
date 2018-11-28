@@ -83,7 +83,6 @@
 		<script src="//unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
 		<script src="javascript/Game.js"></script>
 		<script src="javascript/cytoscape.js"></script>
-		
 		<script src="javascript/cytoscape-qtip.js"></script>
 		
 		<style>
@@ -108,8 +107,8 @@
 		<div class = "Main" style="background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));">
 			<div id = "NW">
 				<button onclick="changeMap()" class="btn btn-info" id = "change_map" style = "top: 2%;left: 5%; position: fixed; z-index:10;"> Switch Map </button>
-				<div id = "cy" style = "display: none;"></div>
-				<image id = "static_map" src = "draft-static-map.png" style = "max-width:100%; max-height:100%; display: block;"> </image>
+				<div id = "cy" style = "display: block;"></div>
+				<image id = "static_map" src = "draft-static-map.png" style = "max-width:100%; max-height:100%; display: none;"> </image>
 				
 			</div>
 			<div id="NE">
