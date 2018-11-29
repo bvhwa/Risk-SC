@@ -77,6 +77,8 @@ public class Game {
 		
 		playerSessions.remove(session);
 		players.remove(sessionPlayerMap.get(session));
+		
+		alreadyStarted = false;
 	}
 	
 	@OnError
@@ -122,6 +124,7 @@ public class Game {
 			this.sendStatistics(Game.gl.getPlayers());
 			this.sendMap(Game.gl.getTerritoryMap());
 			this.startTurn();
+			System.out.println("Game Started");
 		} else	{
 			this.sendStatistics(Game.players.toArray(new Player[Game.players.size()]));
 		}
