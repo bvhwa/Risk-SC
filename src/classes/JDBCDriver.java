@@ -118,12 +118,11 @@ public class JDBCDriver {
 	 * @param last the last name of the user
 	 * @param username the username of the user
 	 * @param password the hashed password of the user
-	 * @param image the image url of the user
 	 * @return true if the creation of the user was successful, false otherwise
 	 */
-	public boolean createUser(String first, String last, String username, String password, String image) {
+	public boolean createUser(String first, String last, String username, String password) {
     	try {
-    		PreparedStatement ps = conn.prepareStatement("INSERT INTO users (username, password, fname, lname, image) values (?, ?, ?, ?, ?)");
+    		PreparedStatement ps = conn.prepareStatement("INSERT INTO users (username, password, fname, lname) values (?, ?, ?, ?)");
     		
     		String hash = Authentication.hashString(password);
     		
@@ -131,7 +130,6 @@ public class JDBCDriver {
     		ps.setString(2, hash);
     		ps.setString(3, first);
     		ps.setString(4, last);
-    		ps.setString(5, image);
     		
     		ps.execute();
     		return true;

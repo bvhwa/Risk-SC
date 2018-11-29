@@ -29,7 +29,6 @@ public class SignUpServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String confirm = request.getParameter("confirmPassword");
-		String image = request.getParameter("image");
 		HttpSession http = request.getSession();
 
 		/*
@@ -75,7 +74,7 @@ public class SignUpServlet extends HttpServlet {
 
 			if (message.length() == 0) {
 				message += "Signed Up!";
-				database.createUser(first, last, username, (password.isEmpty()) ? defaultImage : password, image);
+				database.createUser(first, last, username, password);
 				http.setAttribute("username", username);
 			}
 

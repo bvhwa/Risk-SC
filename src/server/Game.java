@@ -158,7 +158,8 @@ public class Game {
 		String attackToTerritory = attackTroops[2];
 		int troops = Integer.parseInt(attackTroops[3]);
 		// Update so the defender has a choice of the troops
-		int defendTroops = Math.min(Game.gl.getTerritory(attackToTerritory).getTroops(), 2); // Maximum value of 2 troops
+//		int defendTroops = Math.min(Game.gl.getTerritory(attackToTerritory).getTroops(), 2); // Maximum value of 2 troops
+		int defendTroops = Integer.parseInt(attackTroops[4]);
 		
 		// Calculate the stats before
 		int attackedTerritoryOccupier = Game.gl.getTerritory(attackToTerritory).getOccupier();
