@@ -24,6 +24,8 @@ function connectToServer() {
 		var image = sessionStorage.getItem("image");
 		var maxPlayers = sessionStorage.getItem("userNum");
 		
+		document.getElementById("activity_title").innerHTML = username + "'s Activity Log";
+		
 		updateGuestFunctionality(username);
 		
 		socket.send("player_info: " + username + " " + image + " " + maxPlayers);

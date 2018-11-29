@@ -114,7 +114,7 @@
 			<div id="NE">
 				<div class="card" style="width: auto; height: -webkit-fill-available; overflow-y: scroll;">
 					<div class="card-body" >
-						<h5 class="card-title">Activity Log</h5>
+						<h5 class="card-title" id="activity_title">Activity Log</h5>
 						<div class = "log-box" style = "">
 				    		<p class="card-text" id = "activity" style = "height: -webkit-fill-available;" ></p>
 				    	</div>
