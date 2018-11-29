@@ -125,7 +125,7 @@ public class Game {
 		}
 		
 		// Send "username has joined" to every active session
-		String logMessage = "Activity:" + username + " has joined the game";
+		String logMessage = "Activity:<b>Connection - </b>" + username + " has joined the game";
 		this.sendMessageToEverySession(logMessage);
 	}
 
@@ -141,7 +141,7 @@ public class Game {
 		
 		Game.gl.place(Adjacencies.getTerritoryID(territory), numTroops);
 		this.sendStatistics(Game.gl.getPlayers());
-		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " placed " + numTroops + " troops at " + territory; 
+		String logMessage = "Activity:<b>Placement - </b>" + players.get(turnPlayer).getUserName() + " placed " + numTroops + " troops at " + territory; 
 		this.sendMessageToEverySession(logMessage);
 		this.sendMap(Game.gl.getTerritoryMap());
 	}
@@ -175,21 +175,27 @@ public class Game {
 		String defender = Game.players.elementAt(Game.gl.getTerritory(attackToTerritory).getOccupier()).getUserName();
 		
 		// Necessary check because the troops in defending territory will go up if conquered
-		String logMessage = "Activity:";
+		String logMessage = "Activity:<b>Battle - </b>";
 		if (attackedTerritoryOccupier == Game.gl.getTerritory(attackToTerritory).getOccupier())	{			
 	
+			logMessage += "<i>";
+			
 			if (attackTroopsLost < defendTroopsLost)	{
-				logMessage += attacker + " wins - ";
+				logMessage += attacker + " wins ";
 			} else if (defendTroopsLost < attackTroopsLost)	{
-				logMessage += defender + " wins - ";
+				logMessage += defender + " wins ";
 			} else	{
-				logMessage += "Tie - ";
+				logMessage += "Tie ";
 			}
+			
+			logMessage += "</i>(";
 			
 			logMessage += attacker + " lost " + attackTroopsLost + " troops attacking from " + attackFromTerritory + " and " + defender + " lost " + defendTroopsLost + " troops defending " + attackToTerritory;
 		} else	{
 			logMessage += attacker + " conquered - " + attacker + " has " + Game.gl.getTerritory(attackFromTerritory).getTroops() + " troops in " + attackFromTerritory + " and " + Game.gl.getTerritory(attackToTerritory).getTroops() + " troops in " + attackToTerritory;
 		}
+		
+		logMessage += ")";
 		
 		this.sendMessageToEverySession(logMessage);
 		
@@ -222,7 +228,7 @@ public class Game {
 		int troops = Integer.parseInt(moveTroops[3]);
 		
 		Game.gl.move(Adjacencies.getTerritoryID(moveFromTerritory), Adjacencies.getTerritoryID(moveToTerritory), troops);
-		String logMessage = "Activity:" + players.get(turnPlayer).getUserName() + " moved " + troops + " troops from " + moveFromTerritory + " to " + moveToTerritory;
+		String logMessage = "Activity:<b>Movement - </b>" + players.get(turnPlayer).getUserName() + " moved " + troops + " troops from " + moveFromTerritory + " to " + moveToTerritory;
 		this.sendMessageToEverySession(logMessage);
 		this.sendMap(Game.gl.getTerritoryMap());
 	}
