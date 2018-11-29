@@ -415,18 +415,15 @@ public class GameLogic {
 			int startIndex = (i == 0) ? 0 : continents[i - 1] + 1;
 			int endIndex = continents[i];
 			
-			System.out.println("StartIndex, EndIndex: " + startIndex + "," + endIndex);
-			
 			boolean holdsContinent = true;
 			
 			for (int j = startIndex; j <= endIndex && holdsContinent; j++)
 				if (this.territoryMap[j].getOccupier() != player)	{
 					holdsContinent = false;
-					System.out.println(this.players[player].getUserName() + " does not control the continent because they do not control " + this.territoryMap[j].getName());
 				}
 			
 			if (holdsContinent)
-				bonusFromContinents += (endIndex - startIndex) + 1;
+				bonusFromContinents += (endIndex - startIndex);
 		}
 		
 		return troops + bonusFromTerritories + bonusFromContinents;
