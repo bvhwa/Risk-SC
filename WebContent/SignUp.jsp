@@ -17,7 +17,7 @@
             <form class="form-signin1" onsubmit="return signUp();">
             	<input type="firstname" id="fname" class="form-control" placeholder="First Name" style = "margin-bottom:10px;">
                 <input type="lastname" id="lname" class="form-control" placeholder="Last Name" style = "margin-bottom:10px;">
-				<input type="pimage" id="image" class="form-control" placeholder="Profile Image URL (Optional)" style = "margin-bottom:10px;">
+				<input type="pimage" id="image" class="form-control" placeholder="Profile Image URL (Optional)" style = "margin-bottom:10px; display: none;">
 				<input type="_username" id="_inputName" class="form-control" placeholder="Username" style = "margin-bottom:10px;">
                 <input type="password" id="_inputPassword" class="form-control" placeholder="Password" style = "margin-bottom:10px;">
                 <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" style = "margin-bottom:10px;">
