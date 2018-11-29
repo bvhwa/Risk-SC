@@ -165,7 +165,7 @@ public abstract class Adjacencies {
 	/*
 	 * List of Continents
 	 */
-	private static int[] continents = {5, 11, 17, 22, 25, 32, 35};
+	private static int[] continents = {5, 11, 17, 22, 25, 33, 35};
 	
 	/**
 	 * Grabs the array of territories with the index being the associated

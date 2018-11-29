@@ -412,7 +412,7 @@ public class GameLogic {
 		int[] continents = Adjacencies.getContinents();
 		for (int i = 0; i < continents.length; i++)	{
 			
-			int startIndex = (i == 0) ? 0 : continents[i - 1];
+			int startIndex = (i == 0) ? 0 : continents[i - 1] + 1;
 			int endIndex = continents[i];
 			
 			System.out.println("StartIndex, EndIndex: " + startIndex + "," + endIndex);
