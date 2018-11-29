@@ -12,7 +12,7 @@ public class JDBCDriver {
 	
 	private final String schema = "final";
 	private final String username = "root";
-	private final String password = "root";
+	private final String password = "iamjyoti";
 	
 	/**
 	 * Initializes the connection to the database
