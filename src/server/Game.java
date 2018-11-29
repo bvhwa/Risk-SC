@@ -411,7 +411,7 @@ public class Game {
 		Player attacker = Game.players.elementAt(Game.gl.getTerritory(attackFromTerritory).getOccupier());
 		int maxDefendTroops = Game.gl.getTerritory(attackToTerritory).getTroops();
 		
-		String sendMessage = attacker.getUserName() + " is going to attack " + attackToTerritory + " from " + attackFromTerritory + " with " + troops + " troops. How many of your " + maxDefendTroops + " troops will you defend with?";
+		String sendMessage = attacker.getUserName() + " is going to attack " + attackToTerritory + " from " + attackFromTerritory + " with " + troops + " troops. ";
 		
 		Session defenderSession = Game.playerSessions.elementAt(Game.gl.getTerritory(attackToTerritory).getOccupier());
 		this.sendMessageToSession(message + "," + maxDefendTroops + "\n" + sendMessage, defenderSession);

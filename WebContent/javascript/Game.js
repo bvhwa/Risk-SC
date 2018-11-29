@@ -505,8 +505,14 @@ function askDefender(message)	{
 	var valid = false;
 	var userValue;
 	
+	if (defendTroops == 1)	{
+		userValue = 1;
+		valid = true;
+		alert(messages[1] + "You will defend with your 1 troop.");
+	}
+	
 	while (!valid)	{
-		userValue = parseInt(prompt(messages[1], "1"));
+		userValue = parseInt(prompt(messages[1] + "How many of your " + defendTroops + " troops will you defend with?", "1"));
 		if (userValue > 0 && userValue <= Math.min(defendTroops, 2))	{
 			valid = true;
 		}	
