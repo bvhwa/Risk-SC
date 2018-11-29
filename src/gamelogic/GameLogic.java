@@ -415,6 +415,8 @@ public class GameLogic {
 			int startIndex = (i == 0) ? 0 : continents[i - 1];
 			int endIndex = continents[i];
 			
+			System.out.println("StartIndex, EndIndex: " + startIndex + "," + endIndex);
+			
 			boolean holdsContinent = true;
 			
 			for (int j = startIndex; j <= endIndex && holdsContinent; j++)
