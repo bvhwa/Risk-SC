@@ -75,7 +75,7 @@
         </div>
       </div>
     </div>
-
+	<a href="http://www.ultraboardgames.com/risk/game-rules.php" class="btn btn-info" id = "risk_rules" style = "bottom: 5%; right: 5%; position: fixed;"> Risk Rules </button>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

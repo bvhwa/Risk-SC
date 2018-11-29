@@ -108,7 +108,7 @@
 			<div id = "NW">
 				<button onclick="changeMap()" class="btn btn-info" id = "change_map" style = "top: 2%;left: 5%; position: fixed; z-index:10;"> Switch Map </button>
 				<div id = "cy" style = "display: block;"></div>
-				<image id = "static_map" src = "draft-static-map.png" style = "max-width:100%; max-height:100%; display: none;"> </image>
+				<image id = "static_map" src = "draft-static-map.png" style = "max-width:100%; max-height:100%; display: none; top: 2%; left: 15%; position: relative;"> </image>
 				
 			</div>
 			<div id="NE">
