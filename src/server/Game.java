@@ -27,6 +27,7 @@ public class Game {
 	private static GameLogic gl;
 	private static int numOfConnections = 0;
 	private static int turnPlayer = -1;
+	private static boolean alreadyStarted = false;
 
 	
 	@OnOpen
@@ -115,7 +116,8 @@ public class Game {
 		Game.players.addElement(p);
 		
 		// If we have reached the maximum number of connections, initialize the game and broadcast the stats
-		if (maxPlayers == Game.numOfConnections)	{
+		if ((maxPlayers == Game.numOfConnections) && !alreadyStarted)	{
+			alreadyStarted = true;
 			Game.gl = new GameLogic(Game.players);
 			this.sendStatistics(Game.gl.getPlayers());
 			this.sendMap(Game.gl.getTerritoryMap());
