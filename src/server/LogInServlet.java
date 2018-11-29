@@ -24,8 +24,6 @@ public class LogInServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
-		System.out.println(username + " " + password);
-
 		/*
 		 * Message used to communicate with client about log-in
 		 * 

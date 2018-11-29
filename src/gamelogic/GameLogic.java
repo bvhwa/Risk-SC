@@ -418,8 +418,10 @@ public class GameLogic {
 			boolean holdsContinent = true;
 			
 			for (int j = startIndex; j <= endIndex && holdsContinent; j++)
-				if (this.territoryMap[j].getOccupier() != player)
+				if (this.territoryMap[j].getOccupier() != player)	{
 					holdsContinent = false;
+					System.out.println(this.players[player].getUserName() + " does not control the continent because they do not control " + this.territoryMap[j].getName());
+				}
 			
 			if (holdsContinent)
 				bonusFromContinents += (endIndex - startIndex) + 1;

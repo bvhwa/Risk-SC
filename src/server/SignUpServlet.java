@@ -80,8 +80,6 @@ public class SignUpServlet extends HttpServlet {
 
 			database.close();
 
-			System.out.println(message);
-
 			// Sends message back to jQuery call
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().write(message);

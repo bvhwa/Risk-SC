@@ -151,7 +151,6 @@ public class Game {
 	 * @param message the message containing the information of the attack
 	 */
 	private void attack(String message)	{
-		System.out.println(message);
 
 		String[] attackTroops = message.split(",");
 		String attackFromTerritory = attackTroops[1];
